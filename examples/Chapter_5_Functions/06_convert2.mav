@@ -1,0 +1,9 @@
+float lbs;
+
+System.print("Enter your weight in pounds: ");
+lbs = System.getFloat();
+System.println("Your weight in kilograms is " + lbs_to_kgs(lbs));
+
+float lbs_to_kgs(float pounds) {
+	return 0.453592f * pounds;
+}

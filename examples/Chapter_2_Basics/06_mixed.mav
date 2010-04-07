@@ -1,0 +1,5 @@
+int count = 7;
+float avgWeight = 155.5F;
+
+double totalWeight = count * avgWeight;
+System.println("totalWeight = " + totalWeight);

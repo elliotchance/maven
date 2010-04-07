@@ -1,0 +1,6 @@
+int ftemp;  // for temperature in fahrenheit
+
+System.print("Enter temperature in fahrenheit: ");
+ftemp = System.getInt();
+int ctemp = (ftemp - 32) * 5 / 9;
+System.println("Equivalent in Celsius is: " + ctemp);

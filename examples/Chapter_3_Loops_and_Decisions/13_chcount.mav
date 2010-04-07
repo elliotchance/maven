@@ -1,0 +1,13 @@
+int chcount = 0;          // counts non-space characters
+int wdcount = 1;          // counts spaces between words
+char ch = 'a';            // ensure it isn't '\r'
+
+System.print("Enter a phrase: ");
+while(ch != '\n') {
+	ch = System.getInlineChar();
+	if(ch == ' ') wdcount++;
+	else chcount++;
+}
+
+System.println("Words = " + wdcount);
+System.println("Letters = " + (chcount - 1));

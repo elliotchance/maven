@@ -1,0 +1,19 @@
+class Day {
+  public int hourTheSunComesUp;
+}
+class Month {
+  public Day[] days;
+}
+class Year {
+  public Month[] months;
+  
+  public Year(int a) {
+  	System.println(a);
+  }
+}
+
+int[] a = { 1, 2, 3 };
+System.println(a[1]);
+
+String type = @type(5);
+System.println(type);

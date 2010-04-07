@@ -1,0 +1,49 @@
+class Distance {
+	public int feet;
+	public float inches;
+	
+	public Distance() {
+		feet = 0;
+		inches = 0;
+	}
+	
+	public Distance(int ft, float in) {
+		feet = ft;
+		inches = in;
+	}
+	
+	public void getDistance() {
+		System.print("\nEnter feet: ");
+		feet = System.getInt();
+		System.print("Enter inches: ");
+		inches = System.getFloat();
+	}
+	
+	public void showDistance() {
+		System.print(String.valueOf(feet) + "\' " + inches + "\"");
+	}
+	
+	public void addDistance(Distance d2, Distance d3) {
+		inches = d2.inches + d3.inches;
+		feet = 0;
+		if(inches >= 12) {
+			inches -= 12;
+			feet++;
+		}
+		feet += d2.feet + d3.feet;
+	}
+}
+
+Distance dist1 = new Distance(), dist3 = new Distance();
+Distance dist2 = new Distance(11, 6.25);
+
+dist1.getDistance();
+dist3.addDistance(dist1, dist2);
+
+System.print("\ndist1 = ");
+dist1.showDistance();
+System.print("\ndist2 = ");
+dist2.showDistance();
+System.print("\ndist3 = ");
+dist3.showDistance();
+System.println();

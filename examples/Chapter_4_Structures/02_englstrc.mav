@@ -1,0 +1,25 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+Distance d1 = new Distance(), d2 = new Distance();
+Distance d3 = new Distance();
+d2.feet = 11;
+d2.inches = 6.25;
+
+System.print("Enter feet: ");
+d1.feet = System.getInt();
+System.print("Enter inches: ");
+d1.inches = System.getFloat();
+
+d3.inches = d1.inches + d2.inches;
+d3.feet = 0;
+if(d3.inches >= 12.0) {
+	d3.inches -= 12.0;
+	d3.feet++;
+}
+d3.feet += d1.feet + d2.feet;
+
+System.println(String.valueOf(d1.feet) + "' " + d1.inches + "\" + " +
+               d2.feet + "' " + d2.inches + "\" = " + d3.feet + "' " + d3.inches + "\"");

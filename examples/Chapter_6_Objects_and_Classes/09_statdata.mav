@@ -1,0 +1,19 @@
+class Foo {
+	private static int count;
+	
+	public Foo() {
+		++count;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+}
+
+Foo.count = 0;
+
+Foo f1 = new Foo(), f2 = new Foo(), f3 = new Foo();
+
+System.println("Count is " + f1.getCount());
+System.println("Count is " + f1.getCount());
+System.println("Count is " + f1.getCount());

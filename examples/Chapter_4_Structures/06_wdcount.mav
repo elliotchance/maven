@@ -1,0 +1,21 @@
+enum itsAWord { NO, YES }
+
+itsAWord isWord = NO;
+char ch = 'a';
+int wordCount = 0;
+
+System.print("Enter a phrase: ");
+do {
+	ch = System.getInlineChar();
+	if(ch == ' ' || ch == '\n') {
+		if(isWord == YES) {
+			wordCount++;
+			isWord = NO;
+		}
+	} else {
+		if(isWord == NO)
+			isWord = YES;
+	}
+} while(ch != '\n');
+
+System.println("\n--- Word count is " + wordCount + " ---\n");

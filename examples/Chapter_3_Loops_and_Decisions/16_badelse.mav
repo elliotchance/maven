@@ -1,0 +1,8 @@
+int a;
+int b;
+int c;
+
+if(a == b)
+	if(b == c)
+		System.println("a, b and c are the same");
+else System.println("a and b are different");

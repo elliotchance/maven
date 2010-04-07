@@ -1,0 +1,37 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+void engldisp(Distance dd) {
+	System.print(dd.feet);
+	System.print("\' ");
+	System.print(dd.inches);
+	System.println("\"");
+}
+
+void engldisp(float dd) {
+	int feet = dd / 12;
+	float inches = dd - feet * 12;
+	System.print(feet);
+	System.print("\' ");
+	System.print(inches);
+	System.print("\"");
+}
+
+Distance d1 = new Distance();
+float d2;
+
+System.print("Enter feet  : ");
+d1.feet = System.getInt();
+System.print("Enter inches: ");
+d1.inches = System.getFloat();
+
+System.print("Enter entire distance is inches: ");
+d2 = System.getFloat();
+
+System.print("d1 = ");
+engldisp(d1);
+System.print("d2 = ");
+engldisp(d2);
+System.println();

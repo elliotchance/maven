@@ -1,0 +1,22 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+class Room {
+	public Distance length;
+	public Distance width;
+}
+
+Room dining = new Room();
+dining.length = new Distance();
+dining.length.feet = 11;
+dining.length.inches = 6.5;
+dining.width = new Distance();
+dining.width.feet = 10;
+dining.width.inches = 0.0;
+
+float l = dining.length.feet + dining.length.inches / 12;
+float w = dining.width.feet + dining.width.inches / 12;
+
+System.println("Dining room area is " + (l * w) + " square feet");

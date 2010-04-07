@@ -1,0 +1,24 @@
+constant int SIZE = 4;
+
+enum CheckersPlace { default Empty, Red, Black };
+
+class CheckersRow {
+	public CheckersPlace[] places;
+	
+	public CheckersRow(int size) {
+		places = new CheckersPlace[size];
+	}
+}
+
+class CheckersBoard {
+	public CheckersRow[] rows;
+	
+	public CheckersBoard(int size) {
+		rows = new CheckersRow[size](size);
+	}
+}
+
+int d, m;
+CheckersBoard board = new CheckersBoard(SIZE);
+System.println(board.rows[0].places[0]);
+System.println(Black);

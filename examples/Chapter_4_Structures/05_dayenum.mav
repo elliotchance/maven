@@ -1,0 +1,14 @@
+enum daysOfTheWeek {
+	Sun, Mon, Tue, Wed, Thu, Fri, Sat
+}
+
+daysOfTheWeek day1;
+daysOfTheWeek day2;
+day1 = Mon;
+day2 = Thu;
+
+int diff = day2 - day1;
+System.println("Days between = " + diff);
+
+if(day1 < day2)
+	System.println("day1 comes before day2");

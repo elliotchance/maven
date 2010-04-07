@@ -1,0 +1,15 @@
+int month, day, totalDays;
+int[] daysPerMonth = { 31, 28, 31, 30, 31, 30,
+					   31, 31, 30, 31, 30, 31 };
+
+System.print("Enter month (1 to 12): ");
+month = System.getInt();
+System.print("Enter day (1 to 31): ");
+day = System.getInt();
+
+totalDays = day;
+for(int j = 0; j < month - 1; ++j) {
+	totalDays += daysPerMonth[j];
+}
+
+System.println("Total days from start of year is: " + totalDays);

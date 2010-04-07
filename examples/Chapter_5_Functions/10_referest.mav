@@ -1,0 +1,35 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+Distance d1 = new Distance(), d2 = new Distance();
+
+// set some values for d1 and d2
+d1.feet = 12;
+d1.inches = 6.5f;
+d2.feet = 10;
+d2.inches = 5.5f;
+
+System.print("d1 = ");
+engldisp(d1);
+System.print("d2 = ");
+engldisp(d2);
+
+scale(d1, 0.5f);
+scale(d2, 0.25f);
+
+System.print("\nd1 = ");
+engldisp(d1);
+System.print("d2 = ");
+engldisp(d2);
+
+void scale(Distance dd, float factor) {
+	float inches = (dd.feet * 12 + dd.inches) * factor;
+	dd.feet = inches / 12;
+	dd.inches = inches - dd.feet * 12;
+}
+
+void engldisp(Distance dd) {
+	System.println(String.valueOf(dd.feet) + "\' " + dd.inches + "\"");
+}

@@ -1,0 +1,19 @@
+char dir = 'a';
+int x = 10;
+int y = 10;
+
+System.println("Type 'q' to quit");
+while(dir != 'q') {
+	System.println("Your location is " + x + ", " + y);
+	System.print("Press direction key (n, s, e, w): ");
+	dir = System.getChar();
+	
+	if(dir == 'n')
+		y--;
+	else if(dir == 's')
+		y++;
+	else if(dir == 'e')
+		x++;
+	else if(dir == 'w')
+		x--;	
+}

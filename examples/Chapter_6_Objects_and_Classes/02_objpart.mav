@@ -1,0 +1,19 @@
+class Part {
+	private int modelNumber;
+	private int partNumber;
+	private float cost;
+	
+	public void setPart(int mn, int pn, float c) {
+		modelNumber = mn;
+		partNumber = pn;
+		cost = c;
+	}
+	
+	public void showPart() {
+		System.println("Model " + modelNumber + ", part " + partNumber + ", costs $" + cost);
+	}
+}
+
+Part part1 = new Part();
+part1.setPart(6244, 373, 217.55f);
+part1.showPart();

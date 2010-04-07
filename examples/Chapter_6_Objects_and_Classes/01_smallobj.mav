@@ -1,0 +1,17 @@
+class SmallObject {
+	private int someData;
+	
+	public void setData(int d) {
+		someData = d;
+	}
+	public void showData() {
+		System.println("Data is " + someData);
+	}
+}
+
+SmallObject s1 = new SmallObject(), s2 = new SmallObject();
+s1.setData(1066);
+s2.setData(1776);
+
+s1.showData();
+s2.showData();

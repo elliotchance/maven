@@ -1,0 +1,15 @@
+char chin;
+int nin;
+
+System.print("Enter a character: ");
+chin = System.getChar();
+System.print("Enter number of times to repeat it: ");
+nin = System.getInt();
+
+repchar(chin, nin);
+
+void repchar(char ch, int n) {
+	for(int j = 0; j < n; j++)
+		System.print(ch);
+	System.println();
+}

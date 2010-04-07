@@ -1,0 +1,5 @@
+int n = 99;
+
+for(; n != 0; )
+	n = System.getInt();
+System.println();

@@ -1,0 +1,98 @@
+enum Suit { clubs, diamonds, hearts, spades };
+constant int jack = 11;
+constant int queen = 12;
+constant int king = 13;
+constant int ace = 14;
+
+class Card {
+	private int number;
+	private Suit suit;
+	
+	public Card() {
+	}
+	
+	public Card(int n, Suit s) {
+		number = n;
+		suit = s;
+	}
+	
+	public void display() {
+		if(number >= 2 && number <= 10) {
+			System.print(String.valueOf(number) + " of ");
+		} else {
+			switch(number) {
+				case jack: System.print("jack of ");
+				case queen: System.print("queen of ");
+				case king: System.print("king of ");
+				case ace: System.print("ace of ");
+			}
+		}
+		
+		switch(suit) {
+			case clubs: System.print("clubs");
+			case diamonds: System.print("diamonds");
+			case hearts: System.print("hearts");
+			case spades: System.print("spades");
+		}
+	}
+	
+	public boolean isEqual(Card c2) {
+		if(number == c2.number && suit == c2.suit)
+			return true;
+		return false;
+	}
+}
+
+Card temp, chosen, prize;
+int position;
+
+Card card1 = new Card(7, clubs);
+System.print("Card 1 is the ");
+card1.display();
+System.println();
+
+Card card2 = new Card(jack, hearts);
+System.print("Card 2 is the ");
+card2.display();
+System.println();
+
+Card card3 = new Card(ace, spades);
+System.print("Card 3 is the ");
+card3.display();
+System.println();
+
+prize = card3;
+
+System.print("\nI'm swapping card 1 and card 3");
+temp = card3;
+card3 = card1;
+card1 = temp;
+
+System.print("\nI'm swapping card 2 and card 3");
+temp = card3;
+card3 = card2;
+card2 = temp;
+
+System.print("\nI'm swapping card 1 and card 2");
+temp = card1;
+card1 = card2;
+card2 = temp;
+
+System.print("\nNow where (1, 2 or 3) is the ");
+prize.display();
+System.print("? ");
+position = System.getInt();
+
+switch(position) {
+	case 1: chosen = card1;
+	case 2: chosen = card2;
+	case 3: chosen = card3;
+}
+
+if(chosen.isEqual(prize))
+	System.println("That's right!   You win!");
+else System.println("Sorry. You lose.");
+
+System.print("   You chose the ");
+chosen.display();
+System.println();

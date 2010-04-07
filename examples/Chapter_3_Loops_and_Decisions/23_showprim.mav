@@ -1,0 +1,14 @@
+constant char WHITE = ' ', GRAY = '#';
+char ch;
+
+for(int count = 0; count < 40 * 20; count++) {
+	ch = WHITE;
+	for(int j = 2; j < count; j++) {
+		if(count % j == 0) {
+			ch = GRAY;
+			break;
+		}
+	}
+	System.print(ch);
+}
+System.println();

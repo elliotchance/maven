@@ -1,0 +1,12 @@
+constant int limit = Integer.MAX_VALUE;  // largest int
+int next = 0;                            // next-to-last term
+int last = 1;                            // last term
+
+// don't let results get too big
+while(next < limit / 2) {
+	System.print(String.valueOf(last) + "  ");
+	int sum = next + last;
+	next = last;
+	last = sum;
+}
+System.println();

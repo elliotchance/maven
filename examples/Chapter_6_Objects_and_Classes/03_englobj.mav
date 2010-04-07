@@ -1,0 +1,31 @@
+class Distance {
+	private int feet;
+	private float inches;
+	
+	public void setDistance(int ft, float in) {
+		feet = ft;
+		inches = in;
+	}
+	
+	public void getDistance() {
+		System.print("\nEnter feet: ");
+		feet = System.getInt();
+		System.print("Enter inches: ");
+		inches = System.getFloat();
+	}
+	
+	public void showDistance() {
+		System.print(String.valueOf(feet) + "\' " + inches + "\"");
+	}
+}
+
+Distance dist1 = new Distance(), dist2 = new Distance();
+
+dist1.setDistance(11, 6.25);
+dist2.getDistance();
+
+System.print("\ndist1 = ");
+dist1.showDistance();
+System.print("\ndist2 = ");
+dist2.showDistance();
+System.println();

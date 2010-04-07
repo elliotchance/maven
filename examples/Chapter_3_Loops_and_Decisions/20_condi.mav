@@ -1,0 +1,7 @@
+for(int j = 0; j < 80; j++) {
+	char ch;
+	if(j % 8) ch = ' ';
+	else ch = 'x';
+	System.print(ch);
+}
+System.println();

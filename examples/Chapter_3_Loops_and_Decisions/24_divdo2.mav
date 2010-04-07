@@ -1,0 +1,19 @@
+long dividend, divisor;
+char ch;
+
+do {
+	System.print("Enter dividend: ");
+	dividend = System.getLong();
+	System.print("Enter divisor: ");
+	divisor = System.getLong();
+	
+	if(divisor == 0) {
+		System.println("Illegal divisor");
+		continue;
+	}
+	
+	System.println("Quotient is " + (dividend / divisor) + ", remainder is " + (dividend % divisor));
+	
+	System.print("Do another (y/n)? ");
+	ch = System.getChar();
+} while(ch != 'n');

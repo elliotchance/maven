@@ -1,0 +1,7 @@
+int count = 10;
+
+System.println("count=" + count);
+System.println("count=" + ++count);
+System.println("count=" + count);
+System.println("count=" + count++);
+System.println("count=" + count);

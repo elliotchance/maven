@@ -1,0 +1,40 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+Distance d1 = new Distance(), d2 = new Distance(), d3;
+
+System.print("Enter feet  : ");
+d1.feet = System.getInt();
+System.print("Enter inches: ");
+d1.inches = System.getFloat();
+
+System.print("Enter feet  : ");
+d2.feet = System.getInt();
+System.print("Enter inches: ");
+d2.inches = System.getFloat();
+
+d3 = addengl(d1, d2);
+engldisp(d1);
+System.print(" + ");
+engldisp(d2);
+System.print(" = ");
+engldisp(d3);
+System.println();
+
+Distance addengl(Distance dd1, Distance dd2) {
+	Distance dd3 = new Distance();
+	dd3.inches = dd1.inches + dd2.inches;
+	dd3.feet = 0;
+	if(dd3.inches >= 12.0) {
+		dd3.inches -= 12.0;
+		dd3.feet++;
+	}
+	dd3.feet += dd1.feet + dd2.feet;
+	return dd3;
+}
+
+void engldisp(Distance dd) {
+	System.print(String.valueOf(dd.feet) + "\' " + dd.inches + "\"");
+}

@@ -1,0 +1,17 @@
+float data = 1, avg;
+
+while(data != 0) {
+	System.print("Enter a number: ");
+	data = System.getFloat();
+	avg = getAverage(data);
+	System.println("New average is " + avg);
+}
+
+float getAverage(float newData) {
+	static float total = 0;
+	static int count = 0;
+	
+	count++;
+	total += newData;
+	return total / count;
+}

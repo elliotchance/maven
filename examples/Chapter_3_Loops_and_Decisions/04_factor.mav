@@ -1,0 +1,9 @@
+int numb;
+long fact = 1;
+
+System.print("Enter a number: ");
+numb = System.getInt();
+
+for(int j = numb; j > 0; j--)
+	fact *= j;
+System.println("Factorial is " + fact);

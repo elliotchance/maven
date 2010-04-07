@@ -1,0 +1,13 @@
+class Part {
+	public int modelNumber;
+	public int partNumber;
+	public float cost;
+}
+
+Part part1 = new Part();         // create a new Object
+part1.modelNumber = 6244;        // give values to member-variables
+part1.partNumber = 373;
+part1.cost = 217.55F;
+
+// display structure members
+System.println("Model " + part1.modelNumber + ", part " + part1.partNumber + ", costs $" + part1.cost);

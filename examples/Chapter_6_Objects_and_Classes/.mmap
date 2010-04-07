@@ -1,0 +1,263 @@
+namespace maven {
+  class nil;
+  class Object;
+  class String;
+  class ClassVariable;
+  class System;
+  class Application;
+  class Array;
+  class Exception;
+  class BoundsException;
+  class Date;
+  class Calendar;
+  class Data;
+  class Debug;
+  class Dictionary;
+  class Integer;
+  class Math;
+  class ObjectNilException;
+  class Quad;
+  class Selector;
+  class SelectorException;
+  class Thread;
+}
+namespace global {
+  class nil;
+}
+namespace maven {
+  // namespaceID: 0 objectID: 0
+}
+namespace maven {
+  // namespaceID: 0 objectID: 1
+}
+namespace global {
+  // namespaceID: 1 objectID: 0
+  namespace nil$static {
+    static maven::System* System = new maven::System();
+  }
+}
+namespace maven {
+  // namespaceID: 0 objectID: 3
+  class ClassVariable : public maven::Object {
+    public: boolean isPublic;
+    public: maven::String* name;
+    public: maven::String* type;
+    public: ClassVariable() { super("maven.ClassVariable"); } 
+    public:  ClassVariable(boolean _isPublic, maven::String* _name, maven::String* _type);
+    public: maven::ClassVariable* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 4
+}
+namespace maven {
+  // namespaceID: 0 objectID: 5
+  class Application : public maven::Object {
+    public: Application() { super("maven.Application"); } 
+    public: maven::Application* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 6
+}
+namespace maven {
+  // namespaceID: 0 objectID: 7
+  class Exception : public maven::Object {
+    public: maven::String* reason;
+    public: int line;
+    public: maven::String* file;
+    public: long errorCode;
+    public:  Exception();
+    public: maven::String* description();
+    public: maven::Exception* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 8
+  class BoundsException : public maven::Exception {
+    public:  BoundsException();
+    public:  BoundsException(maven::String* variable, maven::String* filename, int occuredLine);
+    public: maven::BoundsException* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 9
+  class Date : public maven::Object {
+    public: short year;
+    public: byte month;
+    public: byte day;
+    public: byte hour;
+    public: byte minute;
+    public: byte second;
+    public: Date() { super("maven.Date"); } 
+    public: maven::Date* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 10
+  class Calendar : public maven::Object {
+    public: Calendar() { super("maven.Calendar"); } 
+    public: static int epochSeconds();
+    public: static int epochDays();
+    public: static maven::Date* now();
+    public: static double runtime();
+    public: maven::Calendar* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 11
+  class Data : public maven::Object {
+    public: long size;
+    public: long allocatedSize;
+    public: long position;
+    public:  Data();
+    public: void allocateBytes(long bytes);
+    public: boolean setPosition(long pos);
+    public: boolean readBoolean();
+    public: byte readByte();
+    public: char readChar();
+    public: double readDouble();
+    public: float readFloat();
+    public: int readInt();
+    public: long readLong();
+    public: short readShort();
+    public: quad readQuad();
+    public: void writeBoolean(boolean data);
+    public: void writeByte(byte data);
+    public: void writeChar(char data);
+    public: void writeDouble(double data);
+    public: void writeFloat(float data);
+    public: void writeInt(int data);
+    public: void writeLong(long data);
+    public: void writeShort(short data);
+    public: void writeQuad(quad data);
+    public: maven::Data* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 12
+  class Debug : public maven::Object {
+    public: Debug() { super("maven.Debug"); } 
+    public: static void assert(boolean result);
+    public: maven::Debug* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 13
+  class Dictionary : public maven::Object {
+    public: Dictionary() { super("maven.Dictionary"); } 
+    public: int length();
+    public: boolean setValue(maven::String* key, maven::String* value);
+    public: maven::String* getValue(maven::String* key);
+    public: boolean keyExists(maven::String* key);
+    public: maven::Dictionary* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 14
+  class Integer : public maven::Object {
+    public: int value;
+    public: Integer() { super("maven.Integer"); } 
+    public:  Integer(int newValue);
+    public: static maven::String* stringValue(int x);
+    public: static int valueOf(maven::String* x);
+    public: maven::Integer* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 15
+  namespace Math$static {
+    static quad PI;
+    static quad E;
+  }
+  class Math : public maven::Object {
+    public: Math() { super("maven.Math"); } 
+    public: static quad cos(quad x);
+    public: static quad sin(quad x);
+    public: static quad sqrt(quad x);
+    public: static quad tan(quad x);
+    public: static quad log(quad x);
+    public: static quad log10(quad x);
+    public: static quad log2(quad x);
+    public: static quad abs(quad x);
+    public: static quad acos(quad x);
+    public: static quad asin(quad x);
+    public: static quad atan(quad x);
+    public: static quad atan2(quad x, quad y);
+    public: static quad ceil(quad x);
+    public: static quad floor(quad x);
+    public: static quad exp(quad x);
+    public: static quad pow(quad base, quad index);
+    public: static quad pow10(quad x);
+    public: static quad round(quad x);
+    public: static quad round(quad x, byte places);
+    public: static quad fmod(quad a, quad b);
+    public: static quad max(quad a, quad b);
+    public: static quad min(quad a, quad b);
+    public: static quad sinh(quad x);
+    public: static quad cosh(quad x);
+    public: static quad tanh(quad x);
+    public: static quad sec(quad x);
+    public: static quad csc(quad x);
+    public: static quad cot(quad x);
+    public: static quad acosh(quad x);
+    public: static quad asinh(quad x);
+    public: static quad atanh(quad x);
+    public: static quad asec(quad x);
+    public: static quad acsc(quad x);
+    public: static quad acot(quad x);
+    public: static quad asech(quad x);
+    public: static quad acsch(quad x);
+    public: static quad acoth(quad x);
+    public: static quad sq(quad x);
+    public: static quad cbrt(quad x);
+    public: static quad rad2deg(quad x);
+    public: static quad deg2rad(quad x);
+    public: static quad random();
+    public: static quad random(quad max);
+    public: static quad random(quad min, quad max);
+    public: maven::Math* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 16
+  class ObjectNilException : public maven::Exception {
+    public:  ObjectNilException();
+    public:  ObjectNilException(maven::String* variable, maven::String* filename, int occuredLine);
+    public: maven::ObjectNilException* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 17
+  class Quad : public maven::Object {
+    public: quad value;
+    public: Quad() { super("maven.Quad"); } 
+    public:  Quad(quad newValue);
+    public: static maven::String* stringValue(quad x);
+    public: static quad valueOf(maven::String* x);
+    public: maven::Quad* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 18
+}
+namespace maven {
+  // namespaceID: 0 objectID: 19
+  class SelectorException : public maven::Exception {
+    public:  SelectorException();
+    public: maven::SelectorException* copy();
+  };
+}
+namespace maven {
+  // namespaceID: 0 objectID: 20
+  class Thread : public maven::Object {
+    public: maven::String* name;
+    public: Thread() { super("maven.Thread"); } 
+    public:  Thread(maven::Selector* s);
+    public: int run();
+    public: static int detach(maven::Selector* s);
+    public: static void waitAll();
+    public: static int activeThreads();
+    public: maven::Thread* copy();
+  };
+}

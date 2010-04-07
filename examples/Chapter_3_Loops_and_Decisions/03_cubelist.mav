@@ -1,0 +1,6 @@
+int numb;
+
+for(numb = 1; numb <= 10; numb++) {
+	int cube = numb * numb * numb;
+	System.println(String.valueOf(numb) + " " + cube);
+}

@@ -1,0 +1,28 @@
+class Counter {
+	private int count;
+	
+	public Counter() {
+		count = 0;
+		System.println("I'm the constructor");
+	}
+	
+	public void increment() {
+		count++;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+}
+
+Counter c1 = new Counter(), c2 = new Counter();
+
+System.println("c1 = " + c1.getCount());
+System.println("c2 = " + c2.getCount());
+
+c1.increment();
+c2.increment();
+c2.increment();
+
+System.println("c1 = " + c1.getCount());
+System.println("c2 = " + c2.getCount());

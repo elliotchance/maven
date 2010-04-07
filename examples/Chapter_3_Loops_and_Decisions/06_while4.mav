@@ -1,0 +1,11 @@
+int pow = 1;         // power initially 1
+int numb = 1;        // numb goes from 1 to ???
+
+// loop while power <= 4 digits
+while(pow < 9999) {
+	System.print(String.valueOf(numb) + " ");         // display number
+	System.println(pow);                              // display forth power
+	++numb;                                           // get ready for the next power
+	pow = numb * numb * numb * numb;                  // calculate forth power
+}
+System.println();

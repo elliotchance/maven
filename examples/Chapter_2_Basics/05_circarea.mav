@@ -1,0 +1,7 @@
+float rad;                                    // variable of type float
+constant float PI = 3.14159F;                 // type constant float
+
+System.print("Enter radius of circle: ");     // prompt
+rad = System.getFloat();                      // get radius
+float area = PI * rad * rad;                  // find area
+System.println("Area is " + area);            // display answer

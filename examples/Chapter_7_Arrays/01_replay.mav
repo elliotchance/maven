@@ -1,0 +1,8 @@
+int[] age = new int[4];
+
+for(int j = 0; j < 4; j++) {
+	System.print("Enter age: ");
+	age[j] = System.getInt();
+}
+for(int j = 0; j < 4; j++)
+	System.println("You entered " + age[j]);

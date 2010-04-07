@@ -1,0 +1,9 @@
+int speed;
+
+System.print("Enter 33, 45, or 78: ");
+speed = System.getInt();
+switch(speed) {
+	case 33: System.println("LP album");
+	case 45: System.println("Single selection");
+	case 78: System.println("Obsolete format");
+}

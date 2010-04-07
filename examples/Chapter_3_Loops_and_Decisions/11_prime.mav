@@ -1,0 +1,12 @@
+long n;
+long j;
+
+System.print("Enter a number: ");
+n = System.getLong();
+for(j = 2; j <= n / 2; j++) {
+	if(n % j == 0) {
+		System.println("It's not a prime; divisible by " + j);
+		System.exit(0);
+	}
+}
+System.println("It's prime");

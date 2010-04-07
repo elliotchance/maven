@@ -1,0 +1,25 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+Distance d1 = new Distance();
+
+// set some values for d1
+d1.feet = 3;
+d1.inches = 5.5f;
+
+// duplicate the Object
+Distance d2 = d1.copy();
+
+// by changing the value of d2 we are changing both d1 and d2
+d2.feet = 5;
+
+System.print("d1 = ");
+engldisp(d1);
+System.print("d2 = ");
+engldisp(d2);
+
+void engldisp(Distance dd) {
+	System.println(String.valueOf(dd.feet) + "\' " + dd.inches + "\"");
+}

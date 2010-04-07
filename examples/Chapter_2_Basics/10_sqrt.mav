@@ -1,0 +1,7 @@
+double number;
+double answer;
+
+System.print("Enter a number: ");
+number = System.getDouble();
+answer = Math.sqrt(number);
+System.println("Square root is " + answer);

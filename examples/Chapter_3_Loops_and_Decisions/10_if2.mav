@@ -1,0 +1,8 @@
+int x;
+
+System.print("Enter a number: ");
+x = System.getInt();
+
+if(x > 100) {
+	System.println("The number " + x + " is greater than 100");
+}

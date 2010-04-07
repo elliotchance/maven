@@ -1,0 +1,7 @@
+char charvar1 = 'A';      // define char variable as character
+char charvar2 = '\t';     // define char variable as tab
+
+System.print(charvar1);   // display character
+System.print(charvar2);   // display character
+charvar1 = 'B';           // set char variable to char constant
+System.println(charvar1); // display character

@@ -1,0 +1,5 @@
+System.println(6 % 8);    // 6
+System.println(7 % 8);    // 7
+System.println(8 % 8);    // 0
+System.println(9 % 8);    // 1
+System.println(10 % 8);   // 2

@@ -1,0 +1,25 @@
+class Distance {
+	public int feet;
+	public float inches;
+}
+
+Distance d1 = new Distance(), d2 = new Distance();
+
+System.print("Enter feet: ");
+d1.feet = System.getInt();
+System.print("Enter inches: ");
+d1.inches = System.getFloat();
+
+System.print("Enter feet: ");
+d2.feet = System.getInt();
+System.print("Enter inches: ");
+d2.inches = System.getFloat();
+
+System.print("d1 = ");
+engldist(d1);
+System.print("d2 = ");
+engldist(d2);
+
+void engldist(Distance dd) {
+	System.println(String.valueOf(dd.feet) + "' - " + dd.inches + "\"");
+}

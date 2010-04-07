@@ -1,0 +1,15 @@
+constant int SIZE = 6;
+double[] sales = new double[SIZE];
+
+System.println("Enter widget sales for 6 days");
+for(int j = 0; j < SIZE; ++j) {
+	sales[j] = System.getInt();
+}
+
+double total = 0;
+for(int j = 0; j < SIZE; ++j) {
+	total += sales[j];
+}
+
+double average = total / SIZE;  // find average
+System.println("Average = " + average);

@@ -1,0 +1,16 @@
+int ans = 27;
+
+ans += 10;            // same as ans = ans + 10;
+System.println(String.valueOf(ans) + ", ");
+
+ans -= 7;             // same as ans = ans - 7;
+System.println(String.valueOf(ans) + ", ");
+
+ans *= 2;             // same as ans = ans * 2;
+System.println(String.valueOf(ans) + ", ");
+
+ans /= 3;             // same as ans = ans / 3;
+System.println(String.valueOf(ans) + ", ");
+
+ans %= 3;             // same as ans = ans % 3;
+System.println(ans);
