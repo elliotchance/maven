@@ -1,0 +1,33 @@
+namespace maven;
+
+import maven.Data;
+
+/**
+  Float class.
+  
+  @version 1.0
+ */
+class Float {
+	public float value;
+	
+	external public static constant float MAX_VALUE;
+	external public static constant float MIN_VALUE;
+	external public static constant float POSITIVE_INFINITY;
+	external public static constant float NEGATIVE_INFINITY;
+	external public static constant float NaN;
+	
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+	
+	external public Float();
+	external public Float(float newValue);
+}

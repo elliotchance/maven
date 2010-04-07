@@ -1,0 +1,13 @@
+namespace maven;
+
+/**
+  A dictionary is a key-value stack.
+  
+  @version 1.0
+ */
+class Dictionary {
+	external public int length();
+	external public boolean setValue(maven.String key, maven.String value);
+	external public maven.String getValue(maven.String key);
+	external public boolean keyExists(maven.String key);
+}

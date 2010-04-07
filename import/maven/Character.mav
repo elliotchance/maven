@@ -1,0 +1,12 @@
+namespace maven;
+
+/**
+  Character class.
+  
+  @version 1.0
+ */
+class Character {
+	public char value;
+	
+	external public Character(char newValue);
+}

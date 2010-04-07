@@ -1,0 +1,339 @@
+namespace maven;
+
+/**
+  Standard math functions.
+  
+  @version 1.0
+ */
+class Math {
+	/**
+	 Pi is a mathematical constant whose value is the ratio of
+	 any circle's circumference to its diameter in Euclidean
+	 space; this is the same value as the ratio of a circle's
+	 area to the square of its radius.
+	 
+	 @since 1.0
+	 */
+	public static quad PI = 3.14159265358979323846;
+	
+	/**
+	 The mathematical constant e is the unique real number such
+	 that the area above the x-axis and below the curve y=1/x
+	 for 1 ≤ x ≤ e is exactly 1.
+	 
+	 @since 1.0
+	 */
+	public static quad E = 2.71828182845904523536;
+	
+	/**
+	 Cosine.
+	 
+	 @since 1.0
+	 */
+	external public static quad cos(quad x) alias system std::cos exports cos;
+	
+	/**
+	 Sine.
+	 
+	 @since 1.0
+	 */
+	external public static quad sin(quad x) alias system std::sin exports sin;
+	
+	/**
+	 Square root.
+	 
+	 @since 1.0
+	 */
+	external public static quad sqrt(quad x) alias system std::sqrt exports sqrt;
+	
+	/**
+	 Tangent.
+	 
+	 @since 1.0
+	 */
+	external public static quad tan(quad x) alias system std::tan exports tan;
+	
+	/**
+	 Natural logarithm.
+	 
+	 @since 1.0
+	 */
+	external public static quad log(quad x) alias system std::log exports log;
+	
+	/**
+	 Logarithm with base 10.
+	 
+	 @since 1.0
+	 */
+	external public static quad log10(quad x) alias system std::log10 exports log10;
+	
+	/**
+	 Logarithm with base 2.
+	 
+	 @since 1.0
+	 */
+	external public static quad log2(quad x) exports log2;
+	
+	/**
+	 Absolute value.
+	 
+	 @since 1.0
+	 */
+	external public static quad abs(quad x) alias system std::abs exports abs;
+	
+	/**
+	 Arc-cosine.
+	 
+	 @since 1.0
+	 */
+	external public static quad acos(quad x) alias system std::acos exports acos;
+	
+	/**
+	 Arc-sine.
+	 
+	 @since 1.0
+	 */
+	external public static quad asin(quad x) alias system std::asin exports asin;
+	
+	/**
+	 Arc-tan.
+	 
+	 @since 1.0
+	 */
+	external public static quad atan(quad x) alias system std::atan exports atan;
+	
+	/**
+	 In trigonometry, the two-argument function atan2 is a variation of the arctangent function.
+	 For any real arguments x and y not both equal to zero, atan2(y, x) is the angle in radians
+	 between the positive x-axis of a plane and the point given by the coordinates (x, y) on it.
+	 The angle is positive for counter-clockwise angles (upper half-plane, y > 0), and negative
+	 for clockwise angles (lower half-plane, y < 0).
+	 
+	 @since 1.0
+	 */
+	external public static quad atan2(quad x, quad y) alias system std::atan2 exports atan2;
+	
+	/**
+	 Round up to the nearest int.
+	 
+	 @since 1.0
+	 */
+	external public static quad ceil(quad x) alias system std::ceil exports ceil;
+	
+	/**
+	 Round down to the nearest int.
+	 
+	 @since 1.0
+	 */
+	external public static quad floor(quad x) alias system std::floor exports floor;
+	
+	/**
+	 Exponential.
+	 
+	 @since 1.0
+	 */
+	external public static quad exp(quad x) alias system std::exp exports exp;
+	
+	/**
+	 Power.
+	 
+	 @since 1.0
+	 */
+	external public static quad pow(quad base, quad index) alias system std::pow exports pow;
+	
+	/**
+	 Power with base 10.
+	 
+	 @since 1.0
+	 */
+	external public static quad pow10(quad x) exports pow10;
+	
+	/**
+	 Round to nearest integer.
+	 
+	 @since 1.0
+	 */
+	external public static quad round(quad x) exports round;
+	
+	/**
+	 Round to nearest integer to given amount of places.
+	 
+	 @since 1.0
+	 */
+	external public static quad round(quad x, byte places) exports round;
+	
+	/**
+	 Returns the remainder (modulo) of the division of the arguments.
+	 
+	 @since 1.0
+	 */
+	external public static quad fmod(quad a, quad b) alias system std::fmod exports fmod;
+	
+	/**
+	 Returns the max value of the arguments.
+	 
+	 @since 1.0
+	 */
+	external public static quad max(quad a, quad b) alias system std::max exports max;
+	
+	/**
+	 Returns the min value of the arguments.
+	 
+	 @since 1.0
+	 */
+	external public static quad min(quad a, quad b) alias system std::min exports min;
+	
+	/**
+	 Hyperbolic sine.
+	 
+	 @since 1.0
+	 */
+	external public static quad sinh(quad x) exports sinh;
+	
+	/**
+	 Hyperbolic cosine.
+	 
+	 @since 1.0
+	 */
+	external public static quad cosh(quad x) exports cosh;
+	
+	/**
+	 Hyperbolic tangent.
+	 
+	 @since 1.0
+	 */
+	external public static quad tanh(quad x) exports tanh;
+	
+	/**
+	 Sectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad sec(quad x) exports sec;
+	
+	/**
+	 Cosectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad csc(quad x) exports csc;
+	
+	/**
+	 Cotangent.
+	 
+	 @since 1.0
+	 */
+	external public static quad cot(quad x) exports cot;
+	
+	/**
+	 Hyperbolic arc-cosine.
+	 
+	 @since 1.0
+	 */
+	external public static quad acosh(quad x) exports acosh;
+	
+	/**
+	 Hyperbolid arc-sine.
+	 
+	 @since 1.0
+	 */
+	external public static quad asinh(quad x) exports asinh;
+	
+	/**
+	 Hyperbolic arc-tan.
+	 
+	 @since 1.0
+	 */
+	external public static quad atanh(quad x) exports atanh;
+	
+	/**
+	 Arc-sectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad asec(quad x) exports asec;
+	
+	/**
+	 Arc-cosectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad acsc(quad x) exports acsc;
+	
+	/**
+	 Arc-ootangent.
+	 
+	 @since 1.0
+	 */
+	external public static quad acot(quad x) exports acot;
+	
+	/**
+	 Hyperbolic arc-sectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad asech(quad x) exports asech;
+	
+	/**
+	 Hyperbolic arc-cosectant.
+	 
+	 @since 1.0
+	 */
+	external public static quad acsch(quad x) exports acsch;
+	
+	/**
+	 Hyperbolic arc-cotangent.
+	 
+	 @since 1.0
+	 */
+	external public static quad acoth(quad x) exports acoth;
+	
+	/**
+	 Square.
+	 
+	 @since 1.0
+	 */
+	external public static quad sq(quad x) exports sq;
+	
+	/**
+	 Cube root.
+	 
+	 @since 1.0
+	 */
+	external public static quad cbrt(quad x) exports cbrt;
+	
+	/**
+	 Convert radians to degrees.
+	 
+	 @since 1.0
+	 */
+	external public static quad rad2deg(quad x) exports rad2deg;
+	
+	/**
+	 Convert degrees to radians.
+	 
+	 @since 1.0
+	 */
+	external public static quad deg2rad(quad x) exports deg2rad;
+	
+	/**
+	 Generate a random number between 0 and 1.
+	 
+	 @since 1.0
+	 */
+	external public static quad random() exports random;
+	
+	/**
+	 Generate a random number between 0 and max.
+	 
+	 @since 1.0
+	 */
+	external public static quad random(quad max) exports random;
+	
+	/**
+	 Generate a random number between min and max.
+	 
+	 @since 1.0
+	 */
+	external public static quad random(quad min, quad max) exports random;
+}

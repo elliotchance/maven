@@ -1,0 +1,12 @@
+namespace maven;
+
+/**
+  Long class.
+  
+  @version 1.0
+ */
+class Long {
+	public long value;
+	
+	external public Long(long newValue);
+}

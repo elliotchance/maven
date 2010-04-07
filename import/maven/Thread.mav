@@ -1,0 +1,45 @@
+namespace maven;
+
+/**
+  Thread actions.
+ */
+class Thread {
+	/**
+	 Threads can be named. The main thread is named 'Main Thread'
+	 and by default threads have no name.
+	 */
+	public maven.String name;
+	
+	/**
+	 Create a new thread. Use run() to execute.
+	 */
+	external public Thread(maven.Selector s);
+	
+	/**
+	 Run a thread.
+	 */
+	external public int run();
+	
+	/**
+	 A detached thread will finish when the Selector function is finished.
+	 */
+	external public static int detach(maven.Selector s);
+	
+	/**
+	 A detached thread will finish when the Selector function is finished.
+	 
+	 This method provides arguments to the Selector function.
+	 */
+	external public static int detach(maven.Selector s, ...);
+	
+	/**
+	 Wait for all detached threads before proceeding.
+	 */
+	external public static void waitAll();
+	
+	/**
+	 Returns the number of active threads. As the program itself uses 1 thead
+	 the number returned will alwasy be greater than ro equal to 1.
+	 */
+	external public static int activeThreads();
+}

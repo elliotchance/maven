@@ -1,0 +1,8 @@
+namespace maven;
+
+/**
+  Debugging utilities.
+ */
+class Debug {
+	external public static void assert(boolean result);
+}

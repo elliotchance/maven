@@ -1,0 +1,12 @@
+namespace maven;
+
+/**
+  The Array class is parent to all array containers. As this class also inherits from
+  maven.Object you are allowed to access the maven.Object methods directly through the
+  Array.
+  
+  @version 1.0
+ */
+class Array {
+	public constant long length;
+}

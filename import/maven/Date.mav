@@ -1,0 +1,15 @@
+namespace maven;
+
+/**
+  Date and time storage object. See maven.Calendar.
+  
+  @version 1.0
+ */
+class Date {
+	public short year;
+	public byte month;
+	public byte day;
+	public byte hour;
+	public byte minute;
+	public byte second;
+}

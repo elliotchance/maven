@@ -1,0 +1,37 @@
+namespace maven;
+
+/**
+  A Data object holds an expandable linear binary stream.
+  
+  @version 1.0
+ */
+class Data {
+	public constant long size;
+	public constant long allocatedSize;
+	public constant long position;
+	
+	external public Data();
+	
+	external public void allocateBytes(long bytes);
+	external public boolean setPosition(long pos);
+	
+	external public boolean readBoolean();
+	external public byte readByte();
+	external public char readChar();
+	external public double readDouble();
+	external public float readFloat();
+	external public int readInt();
+	external public long readLong();
+	external public short readShort();
+	external public quad readQuad();
+	
+	external public void writeBoolean(boolean data);
+	external public void writeByte(byte data);
+	external public void writeChar(char data);
+	external public void writeDouble(double data);
+	external public void writeFloat(float data);
+	external public void writeInt(int data);
+	external public void writeLong(long data);
+	external public void writeShort(short data);
+	external public void writeQuad(quad data);
+}

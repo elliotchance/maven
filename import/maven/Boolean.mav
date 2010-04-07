@@ -1,0 +1,28 @@
+namespace maven;
+
+/**
+  Boolean class.
+  
+  @version 1.0
+ */
+class Boolean {
+	public boolean value;
+	
+	external public static constant boolean MIN_VALUE = false;
+	external public static constant boolean MAX_VALUE = true;
+	
+	external public Boolean();
+	external public Boolean(boolean newValue);
+	
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+}

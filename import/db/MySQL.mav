@@ -1,0 +1,6 @@
+namespace db;
+@library("mysql.mac.o");
+
+class MySQLConnection {
+	external public MySQLConnection(maven.String username, maven.String password);
+}

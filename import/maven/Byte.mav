@@ -1,0 +1,28 @@
+namespace maven;
+
+/**
+  Byte class.
+  
+  @version 1.0
+ */
+class Byte {
+	public byte value;
+	
+	external public static constant byte MIN_VALUE = -128;
+	external public static constant byte MAX_VALUE =  127;
+	
+	external public Byte();
+	external public Byte(byte newValue);
+	
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+}

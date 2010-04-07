@@ -1,0 +1,19 @@
+namespace util;
+
+/**
+  System architecture information.
+  
+  @version 1.0
+ */
+class SystemArchitecture {
+	external public static boolean MMX() exports sysarch_MMX;
+	external public static boolean SSE() exports sysarch_SSE;
+	external public static boolean SSE2() exports sysarch_SSE2;
+	external public static boolean SSE3() exports sysarch_SSE3;
+	external public static boolean SSSE3() exports sysarch_SSSE3;
+	external public static boolean SSE4A() exports sysarch_SSE4A;
+	external public static boolean SSE41() exports sysarch_SSE41;
+	external public static boolean SSE42() exports sysarch_SSE42;
+	external public static boolean P16BATOMIC() exports sysarch_P16BATOMIC;
+	external public static boolean LONGMODE() exports sysarch_LONGMODE;
+}

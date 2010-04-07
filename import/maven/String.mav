@@ -1,0 +1,72 @@
+namespace maven;
+
+/**
+  The String class acts a semi-native storage object for strings as well
+  as string manipulation.
+ */
+class String {
+	/**
+	 Get the length of the string.
+	 
+	 @since 1.0
+	 */
+	external public int length() exports strlen;
+	
+	/**
+	 Returns a substring from the start with <i>length</i> bytes.
+	 
+	 @since 1.0
+	 */
+	external public maven.String substring(int length) exports substr;
+	
+	/**
+	 Returns a substring from <i>start</i> with <i>length</i> bytes.
+	 
+	 @since 1.0
+	 */
+	external public maven.String substring(int start, int length) exports substr;
+	
+	/**
+	 Append a string.
+	 
+	 @since 1.0
+	 */
+	external public maven.String append(maven.String str) exports append;
+	
+	external public int compare(maven.String otherString) exports compare;
+	external public boolean isEmpty() exports is_empty;
+	external public void erase() exports erase;
+	external public int indexOf(maven.String otherString) exports indexof;
+	
+	// type conversion
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+	
+	external public static maven.String valueOf(boolean value);
+	external public static maven.String valueOf(byte value);
+	external public static maven.String valueOf(char value);
+	external public static maven.String valueOf(double value);
+	external public static maven.String valueOf(float value);
+	external public static maven.String valueOf(int value);
+	external public static maven.String valueOf(long value);
+	external public static maven.String valueOf(quad value);
+	external public static maven.String valueOf(short value);
+	
+	external public int levenshtein(maven.String otherString) exports levenshtein;
+	external public maven.String md5() exports md5;
+	external public maven.String sha1() exports sha1;
+	
+	external public maven.String operator+(maven.String str2);
+	external public maven.String operator+(quad str2);
+	external public boolean operator==(maven.String str2);
+}
+

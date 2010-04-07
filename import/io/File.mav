@@ -1,0 +1,46 @@
+namespace io;
+
+/**
+  The File class allows reading and writing of files.
+  
+  @version 1.0
+ */
+class File {
+	// file open modes
+	public static int READ = 1;
+	public static int WRITE = 2;
+	public static int BINARY = 3;
+	
+	// universal methods
+	external public File(maven.String path);
+	external public File(maven.String path, int mode);
+	external public boolean isOpen();
+	external public void close();
+	external public boolean endOfFile();
+	
+	// reading
+	external public maven.Data readData();
+	external public maven.String readLine();
+	external public boolean readBoolean();
+	external public byte readByte();
+	external public int readInt();
+	external public char readChar();
+	external public float readFloat();
+	external public double readDouble();
+	external public quad readQuad();
+	external public long readLong();
+	external public short readShort();
+	
+	// writing
+	external public boolean writeData(maven.Data data);
+	external public boolean writeLine(maven.String line);
+	external public boolean writeBoolean(boolean x);
+	external public boolean writeByte(byte x);
+	external public boolean writeInt(int x);
+	external public boolean writeChar(char x);
+	external public boolean writeFloat(float x);
+	external public boolean writeDouble(double x);
+	external public boolean writeQuad(quad x);
+	external public boolean writeLong(long x);
+	external public boolean writeShort(short x);
+}

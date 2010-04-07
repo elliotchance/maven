@@ -1,0 +1,9 @@
+namespace maven;
+
+class ClassVariable {
+	public boolean isPublic;
+	public String name;
+	public String type;
+	
+	external public ClassVariable(boolean _isPublic, String _name, String _type);
+}

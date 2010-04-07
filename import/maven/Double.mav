@@ -1,0 +1,33 @@
+namespace maven;
+
+import maven.Data;
+
+/**
+  Double class.
+  
+  @version 1.0
+ */
+class Double {
+	public double value;
+	
+	external public static constant double MAX_VALUE;
+	external public static constant double MIN_VALUE;
+	external public static constant double POSITIVE_INFINITY;
+	external public static constant double NEGATIVE_INFINITY;
+	external public static constant double NaN;
+	
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+	
+	external public Double();
+	external public Double(double newValue);
+}

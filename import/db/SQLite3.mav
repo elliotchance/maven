@@ -1,0 +1,33 @@
+namespace db;
+@library("sqlite3.o");
+
+// single row result
+class SQLite3Row {
+	external public maven.String get(maven.String columnName);
+	external public double getDouble(maven.String columnName);
+	external public float getFloat(maven.String columnName);
+	external public int getInt(maven.String columnName);
+	external public long getLong(maven.String columnName);
+	
+	external public maven.String get(int col);
+	external public double getDouble(int col);
+	external public float getFloat(int col);
+	external public int getInt(int col);
+	external public long getLong(int col);
+}
+
+// abstract class for holding a SQLite3 query.
+class SQLite3Query {
+	external public db.SQLite3Row fetch();
+	external public int countColumns();
+	external public int getColumnID(maven.String columnName);
+	external public maven.String getColumnType(maven.String columnName);
+	external public maven.String getColumnType(int columnID);
+}
+
+// database handle
+class SQLite3 {
+	external public SQLite3(maven.String database);
+	external public boolean isOpen();
+	external public db.SQLite3Query query(maven.String sql);
+}

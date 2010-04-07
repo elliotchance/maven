@@ -1,0 +1,28 @@
+namespace maven;
+
+/**
+  Integer class.
+  
+  @version 1.0
+ */
+class Integer {
+	public int value;
+	
+	public static constant int MIN_VALUE = -2147483648;
+	public static constant int MAX_VALUE =  2147483647;
+	
+	external public Integer();
+	external public Integer(int newValue);
+	
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
+}

@@ -1,0 +1,27 @@
+namespace maven;
+
+/**
+  Thrown only in extreme cases when if not thrown would otherwise cause the
+  program to crash. This should be extended on all Exception classes.
+ */
+class Exception {
+	/** Poll this to get a description of what caused the exception to be thrown. */
+	public maven.String reason;
+	
+	/** The line number in the file that caused the exception to be thrown */
+	public int line;
+	
+	/** The maven file name */
+	public maven.String file;
+	
+	/**
+	  If you create your own exception you may want to use this to give an integer
+	  representation of the error.
+	 */
+	public long errorCode;
+	
+	external public Exception();
+	
+	/** print out the description of the Exception */
+	external public maven.String description();
+}

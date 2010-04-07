@@ -1,0 +1,26 @@
+namespace maven;
+
+/**
+  Quad class.
+  
+  @version 1.0
+ */
+class Quad {
+	public quad value;
+	
+	external public Quad(quad newValue);
+	
+	/**
+	 Convert quad to String.
+	 
+	 @since 1.0
+	 */
+	external public static maven.String stringValue(quad x);
+	
+	/**
+	 Convert String to quad.
+	 
+	 @since 1.0
+	 */
+	external public static quad valueOf(maven.String x);
+}
