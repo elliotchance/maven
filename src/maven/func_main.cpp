@@ -54,7 +54,8 @@ int main(int argc, char** argv) {
 	v.type = "maven.System";
 	v.defaultValue = "new maven::System()";
 	v.isStatic = true;
-	pushVariable(c, findNamespaceID(c, MAVEN_BARE_NAMESPACE), findObjectID(c, findNamespaceID(c, MAVEN_BARE_NAMESPACE), MAVEN_BARE_CLASS), v);
+	pushVariable(c, findNamespaceID(c, MAVEN_BARE_NAMESPACE),
+				 findObjectID(c, findNamespaceID(c, MAVEN_BARE_NAMESPACE), MAVEN_BARE_CLASS), v);
 	
 	// ok now we can write the map file
 	writeMapFile(c);
@@ -94,6 +95,8 @@ int main(int argc, char** argv) {
 		generateSQL(c);
 	else if(c->option_doc_xml != "")
 		generateXML(c);
+	else if(c->option_doc_html != "")
+		generateHTML(c);
 	
 	// GNU Compile
 	gnuCompile(c);
@@ -107,7 +110,8 @@ int main(int argc, char** argv) {
 	
 	// show compilation statistics
 	if(c->option_r)
-		printf("Compile successful (%d lines, %d files, %.2f seconds)\n", c->totalLines, c->totalFiles, ((double) (clock() - c->start)) / (double) CLOCKS_PER_SEC);
+		printf("Compile successful (%d lines, %d files, %.2f seconds)\n",
+			   c->totalLines, c->totalFiles, ((double) (clock() - c->start)) / (double) CLOCKS_PER_SEC);
 	
 	// execute after compilation
 	if(c->option_e)

@@ -3,8 +3,7 @@ namespace maven;
 import maven.Exception;
 
 /**
-  Thrown when an element of an array is accessed beyond the length of
-  the array.
+ * Thrown when an element of an array is accessed beyond the length of the array.
  */
 class BoundsException extends Exception {
 	external public BoundsException();

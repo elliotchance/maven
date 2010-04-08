@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Integer class.
-  
-  @version 1.0
+ * Integer class.
+ * @version 1.0
  */
 class Integer {
 	public int value;

@@ -1,35 +1,31 @@
 namespace maven;
 
 /**
-  The String class acts a semi-native storage object for strings as well
-  as string manipulation.
+ * The String class acts a semi-native storage object for strings as well
+ * as string manipulation.
  */
 class String {
 	/**
-	 Get the length of the string.
-	 
-	 @since 1.0
+	 * Get the length of the string.
+	 * @since 1.0
 	 */
 	external public int length() exports strlen;
 	
 	/**
-	 Returns a substring from the start with <i>length</i> bytes.
-	 
-	 @since 1.0
+	 * Returns a substring from the start with <i>length</i> bytes.
+	 * @since 1.0
 	 */
 	external public maven.String substring(int length) exports substr;
 	
 	/**
-	 Returns a substring from <i>start</i> with <i>length</i> bytes.
-	 
-	 @since 1.0
+	 * Returns a substring from <i>start</i> with <i>length</i> bytes.
+	 * @since 1.0
 	 */
 	external public maven.String substring(int start, int length) exports substr;
 	
 	/**
-	 Append a string.
-	 
-	 @since 1.0
+	 * Append a string.
+	 * @since 1.0
 	 */
 	external public maven.String append(maven.String str) exports append;
 	

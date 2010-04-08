@@ -1,9 +1,9 @@
 namespace maven;
 
 /**
-  Thrown only in extreme cases when if not thrown would otherwise cause the
-  program to crash. Such situations include:
-   * Attempting to use an Object that is nil.
+ * Thrown only in extreme cases when if not thrown would otherwise cause the
+ * program to crash. Such situations include:
+ * Attempting to use an Object that is nil.
  */
 class ObjectNilException extends Exception {
 	external public ObjectNilException();

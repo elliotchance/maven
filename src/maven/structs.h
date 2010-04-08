@@ -474,6 +474,11 @@ public:
 	string option_doc_xml;
 	
 	/**
+	 * @brief Place for HTML documentation.
+	 */
+	string option_doc_html;
+	
+	/**
 	 * @brief Where maven was originally executed from.
 	 */
 	string option_base_path;

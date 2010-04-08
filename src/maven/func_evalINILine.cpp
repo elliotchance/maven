@@ -25,7 +25,10 @@ void evalINILine(MavenCompiler* c, string line, string& header) {
 		if(line[i] == '=') break;
 		else key += line[i];
 	}
-	value = trim(line.substr(key.length() + 1, line.length() - key.length() - 1));
+	
+	// if there is no '=' then all we can do is ignore the line
+	if(line.find('=') != string::npos)
+	   value = trim(line.substr(key.length() + 1, line.length() - key.length() - 1));
 	key = header + "." + trim(key);
 	c->iniFile.setKey(key, value);
 }

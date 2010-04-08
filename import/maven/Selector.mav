@@ -1,7 +1,7 @@
 namespace maven;
 
 /**
-  Selector is a special class that deals with function pointers.
+ * Selector is a special class that deals with function pointers.
  */
 class Selector {
 	external public Selector();

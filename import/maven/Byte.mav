@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Byte class.
-  
-  @version 1.0
+ * Byte class.
+ * @version 1.0
  */
 class Byte {
 	public byte value;

@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  A Data object holds an expandable linear binary stream.
-  
-  @version 1.0
+ * A Data object holds an expandable linear binary stream.
+ * @version 1.0
  */
 class Data {
 	public constant long size;

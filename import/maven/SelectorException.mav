@@ -1,7 +1,7 @@
 namespace maven;
 
 /**
-  Thrown when Selector.call() arguments do not match function being called.
+ * Thrown when Selector.call() arguments do not match function being called.
  */
 class SelectorException extends Exception {
 	public SelectorException() {

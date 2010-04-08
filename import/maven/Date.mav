@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Date and time storage object. See maven.Calendar.
-  
-  @version 1.0
+ * Date and time storage object. See maven.Calendar.
+ * @version 1.0
  */
 class Date {
 	public short year;

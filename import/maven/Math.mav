@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Standard math functions.
-  
-  @version 1.0
+ * Standard math functions.
+ * @version 1.0
  */
 class Math {
 	/**

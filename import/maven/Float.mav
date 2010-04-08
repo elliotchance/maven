@@ -3,9 +3,8 @@ namespace maven;
 import maven.Data;
 
 /**
-  Float class.
-  
-  @version 1.0
+ * Float class.
+ * @version 1.0
  */
 class Float {
 	public float value;

@@ -3,9 +3,8 @@ namespace maven;
 import maven.Data;
 
 /**
-  Double class.
-  
-  @version 1.0
+ * Double class.
+ * @version 1.0
  */
 class Double {
 	public double value;

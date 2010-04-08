@@ -18,7 +18,8 @@ string locateImport(MavenCompiler* c, string import) {
 	
 	// make sure the file exists
 	if(!fileExists(file)) {
-		pushError(c, "Can't find import %s", import);
+		pushError(c, "Can't find import %s, looking in %s", import,
+				  c->iniFile.getKey("directories.import"));
 		return "";
 	}
 	

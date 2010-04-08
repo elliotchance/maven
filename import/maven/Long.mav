@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Long class.
-  
-  @version 1.0
+ * Long class.
+ * @version 1.0
  */
 class Long {
 	public long value;

@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Boolean class.
-  
-  @version 1.0
+ * Boolean class.
+ * @version 1.0
  */
 class Boolean {
 	public boolean value;

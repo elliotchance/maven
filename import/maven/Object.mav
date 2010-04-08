@@ -4,62 +4,96 @@ import maven.ClassVariable;
 import maven.Data;
 
 /**
-  Parent to all objects.
+ * Parent to all objects.
  */
 class Object {
-	/** Filled in automatically at compile time. */
+	/**
+	 * Filled in automatically at compile time.
+	 */
 	public maven.String className;
 	
-	/** This Object is concurrently used by this many other Objects. */
+	/**
+	 * This Object is concurrently used by this many other Objects.
+	 */
 	public constant int retain;
 	
 	external public Object();
 	
-	/** Executed once before an Object is destroyed with delete. */
+	/**
+	 * Executed once before an Object is destroyed with delete.
+	 */
 	external public void free();
 	
-	/** Copy (duplicate) an Object */
+	/**
+	 * Copy (duplicate) an Object.
+	 */
 	external public maven.Object copy();
 	
-	/** Get the class member variables. */
+	/**
+	 * Get the class member variables.
+	 */
 	external public static maven.ClassVariable[] getClassVariables();
 	
-	/** Overloadable. `false` if not overloaded. */
+	/**
+	 * Overloadable. `false` if not overloaded.
+	 */
 	external public boolean toBoolean();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public byte toByte();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public char toCharacter();
 	
-	/** Overloadable. `new maven.Data()` if not overloaded. */
+	/**
+	 * Overloadable. `new maven.Data()` if not overloaded.
+	 */
 	external public maven.Data toData();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public double toDouble();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public float toFloat();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public int toInteger();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public long toLong();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public quad toQuad();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public short toShort();
 	
-	/** Overloadable. `0` if not overloaded. */
+	/**
+	 * Overloadable. `0` if not overloaded.
+	 */
 	external public maven.String toString();
 	
 	external public maven.Object callMethodByName(String method, ...);
 	external public static maven.Object callStaticMethodByName(String method, ...);
 	
-	/** Equality. */
+	/**
+	 * Equality.
+	 */
 	external public boolean operator==(Object toCompare);
 }

@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  A dictionary is a key-value stack.
-  
-  @version 1.0
+ * A dictionary is a key-value stack.
+ * @version 1.0
  */
 class Dictionary {
 	external public int length();

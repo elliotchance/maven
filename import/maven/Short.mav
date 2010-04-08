@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Short class.
-  
-  @version 1.0
+ * Short class.
+ * @version 1.0
  */
 class Short {
 	public short value;

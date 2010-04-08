@@ -11,7 +11,8 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 	c->option_base_path = string(argv[0]).substr(0, strlen(argv[0]) - 6);
 	
 	// if there is no arguments we need to explain to the user
-	if(argc == 1) usage();
+	if(argc == 1)
+		usage();
 	
 	// read arguments
 	for(int i = 1; i < argc; ++i) {
@@ -22,7 +23,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 			if(value == "<next>")
 				value = argv[++i];
 			
-			if(key == "c") c->option_c = true;
+			     if(key == "c") c->option_c = true;
 			else if(key == "e") c->option_e = true;
 			else if(key == "h") c->option_h = true;
 			else if(key == "i") c->option_i = value;
@@ -39,6 +40,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 			else if(key == "doc-sql") c->option_doc_sql = value;
 			else if(key == "doc-sqlite3") c->option_doc_sqlite3 = value;
 			else if(key == "doc-xml") c->option_doc_xml = value;
+			else if(key == "doc-html") c->option_doc_html = value;
 			else {
 				cout << "Error: Unknown argument '" << key << "'" << endl;
 				exit(1);
@@ -87,6 +89,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 		cout << "--doc-sql='" << c->option_doc_sql << "'" << endl;
 		cout << "--doc-sqlite3='" << c->option_doc_sqlite3 << "'" << endl;
 		cout << "--doc-xml='" << c->option_doc_xml << "'" << endl;
+		cout << "--doc-html='" << c->option_doc_html << "'" << endl;
 		cout << "--------------------------------------------------" << endl;
 	}
 	

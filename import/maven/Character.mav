@@ -1,9 +1,8 @@
 namespace maven;
 
 /**
-  Character class.
-  
-  @version 1.0
+ * Character class.
+ * @version 1.0
  */
 class Character {
 	public char value;

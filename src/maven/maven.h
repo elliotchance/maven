@@ -33,7 +33,9 @@ using namespace std;
 #define MAVEN_ONLY_COMPILE     2
 #define MAVEN_LOCALSCOPE       1000000
 
-/** this is placed before each function declaration */
+/**
+ * This is placed before each function declaration.
+ */
 #define MAVEN_DECL
 
 #endif

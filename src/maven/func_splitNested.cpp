@@ -6,7 +6,9 @@
 #include "maven.h"
 #include "compiler_strings.h"
 
-// this function is for splitting nested curly bracket-less statements.
+/**
+ * This function is for splitting nested curly bracket-less statements.
+ */
 StringList splitNested(string str) {
 	StringList r;
 	string temp;

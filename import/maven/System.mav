@@ -3,149 +3,129 @@ namespace maven;
 import maven.String;
 
 /**
-  The System class handles console I/O.
+ * The System class handles console I/O.
  */
 class System {
 	external public void precision(int precision) alias system std::cout.precision;
 	external public int precision() alias system std::cout.precision;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(boolean o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(byte o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(char o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(double o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(float o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(long o) exports print;
 
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(int o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(quad o) exports print;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * @brief Print to the standard output.
+	 * @since 1.0
 	 */
 	external public void print(short o) exports print;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(boolean o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(byte o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(char o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(double o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(float o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(long o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(short o) exports println;
 	
 	/**
-	 Print to the standard output.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void print(maven.String o) exports print;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(int o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(quad o) exports println;
 	
 	/**
-	 Print to the standard output followed by a new line.
-	 
-	 @since 1.0
+	 * Print to the standard output followed by a new line.
+	 * @since 1.0
 	 */
 	external public void println(maven.String o) exports println;
 	

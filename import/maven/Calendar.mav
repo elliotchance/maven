@@ -3,25 +3,24 @@ namespace maven;
 import maven.Date;
 
 /**
-  Calendar functions handle anything to do with dates and times.
-  
-  @version 1.0
+ * Calendar functions handle anything to do with dates and times.
+ * @version 1.0
  */
 class Calendar {
 	/**
-	 The number of seconds elapsed since midnight proleptic Coordinated Universal
-	 Time (UTC) of January 1, 1970, not counting leap seconds.
+	 * The number of seconds elapsed since midnight proleptic Coordinated Universal
+	 * Time (UTC) of January 1, 1970, not counting leap seconds.
 	 */
 	external public static int epochSeconds();
 	
 	/**
-	 The number of whole days elapsed since midnight proleptic Coordinated Universal
-	 Time (UTC) of January 1, 1970, not counting leap seconds.
+	 * The number of whole days elapsed since midnight proleptic Coordinated Universal
+	 * Time (UTC) of January 1, 1970, not counting leap seconds.
 	 */
 	external public static int epochDays();
 	
 	/**
-	 Get attributes for current local time.
+	 * @brief Get attributes for current local time.
 	 */
 	external public static maven.Date now();
 	
