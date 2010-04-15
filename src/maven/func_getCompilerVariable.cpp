@@ -67,7 +67,7 @@ MavenVariable getCompilerVariable(MavenCompiler* c, string name) {
 		return v;
 	}
 	if(name == "@FilePath") {
-		// FIXME: need to get the full path
+		// bug #44: need to get the full path
 		v.type = "maven.String";
 		v.defaultValue = "new maven::String(\"" + c->currentFile + "\")";
 		return v;

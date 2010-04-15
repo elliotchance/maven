@@ -11,7 +11,7 @@ int findEnumElement(MavenCompiler *c, string entity, int& namespaceID, int& enum
 	namespaceID = -1;
 	enumID = -1;
 	
-	// FIXME: enumtype.enumelement
+	// bug #41: enumtype.enumelement
 	StringList parts = split('.', entity);
 	if(parts.length() > 1) {
 		// we dont have to check for ambiguous because for that to be true,

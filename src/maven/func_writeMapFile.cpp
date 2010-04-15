@@ -23,17 +23,6 @@ void writeMapFile(MavenCompiler* c) {
 		c->mapFileHandle << "}\n";
 	}
 	
-	// enums
-	// FIXME: this will be done later for @enum()
-	/*for(int i = 0; i < namespaces.length(); ++i) {
-		mapFileHandle << "namespace " << namespaces[i].name << " {" << endl;
-		for(int j = 0; i < namespaces[i].enums.size(); ++j) {
-			cout << "PUSH\n";
-			mapFileHandle << "int " << namespaces[i].enums[j].name << ";\n";
-		}
-		mapFileHandle << "}\n";
-	}*/
-	
 	// prepare class from compilation
 	c->imports.clear();
 	c->lineNumber = 0;

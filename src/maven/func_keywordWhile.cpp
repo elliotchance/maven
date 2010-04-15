@@ -19,14 +19,14 @@ bool keywordWhile(MavenCompiler* c, string line, string& close) {
 	
 	StringList type;
 	MavenMutability mut;
-	// FIXME: make sure type is boolean or number
+	// bug #38: make sure type is boolean or number
 	string cpp = "while(" + dissectCode(c, trim(question), type, mut) + ")";
 	
-	// FIXME: there needs to be a smarter way to deal with do {} while();
+	// bug #39: there needs to be a smarter way to deal with do {} while();
 	//if(action != "") {
 		cpp += "{";
 	
-		// FIXME: needs to count '()' brackets
+		// bug #40: needs to count '()' brackets
 		cpp += dissectCode(c, action, type, mut) + ";";
 		
 		// closure

@@ -19,7 +19,7 @@ string escapeString(string c) {
 			else if(c[i + 1] == '\'') c2 += '\'';
 			else if(c[i + 1] == '"') c2 += '"';
 			else if(c[i + 1] == 'x') {
-				// FIXME: needs to be fixed.
+				// bug #24: needs to be fixed.
 				c2 += '\x00';
 			}
 			++i;

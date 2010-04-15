@@ -20,7 +20,7 @@ bool keywordEnum(MavenCompiler* c, string identifier, string code) {
 	// get the enum name
 	e.name = trim(identifier.substr(4, identifier.length() - 4));
 
-	// FIXME: make sure the enum doesn't already exist
+	// bug #30: make sure the enum doesn't already exist
 	for(int i = 0; i < c->namespaces[findNamespaceID(c, c->currentNamespace)].enums.size(); ++i) {
 		if(c->namespaces[findNamespaceID(c, c->currentNamespace)].enums[i].name == e.name) {
 			pushError(c, "Enum '%s' already defined", e.name);
@@ -36,7 +36,7 @@ bool keywordEnum(MavenCompiler* c, string identifier, string code) {
 	}
 	
 	for(int i = 0; i < elements.length(); ++i) {
-		// FIXME: get the 'default'
+		// bug #31: get the 'default'
 		MavenEnumItem item;
 		
 		StringList parts = split('=', elements[i]);

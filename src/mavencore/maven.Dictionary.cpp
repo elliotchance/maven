@@ -12,7 +12,7 @@ namespace maven {
 	}
 	
 	maven_boolean Dictionary::keyExists(maven::Object* key) {
-		// FIXME: !!
+		// bug #48: needs to be completed
 		catchNilObjectException(key, return false);
 		//if(!strcmp(d->key->s, key->s)) return true;
 		return false;

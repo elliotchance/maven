@@ -22,7 +22,7 @@ string keywordCatch(MavenCompiler* c, string line, MavenVariable& catchVar) {
 	}
 	
 	// make sure the first word is the name of a class
-	// FIXME: and its extended from maven.Exception
+	// bug #26: and its extended from maven.Exception
 	int namespaceID, objectID;
 	findClass(c, words[0], namespaceID, objectID);
 	if(namespaceID < 0 || objectID < 0) {

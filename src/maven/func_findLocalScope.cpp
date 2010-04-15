@@ -37,10 +37,10 @@ string findLocalScope(MavenCompiler* c, string name, MavenVariable& r) {
 				path += "->" + parts[i];
 				r = c->namespaces[namespaceID].objects[objectID].variables[variableID];
 			} else {
-				// FIXME: ERROR
+				// bug #45: ERROR
 			}
 		} else {
-			// FIXME: ERROR
+			// bug #45: ERROR
 		}
 	}
 	

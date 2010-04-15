@@ -34,7 +34,7 @@ string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& n
 	// 8. the name of an enum object
 	// 9. the name of a function name (for @selector)
 	
-	// 1. FIXME: 'with' statement
+	// bug #14: 1. 'with' statement
 	if(c->withObject.name != "" && entity.substr(0, c->withObject.name.length()) != c->withObject.name) {
 		pushError(c, "maven does not support the 'with' statement");
 		return MAVEN_INVALID;

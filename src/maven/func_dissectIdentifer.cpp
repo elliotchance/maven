@@ -15,21 +15,23 @@
 #include "doc.h"
 #include "compiler_variables.h"
 
-// this function takes a block identifier(s) and returns the c++ processed equivilent
+/**
+ * @brief This function takes a block identifier(s) and returns the c++ processed equivilent.
+ */
 void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& closeFunction, bool& closeClass, bool& closeSwitch, bool& closeWith, MavenVariable& var, string& close) {
-	// FIXME: multiple identifiers in one like:
+	// bug #15: multiple identifiers in one like:
 	// its easier to say that a localScope is defined by curly brackets, hence
 	// in the case of:
 	// for() if() { }
 	// is still only a single localScope
 	
-	// FIXME: Seperately need to test for bracketless nested statements
+	// bug #16: Seperately need to test for bracketless nested statements
 	// if() if() a;
 	identifier = trim(identifier);
 	StringList p = splitNested(identifier);
 	//if(p.length() == 0) return;
 	if(p.length() > 1) {
-		// FIXME: which direction should this go?
+		// bug #16: which direction should this go?
 		for(int i = 0; i < p.length(); ++i)
 			dissectIdentifer(c, p[i], mode, closeFunction, closeClass, closeSwitch, closeWith, var, close);
 		return;
@@ -97,7 +99,7 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 				StringList types;
 				MavenMutability mut;
 				c->switchArgument = dissectCode(c, getStatementQuestion(identifier, actionStart), types, mut);
-				// FIXME: check switchArgument is not invalid
+				// bug #17: check switchArgument is not invalid
 				writeAutoCPPLine(c, "if(false) {");
 				close += "}";
 				closeSwitch = true;
@@ -110,14 +112,14 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 				close += "}";
 			}
 		} else if(prelim == "with") {
-			// FIXME: with() can not be nested
-			// FIXME: make sure object is valid
+			// bug #18: with() can not be nested
+			// bug #19: make sure object is valid
 			int namespaceID, objectID;
 			bool isLocal;
 			resolveVariable(c, identifier.substr(identifier.find('(') + 1, identifier.find(')') - identifier.find('(') - 1), c->withObject, namespaceID, objectID, isLocal, false);
 			closeWith = true;
 		} else if(isRegisteringFunction(c, identifier)) {
-			// FIXME: abc() { } looks like a function
+			// bug #20: abc() { } looks like a function
 			MavenFunction func = dissectFunction(c, identifier);
 			c->currentFunction = func.name;
 			closeFunction = true;

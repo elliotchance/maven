@@ -24,7 +24,8 @@ namespace maven {
 	
 	maven_boolean initMaven() {
 		// push current thread
-		// FIXME: to do with pthread_self()
+		// bug #25: to do with pthread_self()
+		
 		// init random number algorithm
 		mt[0] = time(NULL) & 0xffffffffUL;
 		

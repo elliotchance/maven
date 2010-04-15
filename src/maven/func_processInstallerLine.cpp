@@ -9,7 +9,6 @@
 bool processInstallerLine(MavenCompiler* c, string line, string packageName) {
 	// blank lines and comments are ignored
 	if(line == "" || line[0] == '#') return true;
-	// FIXME: spaces in files names
 	
 	// get line action
 	string action = "";

@@ -16,7 +16,7 @@ bool isOperator(string type) {
 	if(isBitwiseOperator(type)) return true;
 	
 	// valid maven operators
-	// FIXME: add all the operators here and the other place
+	// bug #56: add all the operators here and the other place
 	if(type == "+" || type == "-" || type == "*" || type == "/" || type == "%")
 		return true;
 	

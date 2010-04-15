@@ -10,7 +10,7 @@
 #include "compiler_operators.h"
 
 string validateOperator(MavenCompiler* c, string op, string type1, string type2, string& overloaded_function) {
-	// FIXME: Add all the operators
+	// bug #34: Add all the operators
 	
 	// overload check, find the base class
 	int nID = -1, oID = -1;

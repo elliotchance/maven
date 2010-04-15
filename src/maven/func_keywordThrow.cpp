@@ -16,9 +16,9 @@ string keywordThrow(MavenCompiler* c, string line) {
 	MavenMutability mut;
 	string newCode = dissectCode(c, line, types, mut);
 	
-	// FIXME: now we check that the throwable object is readable
+	// bug #36: now we check that the throwable object is readable
 	
-	// FIXME: now we check the 'types' returned is an extension of Exception.
+	// bug #37: now we check the 'types' returned is an extension of Exception.
 	
 	return "throw " + newCode;
 }

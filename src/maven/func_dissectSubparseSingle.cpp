@@ -35,8 +35,9 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	int findArguments = code.find('('), findElement = code.find('[');
 	string newObject = "";
 	string newArguments = "";
+	
 	if(findArguments != string::npos) {
-		// FIXME: find_last_of is not appropraite for separating dots
+		// bug #60: find_last_of is not appropraite for separating dots
 		newArguments = trim(code.substr(findArguments + 1, code.find_last_of(')') - findArguments - 1));
 		MavenMutability argumentsMut;
 		newArguments = dissectCode(c, newArguments, argumentTypes, argumentsMut);
@@ -45,7 +46,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	
 	string newElement = "";
 	if(findElement != string::npos)
-		// FIXME: find_last_of is not appropraite for separating dots
+		// bug #60: find_last_of is not appropraite for separating dots
 		newElement = trim(code.substr(findElement + 1, code.find_last_of(']') - findElement - 1));
 	
 	if(findArguments == string::npos && findElement == string::npos)
@@ -81,7 +82,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	// setup firstWord variable
 	string firstWord = "";
 	for(int i = 0; i < code.length(); ++i) {
-		// FIXME: make a isWhitespace() function?
+		// bug #57: make a isWhitespace() function?
 		if(code[i] == ' ' || code[i] == '\t' || code[i] == '\n')
 			break;
 		else firstWord += code[i];
@@ -92,8 +93,6 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 		mut = MU_OK;
 		r = "0";
 		string newType = "";
-		// FIXME: fill in the other arguments
-		// FIXME: if findArgument is string::npos we need an error
 		r = keywordNew(c, trim(newObject.substr(3)), newElement, newArguments, newType);
 		types.setTypes(newType);
 		return r;
@@ -119,9 +118,10 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			int oID = findObjectID(c, nID, "nil");
 			bool found = false;
 			for(int i = 0; i < c->namespaces[nID].objects[oID].functions.length(); ++i) {
-				// FIXME: check signature (pending)
+				// bug #61: check signature (pending)
 				if(c->namespaces[nID].objects[oID].functions[i].name == newObject &&
-				   canCastBetween(c, argumentTypes.join(","), c->namespaces[nID].objects[oID].functions[i].getSignature(), false, true)) {
+				   canCastBetween(c, argumentTypes.join(","),
+								  c->namespaces[nID].objects[oID].functions[i].getSignature(), false, true)) {
 					r += "(" + c->currentNamespace + "::nil::" + newObject + "(" + newArguments + "))";
 					prev.type = c->namespaces[nID].objects[oID].functions[i].returnType;
 					prev.name = "<RETURNED>";
@@ -130,6 +130,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					break;
 				}
 			}
+			
 			if(!found) {
 				r = MAVEN_INVALID;
 				pushError(c, "Can not find function %s(%s)", newObject, argumentTypes.join(","));
@@ -165,7 +166,8 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					break;
 				}
 			}
-			// FIXME: need to show candidates, see below
+			
+			// bug #58: need to show candidates, see below
 			if(!found) {
 				r = MAVEN_INVALID;
 				pushError(c, "%s does not have the member variable %s", prev.name, newObject);
@@ -175,13 +177,15 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 		} else {
 			
 			// perhaps a compiler function
+			// bug #59: Incomplete, this code needs to be enabled again.
 			if(newObject[0] == '@') {
 				/*if(newObject == "@cast")
 					return compilerFunctionCast(c, signature, args, type);
 				else if(newObject == "@library") {
-					// FIXME: this needs to be smarter
+					// bug #62: this needs to be smarter
 					args = trim(args);
-					c->extraLibraries.push(combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + args.substr(19, args.length() - 21));
+					c->extraLibraries.push(combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) +
+				 args.substr(19, args.length() - 21));
 					return "";
 				} else if(entity == "@selector")
 					return compilerFunctionSelector(c, signature, args, type);
@@ -199,7 +203,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			findClass(c, prev.type, namespaceID, objectID);
 			int found = 0;
 			for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].functions.length(); ++i) {
-				// FIXME: check signature (pending)
+				// bug #61: check signature (pending)
 				if(c->namespaces[namespaceID].objects[objectID].functions[i].name == newObject) {
 					found = 1;
 					if(canCastBetween(c, argumentTypes.join(","), c->namespaces[namespaceID].objects[objectID].functions[i].getSignature(), false, true)) {
@@ -231,7 +235,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 				return r;
 			} else if(found == 1) {
 				r = MAVEN_INVALID;
-				// FIXME: need to show candidates
+				// bug #58: need to show candidates
 				//if(prev.name[0] == '<')
 				pushError(c, "%s does not have the member method to match %s", prev.name, newObject + "(" + argumentTypes.join(",") + ")");
 				return r;

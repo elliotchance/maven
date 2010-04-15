@@ -17,7 +17,7 @@ bool pushObject(MavenCompiler* c, int namespaceID, MavenObject obj) {
 	
 	int objectID = findObjectID(c, namespaceID, obj.name);
 	if(objectID >= 0) {
-		// FIXME: obj.line shows the new line not the original definition
+		// bug #35: obj.line shows the new line not the original definition
 		pushError(c, "Class %s already defined (previously defined at line %s)", obj.name, intToString(obj.line));
 		return false;
 	}

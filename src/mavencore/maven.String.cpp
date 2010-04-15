@@ -88,7 +88,7 @@ namespace maven {
 	}
 	
 	maven::Data* String::toData() {
-		// FIXME: export as Data
+		// bug #49: export as Data
 		return new maven::Data();
 	}
 	

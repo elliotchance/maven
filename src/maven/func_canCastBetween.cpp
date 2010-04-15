@@ -32,7 +32,7 @@ bool canCastBetween(MavenCompiler* c, string type1, string type2, bool strict, b
 		return true;
 	}
 	
-	// FIXME: this should be smarter, for now we'll assume anything can be an Object
+	// bug #21: this should be smarter, for now we'll assume anything can be an Object
 	if(type1 == "maven.Object" && !isDataType(type2))
 		return true;
 	
@@ -162,7 +162,7 @@ bool canCastBetween(MavenCompiler* c, string type1, string type2, bool strict, b
 	}
 	
 	// we can have one type fit into another as long is it is extended
-	// FIXME: we have to look at the inheritence of the inheritence, etc
+	// bug #21: we have to look at the inheritence of the inheritence, etc
 	int nID1, oID1, nID2, oID2;
 	findClass(c, type1, nID1, oID1);
 	findClass(c, type2, nID2, oID2);

@@ -144,11 +144,11 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 	int objectID = findObjectID(c, namespaceID, c->currentClass);
 	
 	if(compiling && c->currentFunction != "") {
-		// FIXME: make sure this is the first time it's being registered
+		// bug #52: make sure this is the first time it's being registered
 		pushLocalScope(c, v);
 		
 		if(depth == 0) {
-			// FIXME: defval needs to match type
+			// bug #51: defval needs to match type
 			if(trim(v.defaultValue) == "")
 				v.defaultValue = "0";
 			writeAutoCPPLine(c, v.getCPP(c) + " = " + v.defaultValue + ";");

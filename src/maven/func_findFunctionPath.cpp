@@ -45,8 +45,7 @@ string findFunctionPath(MavenCompiler* c, string entity, MavenVariables args, in
 		if(found.size() == 0) {
 			namespaceID = objectID = -1;
 			
-			// local scope
-			// FIXME: localScope
+			// bug #46: local scope
 			/*for(int i = 0; i < localScope[localScope.size() - 1].length(); ++i) {
 				if(localScope[localScope.size() - 1][i].name == items[i]) {
 					findClass(localScope[localScope.size() - 1][i].type, namespaceID, objectID);

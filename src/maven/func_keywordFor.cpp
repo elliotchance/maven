@@ -45,12 +45,12 @@ bool keywordFor(MavenCompiler* c, string line, string& close) {
 		pushLocalScope(c, v);
 	}
 	
-	// FIXME: check that the 'middle part' of the 'for' is a boolean or number type
+	// bug #28: check that the 'middle part' of the 'for' is a boolean or number type
 	string cpp = "for(" + init;
 	cpp += "; " + dissectCode(c, trim(qp[1]), type, mut);
 	cpp += "; " + dissectCode(c, trim(qp[2]), type, mut) + "){";
 	
-	// FIXME: needs to count '()' brackets
+	// bug #29: needs to count '()' brackets
 	cpp += dissectCode(c, trim(line.substr(line.find(')', question.length()) + 1)), type, mut) + ";";
 	
 	// closure

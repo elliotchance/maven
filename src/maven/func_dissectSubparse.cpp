@@ -37,7 +37,7 @@ string dissectSubparse(MavenCompiler* c, MavenDissectBlock& b, string nextOp, St
 		return b.processed;
 	}
 	
-	// FIXME: maybe make this if into any keyword?
+	// bug #22: maybe make this if into any keyword?
 	if(b.original == "break" || b.original == "continue") {
 		b.types.setTypes(MAVEN_INVALID);
 		b.processed = b.original;

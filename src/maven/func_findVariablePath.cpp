@@ -8,7 +8,7 @@
 #include "compiler_find.h"
 #include "compiler_strings.h"
 
-// FIXME: is this being used anymore?
+// bug #43: is this being used anymore?
 string findVariablePath(MavenCompiler* c, string entity, int& namespaceID, int& objectID, int& variableID) {
 	// the difficulty with this is that the number of dots doesnt indicate which part (if any)
 	// is the namespace, class, variable and subvariables. So the way we do it is to try the first

@@ -24,7 +24,7 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 	if(isDataType(rawType)) {
 		type = appendArrayDepth(c, rawType, depth);
 		string r = "new maven::" + rawType + "Array(" + dissectCode(c, element, types, mut) + ")";
-		// FIXME: make sure types is 'int'
+		// bug #54: make sure types is 'int'
 		return r;
 	}
 	
@@ -55,7 +55,7 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 		return r + "(" + args + ")";
 	} else {
 		string elements = dissectCode(c, element, types, mut);
-		// FIXME: make sure types is 'int'
+		// bug #54: make sure types is 'int'
 		
 		string r = "new maven::";
 		if(isEnum) {

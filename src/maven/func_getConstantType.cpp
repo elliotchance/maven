@@ -6,7 +6,7 @@
 #include "maven.h"
 
 string getConstantType(string& test) {
-	// FIXME: '1f' is not valid, must be '1.0f'
+	// bug #47: '1f' is not valid, must be '1.0f'
 	
 	// boolean values
 	if(test == "true" || test == "false")

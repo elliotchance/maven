@@ -211,7 +211,7 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 			}
 		}
 		
-		// FIXME: big problem?
+		// bug #23: big problem?
 		if(dbs.size() == 0)
 			break;
 		

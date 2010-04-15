@@ -11,7 +11,7 @@
 bool importAll(MavenCompiler* c, string import, bool compiling) {
 	StringList parts = split('.', import);
 	
-	// FIXME: use readDirectory()
+	// bug #32: use readDirectory()
 	struct dirent *ep;
 	DIR* dp = opendir((combinePaths(c->currentDirectory, c->iniFile.getKey("directories.import")) + parts[0]).c_str());
 	if(dp != NULL) {

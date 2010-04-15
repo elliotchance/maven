@@ -11,7 +11,7 @@ MavenINI::MavenINI() {
 }
 
 bool MavenINI::setKey(string key, string value) {
-	// FIXME: check if the key exists
+	// bug #50: check if the key exists
 	MavenINIPair p;
 	p.k = key;
 	p.v = value;

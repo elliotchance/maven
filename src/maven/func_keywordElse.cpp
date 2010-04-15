@@ -12,7 +12,7 @@
 using namespace std;
 
 bool keywordElse(MavenCompiler* c, string line, string& close) {
-	// FIXME: some way to check that it immediatly follows an 'if'
+	// bug #27: some way to check that it immediatly follows an 'if'
 	StringList types;
 	MavenMutability mut;
 	string preaction = trim(line.substr(4, line.length() - 4));

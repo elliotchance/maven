@@ -11,7 +11,7 @@ void init(MavenCompiler* c) {
 	// open the required file handles
 	c->mapFileHandle.open((c->option_n + ".mmap").c_str());
 	c->cppFileHandle.open((c->option_n + ".cpp").c_str());
-	// FIXME: test for bad file handles
+	// bug #42: test for bad file handles
 
 	string mavencoreh = combinePaths(c->currentDirectory, c->iniFile.getKey("directories.src")) + "mavencore/mavencore.h";
 	writeCPPLine(c, string("#include \"") + mavencoreh + "\"");

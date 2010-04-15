@@ -12,8 +12,7 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 	c->mapFileHandle << "  // namespaceID: " << intToString(namespaceID)
 					 << " objectID: " << intToString(objectID) << endl;
 	
-	// skip String and System
-	// FIXME: is this needed?
+	// skip some internals
 	if(c->namespaces[namespaceID].name == "maven")
 		if(c->namespaces[namespaceID].objects[objectID].name == "Object" ||
 		   c->namespaces[namespaceID].objects[objectID].name == "String" ||

@@ -30,7 +30,7 @@ bool pushFunction(MavenCompiler* c, int namespaceID, int objectID, MavenFunction
 		return false;
 	}
 	
-	// FIXME: normally here I would simply use findFunctionID(c, ) to see if the function existed, however
+	// normally here I would simply use findFunctionID(c, ) to see if the function existed, however
 	// because inherited methods can be overloaded on multiple depths we need to have a manual
 	// look through
 	for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].functions.length(); ++i) {
@@ -38,7 +38,8 @@ bool pushFunction(MavenCompiler* c, int namespaceID, int objectID, MavenFunction
 		   c->namespaces[namespaceID].objects[objectID].functions[i].getSignature() == func.getSignature()) {
 			if(c->namespaces[namespaceID].objects[objectID].functions[i].isInherited) {
 				// inherited function have to update the return type
-				c->namespaces[namespaceID].objects[objectID].functions[i].returnType = findMavenObjectPath(c, func.returnType);
+				c->namespaces[namespaceID].objects[objectID].functions[i].returnType =
+					findMavenObjectPath(c, func.returnType);
 			} else {
 				pushError(c, "Method %s already defined (previously defined at line %s)",
 						  c->namespaces[namespaceID].objects[objectID].functions[i].name +

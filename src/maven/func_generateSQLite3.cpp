@@ -8,7 +8,7 @@
 using namespace std;
 
 void generateSQLite3(MavenCompiler* c) {
-	// FIXME: build db
+	// bug #33: build db
 	system("rm -f docs.sqlite");
 	system("cat docs.sql | sqlite3 docs.sqlite");
 	//system("rm docs.sql");
