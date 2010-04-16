@@ -160,16 +160,16 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 		
 		// make sure this is the first time it's being registered
 		
-		for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].variables.length(); ++i) {
+		/*for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].variables.length(); ++i) {
 			if(c->namespaces[namespaceID].objects[objectID].variables[i].name == v.name) {
 				cout << "Registering '" << c->namespaces[namespaceID].objects[objectID].variables[i].name
 					 << "' Looking in '" << c->namespaces[namespaceID].objects[objectID].name << "'\n";
-				/*if(c->namespaces[namespaceID].objects[objectID].variables[i].isInherited)
+				if(c->namespaces[namespaceID].objects[objectID].variables[i].isInherited)
 					pushError(c, "You can not override inherited variable %s", v.name);
 				else pushError(c, "Duplicate variable '%s', previously defined at line %s", v.name, intToString(c->namespaces[namespaceID].objects[objectID].variables[i].atLine));
-				return false;*/
+				return false;
 			}
-		}
+		}*/
 		
 		pushVariable(c, namespaceID, objectID, v);
 		if(c->currentClass == MAVEN_BARE_CLASS && tokens.length() > 2) {

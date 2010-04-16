@@ -8,7 +8,7 @@
 #include "keywords.h"
 
 bool includeLibraryIfExists(MavenCompiler* c, string import) {
-	string look = combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + import + ".o";
+	string look = combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) + import + ".o";
 	if(fileExists(look))
 		c->extraLibraries.push(look);
 	return true;

@@ -34,7 +34,10 @@ void MavenVariable::reset() {
 	isStatic = false;
 	mutability = MU_OK;
 	isPublic = false;
-	doc = "";
 	isInherited = false;
 	isExternal = false;
+}
+
+string MavenVariable::getAnchorID() {
+	return name;
 }

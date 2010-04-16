@@ -76,7 +76,7 @@ void generateSQL(MavenCompiler* c) {
 		sql
 		<< "insert into namespaces (id, doc, namespaceName) values ("
 		<< namespaceID << ","
-		<< sqlSafe(c->namespaces[i].doc) << ","
+		<< sqlSafe(c->namespaces[i].doc.body) << ","
 		<< sqlSafe(c->namespaces[i].name) << ");" << endl;
 		
 		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
@@ -86,7 +86,7 @@ void generateSQL(MavenCompiler* c) {
 			<< classID << ","
 			<< namespaceID << ","
 			<< c->namespaces[i].objects[j].line << ","
-			<< sqlSafe(c->namespaces[i].objects[j].doc) << ","
+			<< sqlSafe(c->namespaces[i].objects[j].doc.body) << ","
 			<< sqlSafe(c->namespaces[i].objects[j].name) << ","
 			<< sqlSafe(c->namespaces[i].objects[j].isAbstract) << ","
 			<< sqlSafe(c->namespaces[i].objects[j].isFinal) << ","
@@ -99,7 +99,7 @@ void generateSQL(MavenCompiler* c) {
 				<< globalID++ << ","
 				<< classID << ","
 				<< c->namespaces[i].objects[j].variables[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].doc) << ","
+				<< sqlSafe(c->namespaces[i].objects[j].variables[k].doc.body) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].variables[k].type) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].variables[k].name) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].variables[k].isPublic) << ","
@@ -113,7 +113,7 @@ void generateSQL(MavenCompiler* c) {
 				<< globalID++ << ","
 				<< classID << ","
 				<< c->namespaces[i].objects[j].functions[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].doc) << ","
+				<< sqlSafe(c->namespaces[i].objects[j].functions[k].doc.body) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].functions[k].returnType) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].functions[k].name) << ","
 				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isPublic) << ","

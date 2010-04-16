@@ -83,6 +83,44 @@ public:
 	void trim();
 };
 
+struct MavenDocTag {
+	
+	/**
+	 * @brief The main body of the documentation.
+	 */
+	string body;
+	
+	/**
+	 * @brief \@brief.
+	 */
+	string tagBrief;
+	
+	/**
+	 * @brief \@param.
+	 */
+	StringList tagParam;
+	
+	/**
+	 * @brief \@return.
+	 */
+	string tagReturn;
+	
+	/**
+	 * @brief \@since.
+	 */
+	string tagSince;
+	
+	/**
+	 * @brief \@throws.
+	 */
+	StringList tagThrows;
+	
+	/**
+	 * @brief \@version.
+	 */
+	string tagVersion;
+};
+
 class MavenVariable {
 public:
 	string name;
@@ -92,7 +130,7 @@ public:
 	bool isStatic;
 	MavenMutability mutability;
 	bool isPublic;
-	string doc;
+	MavenDocTag doc;
 	bool isInherited;
 	bool isExternal;
 	
@@ -101,6 +139,7 @@ public:
 	MavenVariable(string _name, string _type);
 	string getCPP(MavenCompiler* mc);
 	void reset();
+	string getAnchorID();
 };
 
 class MavenVariables {
@@ -122,7 +161,7 @@ public:
 	MavenVariables args;
 	string descArgs;
 	int atLine;
-	string doc;
+	MavenDocTag doc;
 	bool isPublic;
 	bool isConstant;
 	bool isStatic;
@@ -137,6 +176,7 @@ public:
 	MavenFunction();
 	string getCPPLine(MavenCompiler* mc, string className, bool isVirtual = false);
 	string getSignature();
+	string getAnchorID();
 };
 
 class MavenFunctions {
@@ -175,7 +215,7 @@ public:
 	bool isAbstract;
 	bool isFinal;
 	int line;
-	string doc;
+	MavenDocTag doc;
 	MavenVariables variables;
 	MavenFunctions functions;
 	string extends;
@@ -199,7 +239,7 @@ public:
 class MavenNamespace {
 public:
 	string name;
-	string doc;
+	MavenDocTag doc;
 	MavenObjects objects;
 	vector<MavenEnum> enums;
 };
@@ -332,8 +372,17 @@ public:
 	string doc;
 	vector<MavenBrackets> bracketStack;
 	vector<MavenObjectDiscovery> discovery;
+	
+	/**
+	 * @brief The total number of lines parsed.
+	 */
 	int totalLines;
+	
+	/**
+	 * @brief The total number of files parsed.
+	 */
 	int totalFiles;
+	
 	long start;
 	
 	/**
@@ -352,9 +401,14 @@ public:
 	string beforeLine;
 	
 	/**
-	 * @brief Filled when the MavenCompiler object is created.
+	 * @brief The current directory is where maven is executed from, not where maven is located.
 	 */
 	string currentDirectory;
+	
+	/**
+	 * @brief The location of the bin/ directory that the maven executable resides in.
+	 */
+	string binDirectory;
 	
 	/**
 	 * @brief Filled with maven.ini before each maven compile.
@@ -401,7 +455,7 @@ public:
 	/**
 	 * @brief Show help and quit.
 	 */
-	bool   option_h;
+	bool option_h;
 	
 	/**
 	 * @brief Input file(s)

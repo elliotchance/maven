@@ -86,38 +86,63 @@ namespace util {
 		return 0;
 	}
 	
+	/**
+	 * Returns true if the current cpu supports MMX instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::MMX() {
 		return CPUID(0x0000001, 23, 'D');
 	}
 
+	/**
+	 * Returns true if the current cpu supports SSE instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE() {
 		return CPUID(0x0000001, 25, 'D');
 	}
 
+	/**
+	 * Returns true if the current cpu supports SSE2 instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE2() {
 		return CPUID(0x0000001, 26, 'D');
 	}
 	
+	/**
+	 * Returns true if the current cpu supports SSE3 instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE3() {
 		return CPUID(0x0000001, 0, 'C');
 	}
-
+		
+	/**
+	 * Returns true if the current cpu supports SSSE3 instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSSE3() {
 		return CPUID(0x0000001, 9, 'C');
 	}
 
+	/**
+	 * Returns true if the current cpu supports SSE4A instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE4A() {
 		return CPUID(0x80000001, 6, 'C');
 	}
 
+	/**
+	 * Returns true if the current cpu supports SSE4.1 instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE41() {
 		return CPUID(0x0000001, 19, 'C');
 	}
 
+	/**
+	 * Returns true if the current cpu supports SSE4.2 instructions; otherwise returns false.
+	 */
 	maven_boolean SystemArchitecture::SSE42() {
 		return CPUID(0x0000001, 20, 'C');
 	}
-	maven_boolean SystemArchitecture::P16BATOMIC() {
+	
+	maven_boolean SystemArchitecture::P16BATOMIC() {				
 		return CPUID(0x0000001, 13, 'C');
 	}
 
@@ -125,4 +150,22 @@ namespace util {
 		return CPUID(0x80000001, 29, 'D');
 	}
 	
+	/**
+	 * Returns true if the current cpu is multi processor capable, note that a true result from
+	 * this does not indicate that there are multi processors in the system just that the cpu is
+	 * capable of being used in a multi processor configuration.
+	 */
+	maven_boolean SystemArchitecture::multiProcessorCapable() {
+		return CPUID(0x80000001, 19, 'D');
+	}
+
+	maven_int SystemArchitecture::totalCores() {
+		unsigned int ret = CPUID(0x00000001, 'A');
+
+		ret = ret & 15;
+		ret = ret >> 1;
+		ret = ret - 1;
+
+		return ret;
+	}
 }

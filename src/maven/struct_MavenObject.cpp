@@ -16,7 +16,6 @@ void MavenObject::reset() {
 	isAbstract = false;
 	isFinal = false;
 	line = 0;
-	doc = "";
 	//MavenVariables variables;
 	//MavenFunctions functions;
 	extends = "";

@@ -20,7 +20,8 @@ void extendObject(MavenCompiler* c, MavenObject& o, string extendClass) {
 	// abstract classes can only extend other abstract classes
 	if(o.isAbstract && !c->namespaces[namespaceID].objects[objectID].isAbstract &&
 	   c->namespaces[namespaceID].objects[objectID].name != "Object") {
-		pushError(c, "Abstract class '%s' can not inherit from non-abstract '%s'", o.name, c->namespaces[namespaceID].objects[objectID].name);
+		pushError(c, "Abstract class '%s' can not inherit from non-abstract '%s'", o.name,
+				  c->namespaces[namespaceID].objects[objectID].name);
 		return;
 	}
 	
@@ -38,8 +39,8 @@ void extendObject(MavenCompiler* c, MavenObject& o, string extendClass) {
 	
 	// variables
 	for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].variables.length(); ++i) {
-		MavenVariable v = c->namespaces[namespaceID].objects[objectID].variables[i];
+		/*MavenVariable v = c->namespaces[namespaceID].objects[objectID].variables[i];
 		v.isInherited = true;
-		o.variables.push(v);
+		o.variables.push(v);*/
 	}
 }

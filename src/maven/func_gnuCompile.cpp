@@ -12,7 +12,7 @@ void gnuCompile(MavenCompiler* c) {
 	cmd += extraLibraries.join(" ") + " ";
 	cmd += option_n + ".cpp -o " + option_n + ".o";*/
 	
-	string mavencorelib = combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + "libmavencore.a";
+	string mavencorelib = combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) + "libmavencore.a";
 	string cmd = string("g++ -O3 ");
 	for(int i = 0; i < c->extraLibraries.length(); ++i)
 	 	cmd += string("\"") + trim(c->extraLibraries[i]) + "\" ";

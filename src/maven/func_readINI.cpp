@@ -6,12 +6,14 @@
 #include "maven.h"
 #include "compiler_errors.h"
 #include "compiler_init.h"
+#include "compiler_strings.h"
 
 void readINI(MavenCompiler* c) {
 	ifstream ifile;
-	ifile.open(MAVEN_INI_LOCATION);
+	string maven_ini_location = combinePaths(c->binDirectory, MAVEN_INI_LOCATION, false);
+	ifile.open(maven_ini_location.c_str());
 	if(!ifile.is_open()) {
-		pushWarning(c, "Can't open %s", MAVEN_INI_LOCATION);
+		pushWarning(c, "Can't open %s", maven_ini_location);
 		return;
 	}
 	

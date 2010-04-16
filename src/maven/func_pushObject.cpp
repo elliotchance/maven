@@ -18,7 +18,8 @@ bool pushObject(MavenCompiler* c, int namespaceID, MavenObject obj) {
 	int objectID = findObjectID(c, namespaceID, obj.name);
 	if(objectID >= 0) {
 		// bug #35: obj.line shows the new line not the original definition
-		pushError(c, "Class %s already defined (previously defined at line %s)", obj.name, intToString(obj.line));
+		pushError(c, "Class %s already defined (previously defined at line %s)", obj.name,
+				  intToString(obj.line));
 		return false;
 	}
 	
@@ -26,7 +27,8 @@ bool pushObject(MavenCompiler* c, int namespaceID, MavenObject obj) {
 	c->namespaces[namespaceID].objects.push(obj);
 	
 	// push discovery, so the classes can be mapped back in the same order
-	c->discovery.push_back(MavenObjectDiscovery(namespaceID, c->namespaces[namespaceID].objects.length() - 1));
+	c->discovery.push_back(MavenObjectDiscovery(namespaceID,
+												c->namespaces[namespaceID].objects.length() - 1));
 										
 	return true;
 }

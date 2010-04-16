@@ -29,7 +29,7 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 	// if() if() a;
 	identifier = trim(identifier);
 	StringList p = splitNested(identifier);
-	//if(p.length() == 0) return;
+	if(p.length() == 0) return;
 	if(p.length() > 1) {
 		// bug #16: which direction should this go?
 		for(int i = 0; i < p.length(); ++i)
@@ -139,7 +139,8 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 			
 			if(mode == MAVEN_ONLY_MAP) {
 				func.doc = filterDoc(c, c->doc);
-				pushFunction(c, findNamespaceID(c, c->currentNamespace), findObjectID(c, findNamespaceID(c, c->currentNamespace), c->currentClass), func);
+				pushFunction(c, findNamespaceID(c, c->currentNamespace),
+							 findObjectID(c, findNamespaceID(c, c->currentNamespace), c->currentClass), func);
 				c->doc = "";
 			}
 		} else if(isRegisteringVariable(c, smartTokens(identifier))) {

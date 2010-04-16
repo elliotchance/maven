@@ -57,7 +57,7 @@ bool mapLine(MavenCompiler* c, string line) {
 	MavenVariable var;
 	if(isRegisteringVariable(c, tokens))
 		return registerVariable(c, tokens, false, var);
-	else if(tokens[0] == "external") {
+	/*else if(tokens[0] == "external") {
 		// external can mean a function or a variable
 		if(line.find('(') == string::npos) {
 			return registerVariable(c, tokens, false, var);
@@ -65,12 +65,15 @@ bool mapLine(MavenCompiler* c, string line) {
 			MavenFunction func = dissectFunction(c, line);
 			if(func.name != "") {
 				func.doc = filterDoc(c, c->doc);
-				pushFunction(c, findNamespaceID(c, c->currentNamespace), findObjectID(c, findNamespaceID(c, c->currentNamespace), c->currentClass), func);
+				pushFunction(c, findNamespaceID(c, c->currentNamespace),
+							 findObjectID(c, findNamespaceID(c, c->currentNamespace), c->currentClass), func);
 				c->doc = "";
 				return true;
 			}
 		}
-	}
+	}*/
+	printAllNamespaces(c);
+	exit(0);
 	
 	// I don't know what this is, let the compiler check it
 	return true;

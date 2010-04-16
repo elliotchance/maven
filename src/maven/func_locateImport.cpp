@@ -9,7 +9,7 @@
 #include "keywords.h"
 
 string locateImport(MavenCompiler* c, string import) {
-	string file = combinePaths(c->currentDirectory, c->iniFile.getKey("directories.import"));
+	string file = combinePaths(c->binDirectory, c->iniFile.getKey("directories.import"));
 	for(int i = 0; i < import.length(); ++i) {
 		if(import[i] == '.') file += "/";
 		else file += import[i];
@@ -19,7 +19,7 @@ string locateImport(MavenCompiler* c, string import) {
 	// make sure the file exists
 	if(!fileExists(file)) {
 		pushError(c, "Can't find import %s, looking in %s", import,
-				  c->iniFile.getKey("directories.import"));
+				  combinePaths(c->binDirectory, c->iniFile.getKey("directories.import")));
 		return "";
 	}
 	

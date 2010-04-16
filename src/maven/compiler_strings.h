@@ -24,3 +24,4 @@ MAVEN_DECL void       skipWhitespace(string& str, int& cursor);
 MAVEN_DECL string     nativeToObject(string type);
 MAVEN_DECL string     processScalarString(string in, bool warn);
 MAVEN_DECL string     removeExtension(string file);
+MAVEN_DECL bool       makeDirectory(string path);

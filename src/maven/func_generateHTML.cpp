@@ -5,92 +5,513 @@
 
 #include "maven.h"
 #include "doc.h"
+#include "compiler_strings.h"
+#include "compiler_mapfile.h"
 
 using namespace std;
 
-/*
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- <html xmlns="http://www.w3.org/1999/xhtml">
- <head>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <title>Untitled Document</title>
- </head>
- 
- <body>
- </body>
- </html>
-*/ 
+void generateHTMLMethodTags(ofstream& file, MavenFunction f);
+void generateHTMLVariableTags(ofstream& file, MavenVariable f);
+void generateHTMLHeader(ofstream& file);
+void generateHTMLFooter(ofstream& file);
+int  countNonInheritedVariables(MavenObject o);
+int  countConstructors(MavenObject o);
+int  countOperatorMethods(MavenObject o);
+int  countNonInheritedNormalMethods(MavenObject o);
+void generateHTMLMethodWords(ofstream& file, MavenFunction f);
+
+void generateHTMLMethodTags(ofstream& file, MavenFunction f) {
+	if(f.isPublic)
+		fileWriteLine(file, "[<span class=\"keyword\">public</span>] ");
+	else fileWriteLine(file, "[<span class=\"keyword\">private</span>] ");
+	if(f.isConstant)
+		fileWriteLine(file, "[<span class=\"keyword\">constant</span>] ");
+	if(f.isStatic)
+		fileWriteLine(file, "[<span class=\"keyword\">static</span>] ");
+	if(f.isExternal)
+		fileWriteLine(file, "[<span class=\"keyword\">external</span>] ");
+	if(f.isOverride)
+		fileWriteLine(file, "[override] ");
+	if(f.atLine > 0)
+		fileWriteLine(file, "[line " + intToString(f.atLine) + "]");
+}
+
+void generateHTMLVariableTags(ofstream& file, MavenVariable f) {
+	if(f.isPublic)
+		fileWriteLine(file, "[<span class=\"keyword\">public</span>] ");
+	else fileWriteLine(file, "[<span class=\"keyword\">private</span>] ");
+	if(f.isStatic)
+		fileWriteLine(file, "[<span class=\"keyword\">static</span>] ");
+	if(f.isExternal)
+		fileWriteLine(file, "[<span class=\"keyword\">external</span>] ");
+	if(f.atLine > 0)
+		fileWriteLine(file, "[line " + intToString(f.atLine) + "]");
+}
+
+void generateHTMLHeader(ofstream& file) {
+	fileWriteLine(file, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+	fileWriteLine(file, "<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+	fileWriteLine(file, "<head>");
+	fileWriteLine(file, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
+	fileWriteLine(file, "<title>maven documentation</title>");
+	fileWriteLine(file, "<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\" />");
+	fileWriteLine(file, "<script src=\"scripts.js\"></script>");
+	fileWriteLine(file, "</head>");
+	fileWriteLine(file, "<body>");
+}
+
+void generateHTMLFooter(ofstream& file) {
+	fileWriteLine(file, "</body>");
+	fileWriteLine(file, "</html>");
+}
+
+int countNonInheritedVariables(MavenObject o) {
+	int r = 0;
+	for(int i = 0; i < o.variables.length(); ++i) {
+		if(!o.variables[i].isInherited)
+			++r;
+	}
+	return r;
+}
+
+int countConstructors(MavenObject o) {
+	int r = 0;
+	for(int i = 0; i < o.functions.length(); ++i) {
+		if(o.functions[i].name == o.name)
+			++r;
+	}
+	return r;
+}
+
+int countOperatorMethods(MavenObject o) {
+	int r = 0;
+	for(int i = 0; i < o.functions.length(); ++i) {
+		if(o.functions[i].name.substr(0, 9) == "operator_")
+			++r;
+	}
+	return r;
+}
+
+int countNonInheritedNormalMethods(MavenObject o) {
+	int r = 0;
+	for(int i = 0; i < o.functions.length(); ++i) {
+		if(o.functions[i].isInherited)
+			continue;
+		if(o.functions[i].name.substr(0, 9) == "operator_")
+			continue;
+		if(o.functions[i].name == o.name)
+			continue;
+		++r;
+	}
+	return r;
+}
+
+void generateHTMLMethodWords(ofstream& file, MavenFunction f) {
+	if(f.isExternal)
+		fileWriteLine(file, "external");
+	if(f.isPublic)
+		fileWriteLine(file, " public");
+	else fileWriteLine(file, " private");
+	if(f.isConstant)
+		fileWriteLine(file, " constant");
+	if(f.isStatic)
+		fileWriteLine(file, " static");
+}
 
 void generateHTML(MavenCompiler* c) {
 	// create the folder
-	cout << "creating folder " << endl;
+	string docdir = combinePaths(c->currentDirectory, c->option_doc_html, true);
+	cout << "Creating folder " << docdir << endl;
+	makeDirectory(docdir);
 	
-	// handles
-	ofstream sql;
-	sql.open("docs.sql");
+	// CSS styles
+	cout << "Generating file " << docdir + "style.css" << endl;
+	ofstream cssfile;
+	cssfile.open((docdir + "style.css").c_str());
+	string cssfile_contents = "\
+	body {\n\
+	font-family: Verdana, Geneva, sans-serif;\n\
+	font-size: 12px;\n\
+	}\n\
+	.keyword {\n\
+	font-family: \"Courier New\", Courier, monospace;\n\
+	font-weight: bold;\n\
+	color: #639;\n\
+	}\n\
+	.entity {\n\
+	font-family: \"Courier New\", Courier, monospace;\n\
+	font-size: 12px;\n\
+	font-weight: bold;\n\
+	color: #000;\n\
+	}\n\
+	.fixed {\n\
+	font-family: \"Courier New\", Courier, monospace;\n\
+	}\n\
+	.bordertop {\n\
+	border-top: solid 1px #999;\n\
+	}\n\
+	.section {\n\
+	margin-bottom: 10px;\n\
+	padding-bottom: 10px;\n\
+	}\n\
+	.sectionhead {\n\
+	border-bottom: solid 1px #069;\n\
+	font-size: 16px;\n\
+	font-weight: bold;\n\
+	margin-bottom: 5px;\n\
+	}\n\
+	.sectionhead2 {\n\
+	font-size: 16px;\n\
+	font-weight: bold;\n\
+	margin-bottom: 5px;\n\
+	}\n\
+	.sectionmember {\n\
+	border-bottom: solid 1px #069;\n\
+	font-size: 16px;\n\
+	margin-bottom: 5px;\n\
+	font-family: Courier, monospace;\n\
+	}\n";
+	cssfile.write(cssfile_contents.c_str(), cssfile_contents.length());
+	cssfile.close();
 	
-	// namespaces
-	int globalID = 1;
+	// JavaScript
+	cout << "Generating file " << docdir + "scripts.js" << endl;
+	ofstream jsfile;
+	jsfile.open((docdir + "scripts.js").c_str());
+	string jsfile_contents = "\
+	function highlightMethod(id) {\n\
+	document.getElementById('methodlist' + id).bgColor = '#EEEEEE';\n\
+	}\n\
+	\n\
+	function unhighlightMethod(id) {\n\
+	document.getElementById('methodlist' + id).bgColor = '#FFFFFF';\n\
+	}\n\
+	";
+	jsfile.write(jsfile_contents.c_str(), jsfile_contents.length());
+	jsfile.close();
+	
+	// index page
+	cout << "Generating file " << docdir + "index.html" << endl;
+	ofstream mainfile;
+	mainfile.open((docdir + "index.html").c_str());
+	generateHTMLHeader(mainfile);
+	fileWriteLine(mainfile, "<frameset cols=\"200,*\" frameborder=\"yes\" border=\"1\" framespacing=\"0\">");
+	fileWriteLine(mainfile, "<frame src=\"classes.html\" name=\"leftFrame\" scrolling=\"Yes\" id=\"leftFrame\" title=\"leftFrame\" />");
+	fileWriteLine(mainfile, "<frame src=\"classes2.html\" name=\"mainFrame\" scrolling=\"Yes\" id=\"mainFrame\" title=\"mainFrame\" />");
+	fileWriteLine(mainfile, "</frameset>");
+	generateHTMLFooter(mainfile);
+	mainfile.close();
+	
+	// classes list
+	cout << "Generating file " << docdir + "classes.html" << endl;
+	ofstream classesfile;
+	classesfile.open((docdir + "classes.html").c_str());
+	generateHTMLHeader(classesfile);
+	fileWriteLine(classesfile, "<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr>");
+	fileWriteLine(classesfile, "<td bgcolor=\"#CCCCCC\" width=\"50%\" align=\"center\"><a href=\"classes.html\">Classes</a></td>");
+	fileWriteLine(classesfile, "<td bgcolor=\"#EEEEEE\" width=\"50%\" align=\"center\"><a href=\"namespaces.html\">Namespaces</a></td>");
+	fileWriteLine(classesfile, "</tr></table>");
 	for(int i = 0; i < c->namespaces.length(); ++i) {
-		int namespaceID = globalID++;
-		sql
-		<< "insert into namespaces (id, doc, namespaceName) values ("
-		<< namespaceID << ","
-		<< sqlSafe(c->namespaces[i].doc) << ","
-		<< sqlSafe(c->namespaces[i].name) << ");" << endl;
-		
 		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
-			int classID = globalID++;
-			sql
-			<< "insert into classes (id, pid, lineNumber, doc, className, isAbstract, isFinal, extendsClasses) values ("
-			<< classID << ","
-			<< namespaceID << ","
-			<< c->namespaces[i].objects[j].line << ","
-			<< sqlSafe(c->namespaces[i].objects[j].doc) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].name) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].isAbstract) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].isFinal) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].extends)
-			<< ");" << endl;
+			fileWriteLine(classesfile, "<a href=\"class_" + c->namespaces[i].name + "_" +
+						  c->namespaces[i].objects[j].name + ".html\" target=\"mainFrame\">" +
+						  c->namespaces[i].name + "." + c->namespaces[i].objects[j].name + "</a><br />");
+		}
+	}
+	generateHTMLFooter(classesfile);
+	classesfile.close();
+	
+	// classes list
+	cout << "Generating file " << docdir + "classes2.html" << endl;
+	ofstream classes2file;
+	classes2file.open((docdir + "classes2.html").c_str());
+	generateHTMLHeader(classes2file);
+	for(int i = 0; i < c->namespaces.length(); ++i) {
+		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
+			fileWriteLine(classes2file, "<a href=\"class_" + c->namespaces[i].name + "_" +
+						  c->namespaces[i].objects[j].name + ".html\" target=\"mainFrame\">" +
+						  c->namespaces[i].name + "." + c->namespaces[i].objects[j].name + "</a><br />");
+			fileWriteLine(classes2file, "Description here<br />");
+		}
+	}
+	generateHTMLFooter(classes2file);
+	classes2file.close();
+	
+	// namespaces list
+	cout << "Generating file " << docdir + "namespaces.html" << endl;
+	ofstream namespacesfile;
+	namespacesfile.open((docdir + "namespaces.html").c_str());
+	generateHTMLHeader(namespacesfile);
+	fileWriteLine(namespacesfile, "<table cellpadding=\"3\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr>");
+	fileWriteLine(namespacesfile, "<td bgcolor=\"#EEEEEE\" width=\"50%\" align=\"center\"><a href=\"classes.html\">Classes</a></td>");
+	fileWriteLine(namespacesfile, "<td bgcolor=\"#CCCCCC\" width=\"50%\" align=\"center\"><a href=\"namespaces.html\">Namespaces</a></td>");
+	fileWriteLine(namespacesfile, "</tr></table>");
+	for(int i = 0; i < c->namespaces.length(); ++i) {
+		fileWriteLine(namespacesfile, "<a href=\"namespace_" + c->namespaces[i].name +
+					  ".html\" target=\"mainFrame\">" + c->namespaces[i].name + "</a><br />");
+	}
+	generateHTMLFooter(classesfile);
+	namespacesfile.close();
+	
+	// classes
+	for(int i = 0; i < c->namespaces.length(); ++i) {
+		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
+			// create file
+			string outputfile = docdir + "class_" + c->namespaces[i].name + "_" + 
+			c->namespaces[i].objects[j].name + ".html";
+			cout << "Generating file " << outputfile << endl;
+			ofstream file;
+			file.open(outputfile.c_str());
+			generateHTMLHeader(file);
 			
-			// variables
-			for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
-				sql << "insert into variables (id, pid, lineNumber, doc, type, variableName, isPublic, isStatic) values ("
-				<< globalID++ << ","
-				<< classID << ","
-				<< c->namespaces[i].objects[j].variables[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].doc) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].type) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].name) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].isPublic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].isStatic)
-				<< ");" << endl;
+			fileWriteLine(file, "<h1>Class: <span class=\"fixed\">");
+			fileWriteLine(file, "<a href=\"namespace_" + c->namespaces[i].name +
+						  ".html\" target=\"mainFrame\">" + c->namespaces[i].name +
+						  "</a>.<a href=\"class_" + c->namespaces[i].name + "_" +
+						  c->namespaces[i].objects[j].name + ".html\">" +
+						  c->namespaces[i].objects[j].name + "</a></span></h1>");
+			
+			// inheritance
+			if(c->namespaces[i].objects[j].extends != "")
+				fileWriteLine(file, "<h1>Inherits from: <span class=\"fixed\"><a href=\"#\">" +
+							  c->namespaces[i].objects[j].extends + "</a></span></h1>");
+			
+			// class description
+			// FIXME: need a better way to check if MavenDocTag is in use
+			if(trim(c->namespaces[i].objects[j].doc.body) != "") {
+				fileWriteLine(file, "<div class=\"section\">");
+				fileWriteLine(file, "<div class=\"sectionhead\">Description</div>");
+				fileWriteLine(file, c->namespaces[i].objects[j].doc.body + "<br />");
+				fileWriteLine(file, "</div>");
 			}
 			
-			// functions
-			for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
-				sql << "insert into functions (id, pid, lineNumber, doc, returnType, functionName, isPublic, isStatic, isExternal, alias, isAliasSystem, arguments) values ("
-				<< globalID++ << ","
-				<< classID << ","
-				<< c->namespaces[i].objects[j].functions[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].doc) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].returnType) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].name) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isPublic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isStatic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isExternal) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].alias) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].alias_system) << ",";
+			// variables contents
+			if(countNonInheritedVariables(c->namespaces[i].objects[j]) > 0) {
+				fileWriteLine(file, "<div class=\"section\">");
+				fileWriteLine(file, "<div class=\"sectionhead2\">Member Variables</div>");
+				fileWriteLine(file, "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
 				
-				string arguments = "";
-				for(int l = 0; l < c->namespaces[i].objects[j].functions[k].args.length(); ++l) {
-					if(l) arguments += ", ";
-					arguments += c->namespaces[i].objects[j].functions[k].args[l].type + " "
-					+ c->namespaces[i].objects[j].functions[k].args[l].name;
+				for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
+					if(c->namespaces[i].objects[j].variables[k].isInherited)
+						continue;
+					
+					fileWriteLine(file, "<tr>");
+					fileWriteLine(file, "<td valign=\"top\" width=\"10\" style=\"white-space: nowrap\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"keyword\">");
+					
+					if(c->namespaces[i].objects[j].variables[k].isExternal)
+						fileWriteLine(file, "external");
+					if(c->namespaces[i].objects[j].variables[k].isPublic)
+						fileWriteLine(file, " public");
+					else fileWriteLine(file, " private");
+					if(c->namespaces[i].objects[j].variables[k].isStatic)
+						fileWriteLine(file, " static");
+					
+					fileWriteLine(file, "&nbsp;</span></td>");
+					fileWriteLine(file, "<td class=\"fixed bordertop\">");
+					fileWriteLine(file, "<span class=\"fixed\">" + c->namespaces[i].objects[j].variables[k].type);
+					fileWriteLine(file, " <span class=\"entity\"><a href=\"#" +
+								  c->namespaces[i].objects[j].variables[k].getAnchorID() + "\">" +
+								  c->namespaces[i].objects[j].variables[k].name + "</a>");
+					fileWriteLine(file, "</span></span></td>");
+					fileWriteLine(file, "</tr>");
+					fileWriteLine(file, "<tr>");
+					fileWriteLine(file, "<td nowrap=\"nowrap\">&nbsp;</td>");
+					fileWriteLine(file, "<td>" + c->namespaces[i].objects[j].variables[k].doc.body + "</td>");
+					fileWriteLine(file, "</tr>");
 				}
-				sql << sqlSafe(arguments)
-				<< ");" << endl;
+				
+				fileWriteLine(file, "</table>");
+				fileWriteLine(file, "</div>");
 			}
+			
+			// constructors contents
+			if(countConstructors(c->namespaces[i].objects[j]) > 0) {
+				fileWriteLine(file, "<div class=\"section\">");
+				fileWriteLine(file, "<div class=\"sectionhead2\">Constructors</div>");
+				fileWriteLine(file, "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
+				
+				for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
+					if(c->namespaces[i].objects[j].functions[k].name != c->namespaces[i].objects[j].name)
+						continue;
+					
+					fileWriteLine(file, "<tr onmouseover=\"highlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" onmouseout=\"unhighlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" id=\"methodlist" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">");
+					fileWriteLine(file, "<td valign=\"top\" width=\"10\" style=\"white-space: nowrap\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"keyword\">");
+					generateHTMLMethodWords(file, c->namespaces[i].objects[j].functions[k]);
+					fileWriteLine(file, "&nbsp;</span></td>");
+					
+					fileWriteLine(file, "<td valign=\"top\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"fixed\"><span class=\"entity\"><a href=\"#" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">" +
+								  c->namespaces[i].objects[j].functions[k].name + "</a></span>(" +
+								  c->namespaces[i].objects[j].functions[k].getSignature() +
+								  ")</span><br />");
+					fileWriteLine(file, c->namespaces[i].objects[j].functions[k].doc.body + "</td>");
+					fileWriteLine(file, "</tr>");
+				}
+				
+				fileWriteLine(file, "</table>");
+				fileWriteLine(file, "</div>");
+			}
+			
+			// functions contents
+			if(c->namespaces[i].objects[j].functions.length() > 0) {
+				fileWriteLine(file, "<div class=\"section\">");
+				fileWriteLine(file, "<div class=\"sectionhead2\">Member Methods</div>");
+				fileWriteLine(file, "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
+				
+				for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
+					if(c->namespaces[i].objects[j].functions[k].name.substr(0, 9) == "operator_")
+						continue;
+					if(c->namespaces[i].objects[j].functions[k].isInherited)
+						continue;
+					if(c->namespaces[i].objects[j].functions[k].name == c->namespaces[i].objects[j].name)
+						continue;
+					
+					fileWriteLine(file, "<tr onmouseover=\"highlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" onmouseout=\"unhighlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" id=\"methodlist" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">");
+					fileWriteLine(file, "<td valign=\"top\" width=\"10\" style=\"white-space: nowrap\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"keyword\">");
+					generateHTMLMethodWords(file, c->namespaces[i].objects[j].functions[k]);
+					fileWriteLine(file, "&nbsp;</span></td>");
+					
+					fileWriteLine(file, "<td valign=\"top\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"fixed\"><span class=\"entity\"><a href=\"#" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">" +
+								  c->namespaces[i].objects[j].functions[k].name + "</a></span>(" +
+								  c->namespaces[i].objects[j].functions[k].getSignature() +
+								  ")</span><br />");
+					fileWriteLine(file, c->namespaces[i].objects[j].functions[k].doc.body + "</td>");
+					fileWriteLine(file, "</tr>");
+				}
+				
+				fileWriteLine(file, "</table>");
+				fileWriteLine(file, "</div>");
+			}
+			
+			// operator methods contents
+			if(countOperatorMethods(c->namespaces[i].objects[j]) > 0) {
+				fileWriteLine(file, "<div class=\"section\">");
+				fileWriteLine(file, "<div class=\"sectionhead2\">Operators</div>");
+				fileWriteLine(file, "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
+				
+				for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
+					if(c->namespaces[i].objects[j].functions[k].name.substr(0, 9) != "operator_")
+						continue;
+					
+					fileWriteLine(file, "<tr onmouseover=\"highlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" onmouseout=\"unhighlightMethod('" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() +
+								  "')\" id=\"methodlist" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">");
+					fileWriteLine(file, "<td valign=\"top\" width=\"10\" style=\"white-space: nowrap\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"keyword\">");
+					generateHTMLMethodWords(file, c->namespaces[i].objects[j].functions[k]);
+					fileWriteLine(file, "&nbsp;</span></td>");
+					
+					fileWriteLine(file, "<td valign=\"top\" class=\"bordertop\">");
+					fileWriteLine(file, "<span class=\"fixed\"><span class=\"entity\"><a href=\"#" +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\">" +
+								  c->namespaces[i].objects[j].functions[k].name + "</a></span>(" +
+								  c->namespaces[i].objects[j].functions[k].getSignature() +
+								  ")</span><br />");
+					fileWriteLine(file, c->namespaces[i].objects[j].functions[k].doc.body + "</td>");
+					fileWriteLine(file, "</tr>");
+				}
+				
+				fileWriteLine(file, "</table>");
+				fileWriteLine(file, "</div>");
+			}
+			
+			// variables description
+			for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
+				if(!c->namespaces[i].objects[j].variables[k].isInherited) {
+					fileWriteLine(file, string("<a name=\"") +
+								  c->namespaces[i].objects[j].variables[k].getAnchorID() + "\" />");
+					fileWriteLine(file, "<div class=\"section\">");
+					fileWriteLine(file, "<div class=\"sectionmember\">");
+					fileWriteLine(file, "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr>");
+					fileWriteLine(file, "<td>" + c->namespaces[i].objects[j].variables[k].type + " <strong>" +
+								  c->namespaces[i].objects[j].variables[k].name + "</strong></td>");
+					fileWriteLine(file, "<td align=\"right\" style=\"font-size: 12px\">");
+					generateHTMLVariableTags(file, c->namespaces[i].objects[j].variables[k]);
+					fileWriteLine(file, "</strong></td></tr></table>");
+					fileWriteLine(file, "</div>");
+					fileWriteLine(file, c->namespaces[i].objects[j].variables[k].doc.body);
+					
+					fileWriteLine(file, "</div>");
+				}
+			}
+			
+			// functions description
+			for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
+				if(!c->namespaces[i].objects[j].functions[k].isInherited) {
+					fileWriteLine(file, string("<a name=\"") +
+								  c->namespaces[i].objects[j].functions[k].getAnchorID() + "\" />");
+					fileWriteLine(file, "<div class=\"section\">");
+					fileWriteLine(file, "<div class=\"sectionmember\">");
+					fileWriteLine(file, "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr>");
+					fileWriteLine(file, "<td><strong>" + c->namespaces[i].objects[j].functions[k].name +
+								  "</strong>(" + c->namespaces[i].objects[j].functions[k].getSignature() + ")</td>");
+					fileWriteLine(file, "<td align=\"right\" style=\"font-size: 12px\"><strong>");
+					generateHTMLMethodTags(file, c->namespaces[i].objects[j].functions[k]);
+					fileWriteLine(file, "</strong></td></tr></table>");
+					fileWriteLine(file, "</div>");
+					fileWriteLine(file, c->namespaces[i].objects[j].functions[k].doc.body);
+					
+					if(c->namespaces[i].objects[j].functions[k].doc.tagParam.length() > 0) {
+						fileWriteLine(file, string("<br /><b>Parameters</b>"));
+						for(int l = 0; l < c->namespaces[i].objects[j].functions[k].doc.tagParam.length(); ++l) {
+							fileWriteLine(file, string("<br />") +
+										  c->namespaces[i].objects[j].functions[k].doc.tagParam[l]);
+						}
+					}
+					if(c->namespaces[i].objects[j].functions[k].doc.tagReturn != "")
+						fileWriteLine(file, string("<br /><b>Return: </b>") +
+									  c->namespaces[i].objects[j].functions[k].doc.tagReturn);
+					if(c->namespaces[i].objects[j].functions[k].doc.tagSince != "")
+						fileWriteLine(file, string("<br /><b>Since: </b>") +
+									  c->namespaces[i].objects[j].functions[k].doc.tagSince);
+					if(c->namespaces[i].objects[j].functions[k].doc.tagThrows.length() > 0) {
+						fileWriteLine(file, string("<br /><b>Throws: </b>"));
+						for(int l = 0; l < c->namespaces[i].objects[j].functions[k].doc.tagThrows.length(); ++l) {
+							fileWriteLine(file, string("<br />") +
+										  c->namespaces[i].objects[j].functions[k].doc.tagThrows[l]);
+						}
+					}
+					if(c->namespaces[i].objects[j].functions[k].doc.tagVersion != "")
+						fileWriteLine(file, string("<br /><b>Version: </b>") +
+									  c->namespaces[i].objects[j].functions[k].doc.tagVersion);
+					
+					fileWriteLine(file, "</div>");
+				}
+			}
+			
+			// clean up
+			generateHTMLFooter(file);
+			file.close();
+			
+			/*
+			 
+			 string arguments = "";
+			 for(int l = 0; l < c->namespaces[i].objects[j].functions[k].args.length(); ++l) {
+			 if(l) arguments += ", ";
+			 arguments += c->namespaces[i].objects[j].functions[k].args[l].type + " "
+			 + c->namespaces[i].objects[j].functions[k].args[l].name;
+			 }
+			 sql << sqlSafe(arguments)
+			 }*/
 		}
 	}
 }

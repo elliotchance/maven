@@ -57,6 +57,8 @@ MavenFunction dissectFunction(MavenCompiler* c, string line) {
 	}
 	
 	// function arguments
+	smartAssertMessage(i < parts.length(),
+				"i = %d, parts.length() = %d", i, parts.length());
 	f.args = dissectArguments(c, parts[i++]);
 	
 	// if the function is not inside a class it has to be static and public

@@ -21,6 +21,8 @@ namespace util {
 		public_static_method maven_boolean SSE42();
 		public_static_method maven_boolean P16BATOMIC();
 		public_static_method maven_boolean LONGMODE();
+		public_static_method maven_boolean multiProcessorCapable();
+		public_static_method maven_int     totalCores();
 	};
 	
 }

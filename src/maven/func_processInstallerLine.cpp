@@ -24,24 +24,30 @@ bool processInstallerLine(MavenCompiler* c, string line, string packageName) {
 		// make sure the maven path exists for the package
 		StringList parts = split('.', line.substr(16, line.length() - 17));
 		
-		system((string(SYSTEM_MKDIR) + "\"" + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.import")) + parts.join("/", parts.length() - 2) + "\"").c_str());
+		system((string(SYSTEM_MKDIR) + "\"" + combinePaths(c->binDirectory,
+				c->iniFile.getKey("directories.import")) + parts.join("/", parts.length() - 2) + "\"").c_str());
 	
 		StringList importParts = split('.', line.substr(16, line.length() - 17));
 		
 		// remove old files
-		string system = string(SYSTEM_RM) + "\"" + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.import")) + parts.join("/", parts.length() - 2) + "/" + importParts.join(".", importParts.length() - 2, importParts.length() - 1) + "\"";
+		string system = string(SYSTEM_RM) + "\"" + combinePaths(c->binDirectory,
+				c->iniFile.getKey("directories.import")) + parts.join("/", parts.length() - 2) + "/" +
+				importParts.join(".", importParts.length() - 2, importParts.length() - 1) + "\"";
 		std::system(system.c_str());
 		
 		// move files to import/
 		system = string(SYSTEM_CP) + "\"" + packageName + "/" + line.substr(16, line.length() - 17);
-		system += string("\" \"") + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.import")) + parts.join("/", parts.length() - 2) + "/" + importParts.join(".", importParts.length() - 2, importParts.length() - 1) + "\"";
+		system += string("\" \"") + combinePaths(c->binDirectory, c->iniFile.getKey("directories.import")) +
+			parts.join("/", parts.length() - 2) + "/" + importParts.join(".", importParts.length() - 2,
+			importParts.length() - 1) + "\"";
 		std::system(system.c_str());
 		return true;
 	}
 	
 	if(action == "install-library") {
 		string system = string(SYSTEM_CP) + "\"" + packageName + "/" + line.substr(17, line.length() - 18);
-		system += string("\" \"") + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + packageName + ".o\"";
+		system += string("\" \"") + combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
+			packageName + ".o\"";
 		std::system(system.c_str());
 		return true;
 	}
@@ -53,12 +59,13 @@ bool processInstallerLine(MavenCompiler* c, string line, string packageName) {
 	
 	if(action == "compile-lib-c") {
 		string system = "gcc -w -c ";
-		system += string("-I\"") + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.src")) + "mavencore/\" ";
-		system += string("-I\"") + combinePaths(c->currentDirectory, packageName) + "\" ";
+		system += string("-I\"") + combinePaths(c->binDirectory, c->iniFile.getKey("directories.src")) +
+			"mavencore/\" ";
+		system += string("-I\"") + combinePaths(c->binDirectory, packageName) + "\" ";
 		StringList files = split(' ', line.substr(15, line.length() - 16));
 		for(int i = 0; i < files.length(); ++i)
 			system += "\"" + packageName + "/" + files[i] + "\" ";
-		system += " -o \"" + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + "/";
+		system += " -o \"" + combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) + "/";
 		system += removeExtension(line.substr(15, line.length() - 16)) + ".o\"";
 		
 		std::system(system.c_str());
@@ -67,12 +74,12 @@ bool processInstallerLine(MavenCompiler* c, string line, string packageName) {
 	
 	if(action == "compile-lib-cpp") {
 		string system = "g++ -w -c ";
-		system += string("-I\"") + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.src")) + "mavencore/\" ";
-		system += string("-I\"") + combinePaths(c->currentDirectory, packageName) + "\" ";
+		system += string("-I\"") + combinePaths(c->binDirectory, c->iniFile.getKey("directories.src")) + "mavencore/\" ";
+		system += string("-I\"") + combinePaths(c->binDirectory, packageName) + "\" ";
 		StringList files = split(' ', line.substr(17, line.length() - 18));
 		for(int i = 0; i < files.length(); ++i)
 			system += "\"" + packageName + "/" + files[i] + "\" ";
-		system += " -o \"" + combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) + "/";
+		system += " -o \"" + combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) + "/";
 		system += removeExtension(line.substr(17, line.length() - 18)) + ".o\"";
 		
 		std::system(system.c_str());

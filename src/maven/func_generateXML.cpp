@@ -19,14 +19,14 @@ void generateXML(MavenCompiler* c) {
 	// namespaces
 	for(int i = 0; i < c->namespaces.length(); ++i) {
 		xml << "<namespace name=\"" << c->namespaces[i].name << "\">" << endl;
-		xml << "  <doc><![CDATA[" << c->namespaces[i].doc << "]]></doc>" << endl;
+		xml << "  <doc><![CDATA[" << c->namespaces[i].doc.body << "]]></doc>" << endl;
 		
 		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
 			xml << "  <class name=\"" << c->namespaces[i].objects[j].name
 			<< "\" line=\"" << c->namespaces[i].objects[j].line << "\" isAbstract=\""
 			<< sqlSafe(c->namespaces[i].objects[j].isAbstract) << "\" isFinal=\""
 			<< sqlSafe(c->namespaces[i].objects[j].isFinal) << "\">" << endl;
-			xml << "    <doc><![CDATA[" << c->namespaces[i].objects[j].doc << "]]></doc>" << endl;
+			xml << "    <doc><![CDATA[" << c->namespaces[i].objects[j].doc.body << "]]></doc>" << endl;
 			
 			// variables
 			for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
@@ -35,7 +35,7 @@ void generateXML(MavenCompiler* c) {
 				<< "\" line=\"" << c->namespaces[i].objects[j].variables[k].atLine
 				<< "\" isPublic=\"" << sqlSafe(c->namespaces[i].objects[j].variables[k].isPublic)
 				<< "\" isStatic=\"" << sqlSafe(c->namespaces[i].objects[j].variables[k].isStatic) << "\">" << endl;
-				xml << "      <doc><![CDATA[" << c->namespaces[i].objects[j].variables[k].doc << "]]></doc>" << endl;
+				xml << "      <doc><![CDATA[" << c->namespaces[i].objects[j].variables[k].doc.body << "]]></doc>" << endl;
 				xml << "    </variable>" << endl;
 			}
 			
@@ -50,7 +50,7 @@ void generateXML(MavenCompiler* c) {
 				<< "\" isAliasSystem=\"" << sqlSafe(c->namespaces[i].objects[j].functions[k].alias_system)
 				<< "\">" << endl;
 				xml << "      <alias>" << c->namespaces[i].objects[j].functions[k].alias << "</alias>" << endl;
-				xml << "      <doc><![CDATA[" << c->namespaces[i].objects[j].functions[k].doc << "]]></doc>" << endl;
+				xml << "      <doc><![CDATA[" << c->namespaces[i].objects[j].functions[k].doc.body << "]]></doc>" << endl;
 				xml << "      <arguments>" << endl;
 				
 				for(int l = 0; l < c->namespaces[i].objects[j].functions[k].args.length(); ++l) {

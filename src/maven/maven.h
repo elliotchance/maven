@@ -33,6 +33,27 @@ using namespace std;
 #define MAVEN_ONLY_COMPILE     2
 #define MAVEN_LOCALSCOPE       1000000
 
+#define smartAssert(e) \
+	if(!(e)) { \
+		printf("Assertion Failed: %s\n", #e); \
+		printf("            File: %s\n", __FILE__); \
+		printf("        Function: %s\n", __PRETTY_FUNCTION__); \
+		printf("            Line: %d\n", __LINE__); \
+		exit(1); \
+	}
+
+#define smartAssertMessage(e, fmt, ...) \
+	if(!(e)) { \
+		printf("Assertion Failed: %s\n", #e); \
+		printf("            File: %s\n", __FILE__); \
+		printf("        Function: %s\n", __PRETTY_FUNCTION__); \
+		printf("            Line: %d\n", __LINE__); \
+		printf("         Message: "); \
+		printf(fmt, __VA_ARGS__); \
+		printf("\n"); \
+		exit(1); \
+	}
+
 /**
  * This is placed before each function declaration.
  */

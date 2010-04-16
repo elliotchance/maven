@@ -6,7 +6,7 @@
 #include "maven.h"
 
 void gnuLink(MavenCompiler* c) {
-	/*string mavencorelib = combinePaths(currentDirectory, iniFile.getKey("directories.lib")) + "libmavencore.a";
+	/*string mavencorelib = combinePaths(c->binDirectory, iniFile.getKey("directories.lib")) + "libmavencore.a";
 	string cmd = string("g++ ");
 	cmd += extraLibraries.join(" ") + " ";
 	cmd += option_n + ".o " + mavencorelib + " -o " + option_n;

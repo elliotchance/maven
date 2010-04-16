@@ -13,9 +13,12 @@
 #include "compiler_init.h"
 #include "doc.h"
 #include "installer.h"
+#include "compiler_strings.h"
 
 int main(int argc, char** argv) {
     MavenCompiler* c = new MavenCompiler();
+	c->binDirectory = combinePaths(c->currentDirectory, argv[0], false);
+	c->binDirectory = c->binDirectory.substr(0, c->binDirectory.find_last_of('/'));
 	
 	// read INI file
 	readINI(c);
@@ -38,6 +41,7 @@ int main(int argc, char** argv) {
 	mapLine(c, "import maven.String");
 	mapLine(c, "import maven.System");
 	mapLine(c, "import maven.*");
+	
 	for(int i = 0; i < 1; ++i) {
 		compileFile(c, c->option_n + ".mav", MAVEN_ONLY_MAP);
 		if(isErrors(c)) {

@@ -184,7 +184,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 				else if(newObject == "@library") {
 					// bug #62: this needs to be smarter
 					args = trim(args);
-					c->extraLibraries.push(combinePaths(c->currentDirectory, c->iniFile.getKey("directories.lib")) +
+					c->extraLibraries.push(combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
 				 args.substr(19, args.length() - 21));
 					return "";
 				} else if(entity == "@selector")
