@@ -212,8 +212,8 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 				MavenFunction f;
 				
 				// Object.copy()
-				if(!c->namespaces[nID].objects[oID].isAbstract) {
-					f.returnType = c->namespaces[nID].name + "." + c->namespaces[nID].objects[oID].name;
+				if(!c->namespaces->at(nID).objects->at(oID)->isAbstract) {
+					f.returnType = c->namespaces->at(nID).name + "." + c->namespaces->at(nID).objects->at(oID)->name;
 					f.name = "copy";
 					f.isConstant = true;
 					f.isOverride = true;
@@ -221,21 +221,23 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					pushFunction(c, nID, oID, f);
 					
 					// skip some classes
-					if(f.returnType != "maven.String" && f.returnType != "maven.System" && f.returnType != "maven.Selector" && f.returnType != "maven.Array") {
+					if(f.returnType != "maven.String" && f.returnType != "maven.System" &&
+					   f.returnType != "maven.Selector" && f.returnType != "maven.Array") {
 						writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 						writeCPPLine(c, f.getCPPLine(c, c->currentClass) + "{");
 						writeCPPLine(c, findObjectPath(c, f.returnType, true) + " r = new " + findObjectPath(c, f.returnType, false) + "();");
-						for(int i = 0; i < c->namespaces[nID].objects[oID].variables.length(); ++i) {
+						for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->variables->length(); ++i) {
 							// skip retain
-							if(c->namespaces[nID].objects[oID].variables[i].name == "retain")
+							if(c->namespaces->at(nID).objects->at(oID)->variables->at(i).name == "retain")
 								continue;
 							
 							// skip static variables
-							if(c->namespaces[nID].objects[oID].variables[i].isStatic)
+							if(c->namespaces->at(nID).objects->at(oID)->variables->at(i).isStatic)
 								continue;
 							
-							if(isDataType(c->namespaces[nID].objects[oID].variables[i].type))
-								writeCPPLine(c, "r->" + c->namespaces[nID].objects[oID].variables[i].name + " = this->" + c->namespaces[nID].objects[oID].variables[i].name + ";");
+							if(isDataType(c->namespaces->at(nID).objects->at(oID)->variables->at(i).type))
+								writeCPPLine(c, "r->" + c->namespaces->at(nID).objects->at(oID)->variables->at(i).name +
+											 " = this->" + c->namespaces->at(nID).objects->at(oID)->variables->at(i).name + ";");
 						}
 						writeCPPLine(c, "return r;");
 						writeCPPLine(c, "}");
@@ -255,11 +257,17 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 					writeCPPLine(c, f.getCPPLine(c, c->currentClass, false) + " {");
 					
-					writeCPPLine(c, string("maven::objectArray* variables = new maven::objectArray(") + intToString(c->namespaces[nID].objects[oID].variables.length()) + ");");
-					writeCPPLine(c, string("variables->a = (maven::Object**) new maven::ClassVariable[") + intToString(c->namespaces[nID].objects[oID].variables.length()) + "];");
+					writeCPPLine(c, string("maven::objectArray* variables = new maven::objectArray(") +
+								 intToString(c->namespaces->at(nID).objects->at(oID)->variables->length()) + ");");
+					writeCPPLine(c, string("variables->a = (maven::Object**) new maven::ClassVariable[") +
+								 intToString(c->namespaces->at(nID).objects->at(oID)->variables->length()) + "];");
 					
-					for(int i = 0; i < c->namespaces[nID].objects[oID].variables.length(); ++i)
-						writeCPPLine(c, "variables->a[" + intToString(i) + "] = new maven::ClassVariable(true, new maven::String(\"" + c->namespaces[nID].objects[oID].variables[i].name + "\"), new maven::String(\"" + c->namespaces[nID].objects[oID].variables[i].type + "\"));");
+					for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->variables->length(); ++i)
+						writeCPPLine(c, "variables->a[" + intToString(i) +
+									 "] = new maven::ClassVariable(true, new maven::String(\"" +
+									 c->namespaces->at(nID).objects->at(oID)->variables->at(i).name +
+									 "\"), new maven::String(\"" +
+									 c->namespaces->at(nID).objects->at(oID)->variables->at(i).type + "\"));");
 					
 					writeCPPLine(c, "return variables;");
 					writeCPPLine(c, "}");
@@ -281,23 +289,23 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					pushFunction(c, nID, oID, f);
 					
 					writeCPPLine(c, f.getCPPLine(c, c->currentClass, false) + " {");
-					for(int i = 0; i < c->namespaces[nID].objects[oID].functions.length(); ++i) {
+					for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->functions->length(); ++i) {
 						// skip some methods
-						if(c->namespaces[nID].objects[oID].functions[i].isStatic ||
-						   c->namespaces[nID].objects[oID].functions[i].name == "callMethodByName")
+						if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).isStatic ||
+						   c->namespaces->at(nID).objects->at(oID)->functions->at(i).name == "callMethodByName")
 							continue;
 						
 						// no constructors
-						if(c->namespaces[nID].objects[oID].functions[i].returnType == "<constructor>")
+						if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType == "<constructor>")
 							continue;
 						
 						StringList callArgs;
-						for(int j = 0; j < c->namespaces[nID].objects[oID].functions[i].args.length(); ++j) {
-							string toType = nativeToObject(c->namespaces[nID].objects[oID].functions[i].args[j].type).substr(6);
-							string toCast = findObjectPath(c, c->namespaces[nID].objects[oID].functions[i].args[j].type);
-							if(c->namespaces[nID].objects[oID].functions[i].args[j].type.find("[]") != string::npos) {
-								if(isDataType(c->namespaces[nID].objects[oID].functions[i].args[j].type))
-									toCast = "maven::" + c->namespaces[nID].objects[oID].functions[i].args[j].type + "Array*";
+						for(int j = 0; j < c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length(); ++j) {
+							string toType = nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type).substr(6);
+							string toCast = findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type);
+							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type.find("[]") != string::npos) {
+								if(isDataType(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type))
+									toCast = "maven::" + c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type + "Array*";
 								else toCast = "maven::objectArray*";
 							}
 							
@@ -307,17 +315,17 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 						}
 						
 						writeCPPLine(c, string("if(method->operator_3D3D(new maven::String(\"") +
-									 c->namespaces[nID].objects[oID].functions[i].name + "\")) && varargs->length == " +
-									 intToString(c->namespaces[nID].objects[oID].functions[i].args.length()) + ")");
+									 c->namespaces->at(nID).objects->at(oID)->functions->at(i).name + "\")) && varargs->length == " +
+									 intToString(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length()) + ")");
 						
-						if(c->namespaces[nID].objects[oID].functions[i].returnType == "void")
-							writeCPPLine(c, string("{ ") + c->namespaces[nID].objects[oID].functions[i].name +
+						if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType == "void")
+							writeCPPLine(c, string("{ ") + c->namespaces->at(nID).objects->at(oID)->functions->at(i).name +
 										 "(" + callArgs.join(",") + "); return new maven::Object(); }");
 						else {
-							string returnType = findObjectPath(c, nativeToObject(c->namespaces[nID].objects[oID].functions[i].returnType), false);
-							string realFunctionName = c->namespaces[nID].objects[oID].functions[i].name;
-							if(c->namespaces[nID].objects[oID].functions[i].alias != "")
-								realFunctionName = c->namespaces[nID].objects[oID].functions[i].alias;
+							string returnType = findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false);
+							string realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).name;
+							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias != "")
+								realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias;
 							if(returnType != "maven::Object")
 								writeCPPLine(c, string("return (maven::Object*) new ") + returnType +
 											 "(" + realFunctionName + "(" + callArgs.join(",") + "));");
@@ -339,23 +347,23 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					pushFunction(c, nID, oID, f);
 					
 					writeCPPLine(c, f.getCPPLine(c, c->currentClass, false) + " {");
-					for(int i = 0; i < c->namespaces[nID].objects[oID].functions.length(); ++i) {
+					for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->functions->length(); ++i) {
 						// skip some methods
-						if(!c->namespaces[nID].objects[oID].functions[i].isStatic ||
-						   c->namespaces[nID].objects[oID].functions[i].name == "callStaticMethodByName")
+						if(!c->namespaces->at(nID).objects->at(oID)->functions->at(i).isStatic ||
+						   c->namespaces->at(nID).objects->at(oID)->functions->at(i).name == "callStaticMethodByName")
 							continue;
 						
 						// no constructors
-						if(c->namespaces[nID].objects[oID].functions[i].returnType == "<constructor>")
+						if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType == "<constructor>")
 							continue;
 						
 						StringList callArgs;
-						for(int j = 0; j < c->namespaces[nID].objects[oID].functions[i].args.length(); ++j) {
-							string toType = nativeToObject(c->namespaces[nID].objects[oID].functions[i].args[j].type).substr(6);
-							string toCast = findObjectPath(c, c->namespaces[nID].objects[oID].functions[i].args[j].type);
-							if(c->namespaces[nID].objects[oID].functions[i].args[j].type.find("[]") != string::npos) {
-								if(isDataType(c->namespaces[nID].objects[oID].functions[i].args[j].type))
-									toCast = "maven::" + c->namespaces[nID].objects[oID].functions[i].args[j].type + "Array*";
+						for(int j = 0; j < c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length(); ++j) {
+							string toType = nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type).substr(6);
+							string toCast = findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type);
+							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type.find("[]") != string::npos) {
+								if(isDataType(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type))
+									toCast = "maven::" + c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type + "Array*";
 								else toCast = "maven::objectArray*";
 							}
 							
@@ -365,17 +373,17 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 						}
 						
 						writeCPPLine(c, string("if(method->operator_3D3D(new maven::String(\"") +
-									 c->namespaces[nID].objects[oID].functions[i].name + "\")) && varargs->length == " +
-									 intToString(c->namespaces[nID].objects[oID].functions[i].args.length()) + ")");
+									 c->namespaces->at(nID).objects->at(oID)->functions->at(i).name + "\")) && varargs->length == " +
+									 intToString(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length()) + ")");
 						
-						if(c->namespaces[nID].objects[oID].functions[i].returnType == "void")
-							writeCPPLine(c, string("{ ") + c->namespaces[nID].objects[oID].functions[i].name +
+						if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType == "void")
+							writeCPPLine(c, string("{ ") + c->namespaces->at(nID).objects->at(oID)->functions->at(i).name +
 										 "(" + callArgs.join(",") + "); return new maven::Object(); }");
 						else {
-							string returnType = findObjectPath(c, nativeToObject(c->namespaces[nID].objects[oID].functions[i].returnType), false);
-							string realFunctionName = c->namespaces[nID].objects[oID].functions[i].name;
-							if(c->namespaces[nID].objects[oID].functions[i].alias != "")
-								realFunctionName = c->namespaces[nID].objects[oID].functions[i].alias;
+							string returnType = findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false);
+							string realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).name;
+							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias != "")
+								realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias;
 							if(returnType != "maven::Object")
 								writeCPPLine(c, string("return (maven::Object*) new ") + returnType +
 											 "(" + realFunctionName + "(" + callArgs.join(",") + "));");

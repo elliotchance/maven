@@ -9,7 +9,7 @@ MAVEN_DECL void           dissectIdentifer(MavenCompiler* c, string identifier, 
 										   bool& closeClass, bool& closeSwitch, bool& closeWith,
 										   MavenVariable& var, string& close);
 MAVEN_DECL MavenVariable  dissectVariable(MavenCompiler* c, string line);
-MAVEN_DECL MavenObject    dissectObject(MavenCompiler* c, string line);
+MAVEN_DECL MavenObject*   dissectObject(MavenCompiler* c, string line);
 MAVEN_DECL MavenVariables dissectArguments(MavenCompiler* c, string line);
 MAVEN_DECL void           dissectCodeArguments(MavenCompiler* c, string& rawargs, string& blocktype);
 MAVEN_DECL string         dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMutability& mut,

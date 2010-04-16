@@ -52,16 +52,16 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 				pushError(c, "Keyword 'class' must follow 'abstract'");
 				return;
 			} else {
-				MavenObject o = dissectObject(c, identifier);
-				c->currentClass = o.name;
-				o.isAbstract = true;
+				MavenObject* o = dissectObject(c, identifier);
+				c->currentClass = o->name;
+				o->isAbstract = true;
 				if(mode == MAVEN_ONLY_MAP)
 					pushObject(c, findNamespaceID(c, c->currentNamespace), o);
 				closeClass = true;
 			}
 		} else if(prelim == "class") {
-			MavenObject o = dissectObject(c, identifier);
-			c->currentClass = o.name;
+			MavenObject* o = dissectObject(c, identifier);
+			c->currentClass = o->name;
 			if(mode == MAVEN_ONLY_MAP)
 				pushObject(c, findNamespaceID(c, c->currentNamespace), o);
 			closeClass = true;

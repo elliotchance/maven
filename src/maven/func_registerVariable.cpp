@@ -120,9 +120,9 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 		if(isEnum) {
 			int nid = findNamespaceID(c, c->currentNamespace);
 			int enumid = findEnumID(c, nid, v.type);
-			for(int i = 0; i < c->namespaces[nid].enums[enumid].items.size(); ++i) {
-				if(c->namespaces[nid].enums[enumid].items[i].isDefault) {
-					defval = intToString(c->namespaces[nid].enums[enumid].items[i].value);
+			for(int i = 0; i < c->namespaces->at(nid).enums[enumid].items.size(); ++i) {
+				if(c->namespaces->at(nid).enums[enumid].items[i].isDefault) {
+					defval = intToString(c->namespaces->at(nid).enums[enumid].items[i].value);
 					break;
 				}
 			}
@@ -142,6 +142,10 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 	
 	int namespaceID = findNamespaceID(c, c->currentNamespace);
 	int objectID = findObjectID(c, namespaceID, c->currentClass);
+	
+	// need these to proceed
+	smartAssert(namespaceID >= 0);
+	smartAssert(objectID >= 0);
 	
 	if(compiling && c->currentFunction != "") {
 		// bug #52: make sure this is the first time it's being registered
@@ -169,7 +173,7 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 				else pushError(c, "Duplicate variable '%s', previously defined at line %s", v.name, intToString(c->namespaces[namespaceID].objects[objectID].variables[i].atLine));
 				return false;
 			}
-		}*/
+		 }*/
 		
 		pushVariable(c, namespaceID, objectID, v);
 		if(c->currentClass == MAVEN_BARE_CLASS && tokens.length() > 2) {
@@ -178,6 +182,8 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 				newline += tokens[i] + " ";
 		}
 	}
+	printAllNamespaces(c);
+	return true;
 	
 	return true;
 }

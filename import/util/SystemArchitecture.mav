@@ -1,9 +1,9 @@
 namespace util;
 
 /**
-  System architecture information.
-  
-  @version 1.0
+ * System architecture information.
+ *
+ * @version 1.0
  */
 class SystemArchitecture {
 	external public static boolean MMX() exports sysarch_MMX;
@@ -16,4 +16,6 @@ class SystemArchitecture {
 	external public static boolean SSE42() exports sysarch_SSE42;
 	external public static boolean P16BATOMIC() exports sysarch_P16BATOMIC;
 	external public static boolean LONGMODE() exports sysarch_LONGMODE;
+	external public static boolean multiProcessorCapable() exports sysarch_multi_processor_capable;
+	external public static int totalCores() exports sysarch_total_cores;
 }

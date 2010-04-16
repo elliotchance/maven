@@ -71,62 +71,62 @@ void generateSQL(MavenCompiler* c) {
 	
 	// namespaces
 	int globalID = 1;
-	for(int i = 0; i < c->namespaces.length(); ++i) {
+	for(int i = 0; i < c->namespaces->length(); ++i) {
 		int namespaceID = globalID++;
 		sql
 		<< "insert into namespaces (id, doc, namespaceName) values ("
 		<< namespaceID << ","
-		<< sqlSafe(c->namespaces[i].doc.body) << ","
-		<< sqlSafe(c->namespaces[i].name) << ");" << endl;
+		<< sqlSafe(c->namespaces->at(i).doc.body) << ","
+		<< sqlSafe(c->namespaces->at(i).name) << ");" << endl;
 		
-		for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
+		for(int j = 0; j < c->namespaces->at(i).objects->length(); ++j) {
 			int classID = globalID++;
 			sql
 			<< "insert into classes (id, pid, lineNumber, doc, className, isAbstract, isFinal, extendsClasses) values ("
 			<< classID << ","
 			<< namespaceID << ","
-			<< c->namespaces[i].objects[j].line << ","
-			<< sqlSafe(c->namespaces[i].objects[j].doc.body) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].name) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].isAbstract) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].isFinal) << ","
-			<< sqlSafe(c->namespaces[i].objects[j].extends)
+			<< c->namespaces->at(i).objects->at(j)->line << ","
+			<< sqlSafe(c->namespaces->at(i).objects->at(j)->doc.body) << ","
+			<< sqlSafe(c->namespaces->at(i).objects->at(j)->name) << ","
+			<< sqlSafe(c->namespaces->at(i).objects->at(j)->isAbstract) << ","
+			<< sqlSafe(c->namespaces->at(i).objects->at(j)->isFinal) << ","
+			<< sqlSafe(c->namespaces->at(i).objects->at(j)->extends)
 			<< ");" << endl;
 			
 			// variables
-			for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
+			for(int k = 0; k < c->namespaces->at(i).objects->at(j)->variables->length(); ++k) {
 				sql << "insert into variables (id, pid, lineNumber, doc, type, variableName, isPublic, isStatic) values ("
 				<< globalID++ << ","
 				<< classID << ","
-				<< c->namespaces[i].objects[j].variables[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].doc.body) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].type) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].name) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].isPublic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].variables[k].isStatic)
+				<< c->namespaces->at(i).objects->at(j)->variables->at(k).atLine << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->variables->at(k).doc.body) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->variables->at(k).type) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->variables->at(k).name) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->variables->at(k).isPublic) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->variables->at(k).isStatic)
 				<< ");" << endl;
 			}
 			
 			// functions
-			for(int k = 0; k < c->namespaces[i].objects[j].functions.length(); ++k) {
+			for(int k = 0; k < c->namespaces->at(i).objects->at(j)->functions->length(); ++k) {
 				sql << "insert into functions (id, pid, lineNumber, doc, returnType, functionName, isPublic, isStatic, isExternal, alias, isAliasSystem, arguments) values ("
 				<< globalID++ << ","
 				<< classID << ","
-				<< c->namespaces[i].objects[j].functions[k].atLine << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].doc.body) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].returnType) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].name) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isPublic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isStatic) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].isExternal) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].alias) << ","
-				<< sqlSafe(c->namespaces[i].objects[j].functions[k].alias_system) << ",";
+				<< c->namespaces->at(i).objects->at(j)->functions->at(k).atLine << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).returnType) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).name) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).isPublic) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).isStatic) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).isExternal) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).alias) << ","
+				<< sqlSafe(c->namespaces->at(i).objects->at(j)->functions->at(k).alias_system) << ",";
 				
 				string arguments = "";
-				for(int l = 0; l < c->namespaces[i].objects[j].functions[k].args.length(); ++l) {
+				for(int l = 0; l < c->namespaces->at(i).objects->at(j)->functions->at(k).args.length(); ++l) {
 					if(l) arguments += ", ";
-					arguments += c->namespaces[i].objects[j].functions[k].args[l].type + " "
-					+ c->namespaces[i].objects[j].functions[k].args[l].name;
+					arguments += c->namespaces->at(i).objects->at(j)->functions->at(k).args[l].type + " "
+					+ c->namespaces->at(i).objects->at(j)->functions->at(k).args[l].name;
 				}
 				sql << sqlSafe(arguments)
 				<< ");" << endl;

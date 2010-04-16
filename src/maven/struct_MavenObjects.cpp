@@ -14,10 +14,14 @@ int MavenObjects::length() {
 	return objects.size();
 }
 
-MavenObject& MavenObjects::operator [](int element) {
+MavenObject* MavenObjects::operator [](int element) {
 	return objects[element];
 }
 
-void MavenObjects::push(MavenObject object) {
+MavenObject* MavenObjects::at(int element) {
+	return objects[element];
+}
+
+void MavenObjects::push(MavenObject* object) {
 	objects.push_back(object);
 }

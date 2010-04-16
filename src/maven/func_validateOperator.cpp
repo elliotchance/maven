@@ -20,13 +20,13 @@ string validateOperator(MavenCompiler* c, string op, string type1, string type2,
 		string opfunc = translateOperatorFunction("operator" + op);
 		
 		int i;
-		for(i = 0; i < c->namespaces[nID].objects[oID].functions.length(); ++i) {
-			if(c->namespaces[nID].objects[oID].functions[i].name == opfunc)
+		for(i = 0; i < c->namespaces->at(nID).objects->at(oID)->functions->length(); ++i) {
+			if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).name == opfunc)
 				break;
 		}
-		if(i < c->namespaces[nID].objects[oID].functions.length()) {
+		if(i < c->namespaces->at(nID).objects->at(oID)->functions->length()) {
 			overloaded_function = opfunc;
-			return findMavenObjectPath(c, c->namespaces[nID].objects[oID].functions[i].returnType);
+			return findMavenObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType);
 		}
 	}
 	

@@ -22,25 +22,25 @@ string findVariablePath(MavenCompiler* c, string entity, int& namespaceID, int& 
 	variableID = -1;
 	
 	// 1. is the first part a namespace?
-	for(int i = 0; i < c->namespaces.length(); ++i) {
-		if(c->namespaces[i].name == parts[0]) {
+	for(int i = 0; i < c->namespaces->length(); ++i) {
+		if(c->namespaces->at(i).name == parts[0]) {
 			
 			// now look for the class
 			bool foundClass = false;
-			for(int j = 0; j < c->namespaces[i].objects.length(); ++j) {
-				if(c->namespaces[i].objects[j].name == parts[1]) {
+			for(int j = 0; j < c->namespaces->at(i).objects->length(); ++j) {
+				if(c->namespaces->at(i).objects->at(j)->name == parts[1]) {
 					foundClass = true;
 					
 					// now look for the variable
-					for(int k = 0; k < c->namespaces[i].objects[j].variables.length(); ++k) {
-						if(c->namespaces[i].objects[j].variables[k].name == parts[2]) {
+					for(int k = 0; k < c->namespaces->at(i).objects->at(j)->variables->length(); ++k) {
+						if(c->namespaces->at(i).objects->at(j)->variables->at(k).name == parts[2]) {
 							namespaceID = i;
 							objectID = j;
 							variableID = k;
-							string r = c->namespaces[i].name + "::" + c->namespaces[i].objects[j].name;
-							if(c->namespaces[i].objects[j].variables[k].isStatic)
+							string r = c->namespaces->at(i).name + "::" + c->namespaces->at(i).objects->at(j)->name;
+							if(c->namespaces->at(i).objects->at(j)->variables->at(k).isStatic)
 								r += "$static";
-							r += string("::") + c->namespaces[i].objects[j].variables[k].name;
+							r += string("::") + c->namespaces->at(i).objects->at(j)->variables->at(k).name;
 							return r;
 						}
 					}
@@ -58,35 +58,35 @@ string findVariablePath(MavenCompiler* c, string entity, int& namespaceID, int& 
 	
 	// 2. now test as a class name, making sure it's not ambiguous
 	vector<int> ambig;
-	for(int i = 0; i < c->namespaces.length(); ++i)
-		for(int j = 0; j < c->namespaces[i].objects.length(); ++j)
-			if(c->namespaces[i].objects[j].name == parts[0])
+	for(int i = 0; i < c->namespaces->length(); ++i)
+		for(int j = 0; j < c->namespaces->at(i).objects->length(); ++j)
+			if(c->namespaces->at(i).objects->at(j)->name == parts[0])
 				ambig.push_back(i);
 				
 	if(ambig.size() == 1) {
-		return findVariablePath(c, c->namespaces[ambig[0]].name + "." + entity, namespaceID, objectID, variableID);
+		return findVariablePath(c, c->namespaces->at(ambig[0]).name + "." + entity, namespaceID, objectID, variableID);
 	} else if(ambig.size() > 1) {
 		string belong = "";
 		for(int i = 0; i < ambig.size(); ++i) {
 			if(belong != "") belong += ", ";
-			belong += c->namespaces[ambig[i]].name;
+			belong += c->namespaces->at(ambig[i]).name;
 		}
 		pushError(c, "%s is ambiguous, belonging to %s", parts[0], belong);
 	}
 	
 	// 3. now look through all bare classes
-	for(int i = 0; i < c->namespaces.length(); ++i)
-		for(int j = 0; j < c->namespaces[i].objects[0].variables.length(); ++j)
-			if(c->namespaces[i].objects[0].variables[j].name == parts[0])
+	for(int i = 0; i < c->namespaces->length(); ++i)
+		for(int j = 0; j < c->namespaces->at(i).objects->at(0)->variables->length(); ++j)
+			if(c->namespaces->at(i).objects->at(0)->variables->at(j).name == parts[0])
 				ambig.push_back(i);
 	
 	if(ambig.size() == 1) {
-		return findVariablePath(c, c->namespaces[ambig[0]].name + ".nil." + entity, namespaceID, objectID, variableID);
+		return findVariablePath(c, c->namespaces->at(ambig[0]).name + ".nil." + entity, namespaceID, objectID, variableID);
 	} else if(ambig.size() > 1) {
 		string belong = "";
 		for(int i = 0; i < ambig.size(); ++i) {
 			if(belong != "") belong += ", ";
-			belong += c->namespaces[ambig[i]].name;
+			belong += c->namespaces->at(ambig[i]).name;
 		}
 		pushError(c, "%s is ambiguous, belonging to %s", parts[0], belong);
 	}
@@ -106,8 +106,8 @@ string findVariablePath(MavenCompiler* c, string entity, int& namespaceID, int& 
 	namespaceID = findNamespaceID(c, c->currentNamespace);
 	objectID = findObjectID(c, namespaceID, c->currentClass);
 	if(namespaceID >= 0 && objectID >= 0) {
-		for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].variables.length(); ++i) {
-			if(c->namespaces[namespaceID].objects[objectID].variables[i].name == parts[0]) {
+		for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->variables->length(); ++i) {
+			if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).name == parts[0]) {
 				variableID = i;
 				return parts[0];
 			}

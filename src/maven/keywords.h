@@ -38,7 +38,7 @@ MAVEN_DECL string keywordThrow(MavenCompiler* c, string line);
 MAVEN_DECL bool   keywordWhile(MavenCompiler* c, string line, string& close);
 
 // keyword_extends.h
-MAVEN_DECL void   extendObject(MavenCompiler* c, MavenObject& o, string extendClass);
+MAVEN_DECL void   extendObject(MavenCompiler* c, MavenObject* o, string extendClass);
 
 // keyword_import.h
 MAVEN_DECL bool   includeLibraryIfExists(MavenCompiler* c, string import);

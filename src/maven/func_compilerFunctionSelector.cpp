@@ -16,7 +16,7 @@ string compilerFunctionSelector(MavenCompiler* c, string signature, string args,
 	}
 	StringList parts = split(',', signature.substr(10, signature.length() - 11));
 	int fnID = atoi(parts[0].c_str()), foID = atoi(parts[1].c_str()), fID = atoi(parts[2].c_str());
-	string ptrType = c->namespaces[fnID].objects[foID].functions[fID].returnType;
+	string ptrType = c->namespaces->at(fnID).objects->at(foID)->functions->at(fID).returnType;
 	
 	// build the selector function
 	args = trim(args);
@@ -30,13 +30,15 @@ string compilerFunctionSelector(MavenCompiler* c, string signature, string args,
 		if(ptrType != "void")
 			c->postLines.push_back(ptrType + " *r = new " + ptrType + "[1];");
 		c->postLines.push_back("try {");
-		c->postLines.push_back("if(argv->length != " + intToString(c->namespaces[fnID].objects[foID].functions[fID].args.length()) + ") throw new maven::SelectorException();");
+		c->postLines.push_back("if(argv->length != " + intToString(c->namespaces->at(fnID).objects->at(foID)->functions->at(fID).args.length()) +
+							   ") throw new maven::SelectorException();");
 		string caller = "";
-		for(int i = 0; i < c->namespaces[fnID].objects[foID].functions[fID].args.length(); ++i) {
+		for(int i = 0; i < c->namespaces->at(fnID).objects->at(foID)->functions->at(fID).args.length(); ++i) {
 			if(caller != "") caller += ",";
 			caller += "argv->a[" + intToString(i) + "]->toFloat()";
 		}
-		c->postLines.push_back(string(c->namespaces[fnID].name + "::" + c->namespaces[fnID].objects[foID].name + "::" + args + "(") + caller + ");");
+		c->postLines.push_back(string(c->namespaces->at(fnID).name + "::" + c->namespaces->at(fnID).objects->at(foID)->name + "::" + args + "(") +
+							   caller + ");");
 		c->postLines.push_back("} catch(maven::Exception* caughtGlobalException) { std::cout << caughtGlobalException->description()->s; }");
 		if(ptrType != "void") {
 #if MAVEN_OS == 1

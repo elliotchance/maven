@@ -15,7 +15,7 @@ bool enumExists(MavenCompiler* c, string name) {
 	if(items.length() == 1) {
 		// recognise ambiguous objects
 		vector<int> found;
-		for(namespaceID = 0; namespaceID < c->namespaces.length(); ++namespaceID) {
+		for(namespaceID = 0; namespaceID < c->namespaces->length(); ++namespaceID) {
 			objectID = findEnumID(c, namespaceID, items[0]);
 			if(objectID >= 0) found.push_back(namespaceID);
 		}

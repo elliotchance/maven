@@ -12,12 +12,13 @@ int findFunctionID(MavenCompiler* c, int namespaceID, int objectID, string funct
 	
 	// because function can be overloaded with multiple interchangable types
 	// we try to first see if there is an exact match
-	for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].functions.length(); ++i) {
-		if(c->namespaces[namespaceID].objects[objectID].functions[i].name == function &&
-		   c->namespaces[namespaceID].objects[objectID].functions[i].args.length() == args.length()) {
+	for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->length(); ++i) {
+		if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name == function &&
+		   c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args.length() == args.length()) {
 			match = true;
 			for(int j = 0; j < args.length(); ++j) {
-				if(!canCastBetween(c, args[j].type, c->namespaces[namespaceID].objects[objectID].functions[i].args[j].type, true, true)) {
+				if(!canCastBetween(c, args[j].type,
+								   c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args[j].type, true, true)) {
 					match = false;
 					break;
 				}
@@ -28,12 +29,12 @@ int findFunctionID(MavenCompiler* c, int namespaceID, int objectID, string funct
 	
 	// ok not so strict now
 	if(!strict) {
-		for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].functions.length(); ++i) {
-			if(c->namespaces[namespaceID].objects[objectID].functions[i].name == function &&
-			   c->namespaces[namespaceID].objects[objectID].functions[i].args.length() == args.length()) {
+		for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->length(); ++i) {
+			if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name == function &&
+			   c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args.length() == args.length()) {
 				match = true;
 				for(int j = 0; j < args.length(); ++j) {
-					if(!canCastBetween(c, args[j].type, c->namespaces[namespaceID].objects[objectID].functions[i].args[j].type, false, true)) {
+					if(!canCastBetween(c, args[j].type, c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args[j].type, false, true)) {
 						match = false;
 						break;
 					}

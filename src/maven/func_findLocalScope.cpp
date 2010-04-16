@@ -35,7 +35,7 @@ string findLocalScope(MavenCompiler* c, string name, MavenVariable& r) {
 			variableID = findVariableID(c, namespaceID, objectID, parts[i]);
 			if(variableID >= 0) {
 				path += "->" + parts[i];
-				r = c->namespaces[namespaceID].objects[objectID].variables[variableID];
+				r = c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(variableID);
 			} else {
 				// bug #45: ERROR
 			}

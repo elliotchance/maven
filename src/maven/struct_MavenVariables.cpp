@@ -15,13 +15,17 @@ void MavenVariables::push(MavenVariable var) {
 }
 
 int MavenVariables::length() {
-	//smartAssert(vars.size() < 100);
-	if(vars.size() > 100)
-		return 0;
 	return vars.size();
 }
 
+/**
+ * @deprecated. Use at().
+ */
 MavenVariable& MavenVariables::operator[](int element) {
+	return vars[element];
+}
+
+MavenVariable& MavenVariables::at(int element) {
 	return vars[element];
 }
 

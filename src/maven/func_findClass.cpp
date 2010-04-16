@@ -16,7 +16,7 @@ vector<int> findClass(MavenCompiler* c, string entity, int& namespaceID, int& ob
 	
 	if(items.length() == 1) {
 		namespaceID = -1;
-		for(int i = 0; i < c->namespaces.length(); ++i) {
+		for(int i = 0; i < c->namespaces->length(); ++i) {
 			objectID = findObjectID(c, i, entity);
 			if(objectID >= 0) {
 				namespaceID = i;

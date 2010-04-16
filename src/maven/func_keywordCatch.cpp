@@ -32,9 +32,9 @@ string keywordCatch(MavenCompiler* c, string line, MavenVariable& catchVar) {
 	
 	// make catchVar
 	catchVar.name = words[1];
-	catchVar.type = c->namespaces[namespaceID].name + "." + c->namespaces[namespaceID].objects[objectID].name;
+	catchVar.type = c->namespaces->at(namespaceID).name + "." + c->namespaces->at(namespaceID).objects->at(objectID)->name;
 	
 	// build C++ version of catch
-	newCatch = c->namespaces[namespaceID].name + "::" + c->namespaces[namespaceID].objects[objectID].name + "* " + words[1];
+	newCatch = c->namespaces->at(namespaceID).name + "::" + c->namespaces->at(namespaceID).objects->at(objectID)->name + "* " + words[1];
 	return "catch(" + newCatch + ")";
 }

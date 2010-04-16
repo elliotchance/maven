@@ -142,15 +142,15 @@ public:
 	string getAnchorID();
 };
 
-class MavenVariables {
-private:
+struct MavenVariables {
 	vector<MavenVariable> vars;
 	
-public:
 	MavenVariables();
+	
 	void push(MavenVariable var);
 	int length();
 	MavenVariable& operator[](int element);
+	MavenVariable& at(int element);
 	string getCPP(MavenCompiler* mc);
 };
 
@@ -179,15 +179,15 @@ public:
 	string getAnchorID();
 };
 
-class MavenFunctions {
-private:
+struct MavenFunctions {
 	vector<MavenFunction> funcs;
 	
-public:
 	MavenFunctions();
+	
 	void push(MavenFunction func);
 	int length();
 	MavenFunction& operator[](int element);
+	MavenFunction& at(int element);
 };
 
 class MavenEnumItem {
@@ -209,50 +209,52 @@ public:
 	int getDefaultValue();
 };
 
-class MavenObject {
-public:
+struct MavenObject {
 	string name;
 	bool isAbstract;
 	bool isFinal;
 	int line;
 	MavenDocTag doc;
-	MavenVariables variables;
-	MavenFunctions functions;
+	MavenVariables* variables;
+	MavenFunctions* functions;
 	string extends;
 	
-public:
 	MavenObject();
+	~MavenObject();
 	void reset();
 };
 
 class MavenObjects {
 private:
-	vector<MavenObject> objects;
+	vector<MavenObject*> objects;
 	
 public:
 	MavenObjects();
 	int length();
-	MavenObject& operator [](int element);
-	void push(MavenObject object);
+	MavenObject* operator [](int element);
+	MavenObject* at(int element);
+	void push(MavenObject* object);
 };
 
-class MavenNamespace {
-public:
+struct MavenNamespace {
 	string name;
 	MavenDocTag doc;
-	MavenObjects objects;
+	MavenObjects* objects;
 	vector<MavenEnum> enums;
+	
+	MavenNamespace();
+	~MavenNamespace();
 };
 
-class MavenNamespaces {
-private:
+struct MavenNamespaces {
 	vector<MavenNamespace> namespaces;
 	
-public:
 	MavenNamespaces();
+	
 	int length();
 	MavenNamespace& operator [](int element);
-	void push(MavenNamespace object);
+	MavenNamespace& at(int element);
+	void push(MavenNamespace* ns);
 };
 
 class MavenError {
@@ -328,7 +330,7 @@ public:
 	/**
 	 * @brief Holds all object and variable information for all namespaces.
 	 */
-	MavenNamespaces namespaces;
+	MavenNamespaces* namespaces;
 	
 	/**
 	 * @brief Stack for errors.

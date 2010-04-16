@@ -49,7 +49,7 @@ MavenVariable dissectVariable(MavenCompiler* c, string line) {
 	if(!isDataType(v.type) && enumID < 0)
 		v.type = findMavenObjectPath(c, v.type);
 	if(enumID >= 0)
-		v.type = c->currentNamespace + "." + c->namespaces[nID].enums[enumID].name;
+		v.type = c->currentNamespace + "." + c->namespaces->at(nID).enums[enumID].name;
 	
 	v.name = parts[i++];
 	return v;

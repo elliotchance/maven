@@ -8,7 +8,17 @@
 using namespace std;
 
 MavenObject::MavenObject() {
+	cout << "alocating\n";
+	variables = new MavenVariables();
+	functions = new MavenFunctions();
 	reset();
+}
+
+MavenObject::~MavenObject() {
+	//if(variables)
+	//	free(variables);
+	//if(functions)
+	//	free(functions);
 }
 
 void MavenObject::reset() {
@@ -16,7 +26,5 @@ void MavenObject::reset() {
 	isAbstract = false;
 	isFinal = false;
 	line = 0;
-	//MavenVariables variables;
-	//MavenFunctions functions;
 	extends = "";
 }

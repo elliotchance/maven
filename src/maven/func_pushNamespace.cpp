@@ -12,15 +12,15 @@ void pushNamespace(MavenCompiler* c, string namespaceName) {
 	
 	// because namespaces can popup multiple times, if a namespace exists just ignore
 	if(findNamespaceID(c, namespaceName) < 0) {
-		MavenNamespace ns;
-		ns.name = namespaceName;
+		MavenNamespace* ns = new MavenNamespace();
+		ns->name = namespaceName;
 		
 		// always push the nil class
-		MavenObject o;
-		o.name = MAVEN_BARE_CLASS;
+		MavenObject* o = new MavenObject();
+		o->name = MAVEN_BARE_CLASS;
 		extendObject(c, o, "maven.Object");
 		
-		ns.objects.push(o);
-		c->namespaces.push(ns);
+		ns->objects->push(o);
+		c->namespaces->push(ns);
 	}
 }

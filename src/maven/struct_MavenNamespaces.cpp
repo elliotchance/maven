@@ -5,8 +5,6 @@
 
 #include "maven.h"
 
-using namespace std;
-
 MavenNamespaces::MavenNamespaces() {
 }
 
@@ -18,6 +16,10 @@ MavenNamespace& MavenNamespaces::operator [](int element) {
 	return namespaces[element];
 }
 
-void MavenNamespaces::push(MavenNamespace ns) {
-	namespaces.push_back(ns);
+MavenNamespace& MavenNamespaces::at(int element) {
+	return namespaces[element];
+}
+
+void MavenNamespaces::push(MavenNamespace* ns) {
+	namespaces.push_back(*ns);
 }

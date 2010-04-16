@@ -167,7 +167,7 @@ bool canCastBetween(MavenCompiler* c, string type1, string type2, bool strict, b
 	findClass(c, type1, nID1, oID1);
 	findClass(c, type2, nID2, oID2);
 	if(nID1 >= 0 && oID1 >= 0 && nID2 >= 0 && oID2 >= 0) {
-		StringList extends = split(',', c->namespaces[nID2].objects[oID2].extends);
+		StringList extends = split(',', c->namespaces->at(nID2).objects->at(oID2)->extends);
 		for(int i = 0; i < extends.length(); ++i)
 			if(findMavenObjectPath(c, type1) == findMavenObjectPath(c, extends[i]))
 				return true;

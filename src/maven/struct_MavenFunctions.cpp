@@ -4,8 +4,7 @@
  */
 
 #include "maven.h"
-
-using namespace std;
+#include "doc.h"
 
 MavenFunctions::MavenFunctions() {
 }
@@ -19,5 +18,9 @@ int MavenFunctions::length() {
 }
 
 MavenFunction& MavenFunctions::operator[](int element) {
+	return funcs[element];
+}
+
+MavenFunction& MavenFunctions::at(int element) {
 	return funcs[element];
 }

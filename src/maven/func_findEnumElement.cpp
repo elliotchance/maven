@@ -17,11 +17,11 @@ int findEnumElement(MavenCompiler *c, string entity, int& namespaceID, int& enum
 		// we dont have to check for ambiguous because for that to be true,
 		// there would have to be multiple enums by the same name, but the
 		// maven mapper will stop that
-		for(int i = 0; i < c->namespaces.length(); ++i) {
-			for(int j = 0; j < c->namespaces[i].enums.size(); ++j) {
-				if(c->namespaces[i].enums[j].name == parts[0]) {
-					for(int k = 0; k < c->namespaces[i].enums[j].items.size(); ++k) {
-						if(c->namespaces[i].enums[j].items[k].name == parts[1]) {
+		for(int i = 0; i < c->namespaces->length(); ++i) {
+			for(int j = 0; j < c->namespaces->at(i).enums.size(); ++j) {
+				if(c->namespaces->at(i).enums[j].name == parts[0]) {
+					for(int k = 0; k < c->namespaces->at(i).enums[j].items.size(); ++k) {
+						if(c->namespaces->at(i).enums[j].items[k].name == parts[1]) {
 							namespaceID = i;
 							enumID = j;
 							return k;
@@ -37,10 +37,10 @@ int findEnumElement(MavenCompiler *c, string entity, int& namespaceID, int& enum
 	
 	// we need to make sure it is not ambiguous
 	int ambig_count = 0;
-	for(int i = 0; i < c->namespaces.length(); ++i) {
-		for(int j = 0; j < c->namespaces[i].enums.size(); ++j) {
-			for(int k = 0; k < c->namespaces[i].enums[j].items.size(); ++k) {
-				if(c->namespaces[i].enums[j].items[k].name == entity)
+	for(int i = 0; i < c->namespaces->length(); ++i) {
+		for(int j = 0; j < c->namespaces->at(i).enums.size(); ++j) {
+			for(int k = 0; k < c->namespaces->at(i).enums[j].items.size(); ++k) {
+				if(c->namespaces->at(i).enums[j].items[k].name == entity)
 					++ambig_count;
 			}
 		}
@@ -50,10 +50,10 @@ int findEnumElement(MavenCompiler *c, string entity, int& namespaceID, int& enum
 		return -2;
 	}
 	
-	for(int i = 0; i < c->namespaces.length(); ++i) {
-		for(int j = 0; j < c->namespaces[i].enums.size(); ++j) {
-			for(int k = 0; k < c->namespaces[i].enums[j].items.size(); ++k) {
-				if(c->namespaces[i].enums[j].items[k].name == entity) {
+	for(int i = 0; i < c->namespaces->length(); ++i) {
+		for(int j = 0; j < c->namespaces->at(i).enums.size(); ++j) {
+			for(int k = 0; k < c->namespaces->at(i).enums[j].items.size(); ++k) {
+				if(c->namespaces->at(i).enums[j].items[k].name == entity) {
 					namespaceID = i;
 					enumID = j;
 					return k;

@@ -16,13 +16,15 @@ string findFunctionPath(MavenCompiler* c, string entity, MavenVariables args, in
 		objectID = findObjectID(c, namespaceID, c->currentClass);
 		funcID = findFunctionID(c, namespaceID, objectID, items[0], args);
 		if(funcID >= 0)
-			return c->namespaces[namespaceID].name + "::" + c->namespaces[namespaceID].objects[objectID].name + "::" + items[0];
-		//if(funcID >= 0 && namespaces[namespaceID].objects[objectID].functions[funcID].alias_system)
+			return c->namespaces->at(namespaceID).name + "::" +
+				   c->namespaces->at(namespaceID).objects->at(objectID)->name + "::" + items[0];
+		//if(funcID >= 0 && namespaces->at(namespaceID).objects->at(objectID)->functions[funcID].alias_system)
 		//	return items[0];
 		
-		//if(namespaces[namespaceID].objects[objectID].name != MAVEN_BARE_CLASS)
-			return c->namespaces[namespaceID].name + "::" + c->namespaces[namespaceID].objects[objectID].name + "::" + items[0];
-		//return namespaces[namespaceID].name + "::" + items[0];
+		//if(namespaces->at(namespaceID).objects->at(objectID).name != MAVEN_BARE_CLASS)
+			return c->namespaces->at(namespaceID).name + "::" +
+		           c->namespaces->at(namespaceID).objects->at(objectID)->name + "::" + items[0];
+		//return namespaces->at(namespaceID).name + "::" + items[0];
 	} else if(items.length() == 2) {
 		// if there is no namespace specified we will have to look for it
 		// and recognise ambiguous objects
@@ -30,8 +32,9 @@ string findFunctionPath(MavenCompiler* c, string entity, MavenVariables args, in
 		namespaceID = objectID = funcID = -1;
 		string vp = findVariablePath(c, items[0], namespaceID, objectID, funcID);
 		if(namespaceID >= 0 && objectID >= 0 && funcID >= 0) {
-			vp = c->namespaces[namespaceID].name + "::" +  c->namespaces[namespaceID].objects[objectID].name + "$static::" + items[0] + "->" + items[1];
-			string origType = c->namespaces[namespaceID].objects[objectID].variables[funcID].type;
+			vp = c->namespaces->at(namespaceID).name + "::" +  c->namespaces->at(namespaceID).objects->at(objectID)->name + "$static::" +
+				 items[0] + "->" + items[1];
+			string origType = c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(funcID).type;
 			namespaceID = findNamespaceID(c, getFirstEntity(origType));
 			objectID = findObjectID(c, namespaceID, getLastEntity(origType));
 			funcID = findFunctionID(c, namespaceID, objectID, items[1], args, false);
@@ -62,7 +65,7 @@ string findFunctionPath(MavenCompiler* c, string entity, MavenVariables args, in
 			objectID = findObjectID(c, namespaceID, items[0]);
 			funcID = findFunctionID(c, namespaceID, objectID, items[1], args);
 			if(funcID < 0) return MAVEN_INVALID;
-			return c->namespaces[namespaceID].name + "::" + items[0] + "::" + items[1];
+			return c->namespaces->at(namespaceID).name + "::" + items[0] + "::" + items[1];
 		} else pushError(c, "Ambiguous class '%s'", items[1]);
 	} else if(items.length() == 3) {
 		namespaceID = findNamespaceID(c, items[0]);

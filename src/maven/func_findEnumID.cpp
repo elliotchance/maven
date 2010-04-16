@@ -16,8 +16,8 @@ int findEnumID(MavenCompiler* c, int namespaceID, string enumName) {
 	}
 	
 	if(namespaceID < 0) return -1;
-	for(int i = 0; i < c->namespaces[namespaceID].enums.size(); ++i)
-		if(c->namespaces[namespaceID].enums[i].name == enumName)
+	for(int i = 0; i < c->namespaces->at(namespaceID).enums.size(); ++i)
+		if(c->namespaces->at(namespaceID).enums[i].name == enumName)
 			return i;
 	return -1;
 }

@@ -117,13 +117,13 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			int nID = findNamespaceID(c, c->currentNamespace);
 			int oID = findObjectID(c, nID, "nil");
 			bool found = false;
-			for(int i = 0; i < c->namespaces[nID].objects[oID].functions.length(); ++i) {
+			for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->functions->length(); ++i) {
 				// bug #61: check signature (pending)
-				if(c->namespaces[nID].objects[oID].functions[i].name == newObject &&
+				if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).name == newObject &&
 				   canCastBetween(c, argumentTypes.join(","),
-								  c->namespaces[nID].objects[oID].functions[i].getSignature(), false, true)) {
+								  c->namespaces->at(nID).objects->at(oID)->functions->at(i).getSignature(), false, true)) {
 					r += "(" + c->currentNamespace + "::nil::" + newObject + "(" + newArguments + "))";
-					prev.type = c->namespaces[nID].objects[oID].functions[i].returnType;
+					prev.type = c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType;
 					prev.name = "<RETURNED>";
 					resolve = prev;
 					found = true;
@@ -145,15 +145,15 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			
 			findClass(c, prev.type, namespaceID, objectID);
 			bool found = false;
-			for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].variables.length(); ++i) {
-				if(c->namespaces[namespaceID].objects[objectID].variables[i].name == newObject) {
-					resolve = prev = c->namespaces[namespaceID].objects[objectID].variables[i];
+			for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->variables->length(); ++i) {
+				if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).name == newObject) {
+					resolve = prev = c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i);
 					found = true;
 					
 					string joiner = "->";
-					if(c->namespaces[namespaceID].objects[objectID].variables[i].isStatic)
+					if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).isStatic)
 						joiner = "$static::";
-					if(!isDataType(c->namespaces[namespaceID].objects[objectID].variables[i].type) &&
+					if(!isDataType(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).type) &&
 					   !lastSubparse)
 						pushObjectSafety(c, r + joiner + prev.name);
 					if(newElement != "")
@@ -202,18 +202,19 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			
 			findClass(c, prev.type, namespaceID, objectID);
 			int found = 0;
-			for(int i = 0; i < c->namespaces[namespaceID].objects[objectID].functions.length(); ++i) {
+			for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->length(); ++i) {
 				// bug #61: check signature (pending)
-				if(c->namespaces[namespaceID].objects[objectID].functions[i].name == newObject) {
+				if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name == newObject) {
 					found = 1;
-					if(canCastBetween(c, argumentTypes.join(","), c->namespaces[namespaceID].objects[objectID].functions[i].getSignature(), false, true)) {
+					if(canCastBetween(c, argumentTypes.join(","),
+									  c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).getSignature(), false, true)) {
 						prev.name = "<RETURNED>";
-						prev.type = c->namespaces[namespaceID].objects[objectID].functions[i].returnType;
+						prev.type = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).returnType;
 						resolve = prev;
 						found = 2;
 						
 						string joiner = "->";
-						if(c->namespaces[namespaceID].objects[objectID].functions[i].isStatic)
+						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).isStatic)
 							joiner = "::";
 						string objectPath = findObjectPath(c, stripRawType(prev.type), true);
 						if(isDataType(objectPath))
@@ -221,9 +222,9 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 						else r = "(" + objectPath + ")" + r + joiner;
 						
 						// deal with an alias
-						if(c->namespaces[namespaceID].objects[objectID].functions[i].alias != "")
-							r = c->namespaces[namespaceID].objects[objectID].functions[i].alias;
-						else r += c->namespaces[namespaceID].objects[objectID].functions[i].name;
+						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).alias != "")
+							r = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).alias;
+						else r += c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name;
 						r += "(" + newArguments + ")";
 						break;
 					}

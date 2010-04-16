@@ -47,7 +47,7 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 	// if its a single Object
 	if(element == "") {
 		string r = "new ";
-		r += c->namespaces[namespaceID].name + "::" + c->namespaces[namespaceID].objects[objectID].name;
+		r += c->namespaces->at(namespaceID).name + "::" + c->namespaces->at(namespaceID).objects->at(objectID)->name;
 		for(int i = 0; i < depth; ++i)
 			r += "*";
 		
@@ -63,7 +63,7 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 			rawType = "int";
 			int nID = findNamespaceID(c, c->currentNamespace), enumID = findEnumID(c, nID, entity);
 			if(trim(args) == "")
-				args = intToString(c->namespaces[nID].enums[enumID].getDefaultValue());
+				args = intToString(c->namespaces->at(nID).enums[enumID].getDefaultValue());
 		} else r += "object";
 		
 		string tempVar = getNextTempVariable(c);

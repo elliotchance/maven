@@ -7,6 +7,7 @@
 #include "keywords.h"
 #include "compiler_strings.h"
 #include "compiler_push.h"
+#include "doc.h"
 
 using namespace std;
 
@@ -90,29 +91,42 @@ MavenCompiler::MavenCompiler() {
 	totalFiles = 0;
 	UID = 1;
 	currentDirectory = getCurrentDirectory();
+	namespaces = new MavenNamespaces();
+	
+	MavenNamespace* n;
+	MavenObject* o;
 	
 	// push the 'maven' namespace
-	MavenNamespace n;
-	n.name = "maven";
-	namespaces.push(n);
+	n = new MavenNamespace();
+	n->name = "maven";
+	namespaces->push(n);
 	
 	// we manually start the classes Object and String
-	MavenObject o;
-	o.name = MAVEN_BARE_CLASS;
-	namespaces[0].objects.push(o);
-	o.name = "Object";
-	namespaces[0].objects.push(o);
-	o.name = "String";
-	namespaces[0].objects.push(o);
+	n = new MavenNamespace();
+	
+	o = new MavenObject();
+	o->name = MAVEN_BARE_CLASS;
+	namespaces->at(0).objects->push(o);
+	
+	o = new MavenObject();
+	o->name = "Object";
+	namespaces->at(0).objects->push(o);
+	
+	o = new MavenObject();
+	o->name = "String";
+	namespaces->at(0).objects->push(o);
+	
 	//extendObject(this, namespaces[0].objects[2], "maven.Object");
 	
 	// push the 'global' object/namespace
-	n.name = MAVEN_BARE_NAMESPACE;
-	namespaces.push(n);
+	n = new MavenNamespace();
+	n->name = MAVEN_BARE_NAMESPACE;
+	namespaces->push(n);
 	
-	o.name = MAVEN_BARE_CLASS;
-	namespaces[1].objects.push(o);
-	extendObject(this, namespaces[1].objects[0], "maven.Object");
+	o = new MavenObject();
+	o->name = MAVEN_BARE_CLASS;
+	namespaces->at(1).objects->push(o);
+	extendObject(this, namespaces->at(1).objects->at(0), "maven.Object");
 	
 	// add discovery for forced classes
 	discovery.push_back(MavenObjectDiscovery(0, 0));

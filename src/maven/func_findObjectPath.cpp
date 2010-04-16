@@ -46,7 +46,7 @@ string findObjectPath(MavenCompiler* c, string entity, bool includePointer) {
 		// if there is no namespace specified we will have to look for it
 		// and recognise ambiguous objects
 		vector<int> found;
-		for(namespaceID = 0; namespaceID < c->namespaces.length(); ++namespaceID) {
+		for(namespaceID = 0; namespaceID < c->namespaces->length(); ++namespaceID) {
 			objectID = findObjectID(c, namespaceID, items[0]);
 			if(objectID >= 0) found.push_back(namespaceID);
 			else {
@@ -58,7 +58,7 @@ string findObjectPath(MavenCompiler* c, string entity, bool includePointer) {
 		
 		if(found.size() == 0) return MAVEN_INVALID;
 		else if(found.size() == 1) {
-			return c->namespaces[found[0]].name + "::" + items[0] + pntr;
+			return c->namespaces->at(found[0]).name + "::" + items[0] + pntr;
 		} else pushError(c, "Ambiguous class '%s'", items[0]);
 	} else if(items.length() == 2) {
 		namespaceID = findNamespaceID(c, items[0]);

@@ -7,8 +7,8 @@
 
 int countStaticVariables(MavenCompiler* c, int namespaceID, int objectID) {
 	int r = 0;
-	for(int k = 0; k < c->namespaces[namespaceID].objects[objectID].variables.length(); ++k)
-		if(c->namespaces[namespaceID].objects[objectID].variables[k].isStatic)
+	for(int k = 0; k < c->namespaces->at(namespaceID).objects->at(objectID)->variables->length(); ++k)
+		if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isStatic)
 			++r;
 	return r;
 }
