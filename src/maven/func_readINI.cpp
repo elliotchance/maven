@@ -4,13 +4,21 @@
  */
 
 #include "maven.h"
+#include "compiler_compilefile.h"
 #include "compiler_errors.h"
 #include "compiler_init.h"
 #include "compiler_strings.h"
 
 void readINI(MavenCompiler* c) {
 	ifstream ifile;
-	string maven_ini_location = combinePaths(c->binDirectory, MAVEN_INI_LOCATION, false);
+	string maven_ini_location = locateMavenINI(c);
+	
+	// we need the maven.ini
+	if(maven_ini_location == "") {
+		pushError(c, "maven.ini could not be located");
+		return;
+	}
+	
 	ifile.open(maven_ini_location.c_str());
 	if(!ifile.is_open()) {
 		pushWarning(c, "Can't open %s", maven_ini_location);

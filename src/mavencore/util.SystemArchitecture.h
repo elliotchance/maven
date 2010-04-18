@@ -9,7 +9,7 @@ namespace util {
 
 	class SystemArchitecture extends maven::Object {
 		private_static_method maven_boolean CPUID(int Function, int bit, char reg);
-		private_static_method maven_boolean CPUID(int Function, char reg);
+		private_static_method int CPUID(int Function, char reg);
 		
 		public_static_method maven_boolean MMX();
 		public_static_method maven_boolean SSE();

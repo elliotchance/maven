@@ -7,11 +7,16 @@
 
 string trim(string line) {
 	int left = 0, right = line.length() - 1, off = 0;
+	
+	// start
 	for(; left < line.length(); ++left)
-		if(line[left] != ' ' && line[left] != '\t' && line[left] != '\n')
+		if(!isspace(line[left]))
 			break;
+	
+	// end
 	for(; right >= 0; --right, ++off)
-		if(line[right] != ' ' && line[right] != '\t' && line[right] != '\n')
+		if(!isspace(line[right]))
 			break;
+	
 	return line.substr(left, line.length() - left - off);
 }

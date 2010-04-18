@@ -9,7 +9,8 @@
 #include "compiler_strings.h"
 #include "compiler_constants.h"
 
-string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& namespaceID, int& objectID, bool& isLocal, bool forFunction) {
+string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& namespaceID,
+					   int& objectID, bool& isLocal, bool forFunction) {
 	// the difficulty with this is that the number of dots doesnt indicate which part (if any)
 	// is the namespace, class, variable and subvariables. So the way we do it is to try the first
 	// part as a namespace, then try it as a class etc
@@ -57,7 +58,8 @@ string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& n
 		v.type = MAVEN_AMBIGUOUS;
 		return MAVEN_INVALID;
 	} else if(elementID >= 0) {
-		v.type = c->namespaces->at(namespaceID).name + "." + c->namespaces->at(namespaceID).enums[enumID].name;
+		v.type = c->namespaces->at(namespaceID).name + "." +
+				 c->namespaces->at(namespaceID).enums[enumID].name;
 		return intToString(c->namespaces->at(namespaceID).enums[enumID].items[elementID].value);
 	}
 	
@@ -106,7 +108,8 @@ string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& n
 	} else if(ambig.size() > 1) {
 		string belong = "";
 		for(int i = 0; i < ambig.size(); ++i) {
-			if(belong != "") belong += ", ";
+			if(belong != "")
+				belong += ", ";
 			belong += c->namespaces->at(ambig[i]).name;
 		}
 		pushError(c, "%s is ambiguous, belonging to %s", entity, belong);
@@ -148,7 +151,8 @@ string resolveVariable(MavenCompiler* c, string entity, MavenVariable& v, int& n
 	if(namespaceID >= 0 && objectID >= 0) {
 		for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->length(); ++i) {
 			if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name == entity) {
-				v.type = "<Function: " + intToString(namespaceID) + "," + intToString(objectID) + "," + intToString(i) + ">";
+				v.type = "<Function: " + intToString(namespaceID) + "," + intToString(objectID) + "," +
+					intToString(i) + ">";
 				return entity;
 			}
 		}

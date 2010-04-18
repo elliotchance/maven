@@ -225,7 +225,8 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					   f.returnType != "maven.Selector" && f.returnType != "maven.Array") {
 						writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 						writeCPPLine(c, f.getCPPLine(c, c->currentClass) + "{");
-						writeCPPLine(c, findObjectPath(c, f.returnType, true) + " r = new " + findObjectPath(c, f.returnType, false) + "();");
+						writeCPPLine(c, findObjectPath(c, f.returnType, true) + " r = new " +
+									 findObjectPath(c, f.returnType, false) + "();");
 						for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->variables->length(); ++i) {
 							// skip retain
 							if(c->namespaces->at(nID).objects->at(oID)->variables->at(i).name == "retain")
@@ -253,7 +254,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 				pushFunction(c, nID, oID, f);
 				
 				// skip some classes
-				if(c->currentNamespace == "global") {
+				if(c->currentNamespace != "global") {
 					writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 					writeCPPLine(c, f.getCPPLine(c, c->currentClass, false) + " {");
 					

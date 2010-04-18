@@ -17,6 +17,9 @@ class Object {
 	 */
 	public constant int retain;
 	
+	/**
+	 * Create a new Object.
+	 */
 	external public Object();
 	
 	/**

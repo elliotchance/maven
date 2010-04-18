@@ -19,7 +19,8 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 	// get preliminary word
 	string prelim = "";
 	for(int i = 0; i < fullcode.length(); ++i) {
-		if(!isalnum(fullcode[i])) break;
+		if(!isalnum(fullcode[i]))
+			break;
 		else prelim += fullcode[i];
 	}
 	
@@ -151,14 +152,14 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 						if(code[i] == '\\') {
 							db.original += code[i++];
 							db.original += code[i];
-						} else if(code[i] == '"') break;
+						} else if(code[i] == '"')
+							break;
 						else db.original += code[i];
 					}
 				} else if(isOperatorPart(code.substr(i, 1)) && !countBrackets && !countSquare)
 					break;
 				db.original += code[i];
 			}
-			//cout << "db.original = '" << db.original << "'\n";
 			
 			// post unary operator
 			skipWhitespace(code, i);
@@ -227,7 +228,8 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 		for(int i = 1; i < dbs.size(); ++i) {
 			dissectSubparse(c, dbs[i], ops[i], types, warn);
 			string overloadedfunction = "";
-			types2.setTypes(validateOperator(c, ops[i - 1], types2.join(","), dbs[i].types.join(","), overloadedfunction));
+			types2.setTypes(validateOperator(c, ops[i - 1], types2.join(","),
+											 dbs[i].types.join(","), overloadedfunction));
 			if(overloadedfunction != "")
 				final += "->" + overloadedfunction + "(" + dbs[i].processed + ")";
 			else final += ops[i - 1] + " " + dbs[i].processed;

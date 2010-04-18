@@ -5,6 +5,7 @@
 
 #include "maven.h"
 #include "compiler_find.h"
+#include "compiler_strings.h"
 
 using namespace std;
 
@@ -55,4 +56,19 @@ string MavenFunction::getAnchorID() {
 		s += args[l].type;
 	}
 	return s + ")";
+}
+
+void MavenFunction::print() {
+	cout << "returnType: " << returnType << endl;
+	cout << "name: " << name << endl;
+	cout << "descArgs: " << descArgs << endl;
+	cout << "atLine: " << atLine << endl;
+	cout << "isPublic: " << boolOnOff(isPublic) << endl;
+	cout << "isStatic: " << boolOnOff(isStatic) << endl;
+	cout << "isExternal: " << boolOnOff(isExternal) << endl;
+	cout << "alias: " << alias << endl;
+	cout << "alias_system: " << boolOnOff(alias_system) << endl;
+	cout << "isExported: " << boolOnOff(isExported) << endl;
+	cout << "isInherited: " << boolOnOff(isInherited) << endl;
+	cout << "isOverride: " << boolOnOff(isOverride) << endl;
 }

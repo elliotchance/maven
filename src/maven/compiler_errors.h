@@ -14,3 +14,4 @@ MAVEN_DECL bool pushWarning(MavenCompiler* c, string message, string arg1, strin
 MAVEN_DECL bool pushError(MavenCompiler* c, string message);
 MAVEN_DECL bool pushError(MavenCompiler* c, string message, string arg);
 MAVEN_DECL bool pushError(MavenCompiler* c, string message, string arg1, string arg2);
+MAVEN_DECL void printErrorsAndWarnings(MavenCompiler* c);

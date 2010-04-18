@@ -7,6 +7,7 @@
 
 string buildLine(MavenCompiler* c, string bareword, string entity, string args) {
 	string r = bareword + " ";
-	if(entity != "") r += entity + "(" + args + ")";
+	if(entity != "")
+		r += entity + "(" + args + ")";
 	return r;
 }

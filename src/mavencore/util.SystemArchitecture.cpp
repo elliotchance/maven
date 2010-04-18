@@ -53,7 +53,7 @@ namespace util {
 		return false;
 	}
 	
-	maven_boolean SystemArchitecture::CPUID(int Function, char reg) {
+	int SystemArchitecture::CPUID(int Function, char reg) {
 		int A, B, C, D;
 
 		#ifdef WIN32

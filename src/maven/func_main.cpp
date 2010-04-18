@@ -15,6 +15,17 @@
 #include "installer.h"
 #include "compiler_strings.h"
 
+void printErrorsAndWarnings(MavenCompiler* c) {
+	if(isErrors(c)) {
+		printErrors(c);
+		cout << "--- Compilation stopped due to errors" << endl;
+		exit(1);
+	}
+	
+	if(isWarnings(c))
+		printWarnings(c);
+}
+
 int main(int argc, char** argv) {
     MavenCompiler* c = new MavenCompiler();
 	c->binDirectory = combinePaths(c->currentDirectory, argv[0], false);
@@ -22,6 +33,7 @@ int main(int argc, char** argv) {
 	
 	// read INI file
 	readINI(c);
+	printErrorsAndWarnings(c);
 	
 	// might be an install
 	if(argc > 1) {
@@ -44,14 +56,7 @@ int main(int argc, char** argv) {
 	
 	for(int i = 0; i < 1; ++i) {
 		compileFile(c, c->option_n + ".mav", MAVEN_ONLY_MAP);
-		if(isErrors(c)) {
-			printErrors(c);
-			cout << "--- Compilation stopped due to errors" << endl;
-			return 1;
-		}
-		
-		if(isWarnings(c))
-			printWarnings(c);
+		printErrorsAndWarnings(c);
 	}
 	MavenVariable v;
 	v.name = "System";
@@ -67,17 +72,12 @@ int main(int argc, char** argv) {
 	compileLine(c, "import maven.Object");
 	compileLine(c, "import maven.String");
 	compileLine(c, "import maven.System");
+	compileLine(c, "import maven.Data");
+	compileLine(c, "import maven.Exception");
 	compileLine(c, "import maven.*");
 	for(int i = 0; i < 1; ++i) {
 		compileFile(c, c->option_n + ".mav", MAVEN_ONLY_COMPILE);
-		if(isErrors(c)) {
-			printErrors(c);
-			cout << "--- Compilation stopped due to errors" << endl;
-			return 2;
-		}
-		
-		if(isWarnings(c))
-			printWarnings(c);
+		printErrorsAndWarnings(c);
 	}
 	
 	// selectors

@@ -177,6 +177,7 @@ public:
 	string getCPPLine(MavenCompiler* mc, string className, bool isVirtual = false);
 	string getSignature();
 	string getAnchorID();
+	void print();
 };
 
 struct MavenFunctions {

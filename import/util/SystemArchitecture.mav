@@ -6,7 +6,18 @@ namespace util;
  * @version 1.0
  */
 class SystemArchitecture {
+	
+	/**
+	 * @brief If the processors(s) are MMX capable.
+	 * 
+	 * MMX is a single instruction, multiple data (SIMD) instruction set designed by Intel, introduced in
+	 * 1996 with their Pentium line of microprocessors, designated as "Pentium with MMX Technology".
+	 * 
+	 * @url http://en.wikipedia.org/wiki/MMX_(instruction_set)
+	 * @return true if the processors(s) are MMX capable.
+	 */
 	external public static boolean MMX() exports sysarch_MMX;
+	
 	external public static boolean SSE() exports sysarch_SSE;
 	external public static boolean SSE2() exports sysarch_SSE2;
 	external public static boolean SSE3() exports sysarch_SSE3;

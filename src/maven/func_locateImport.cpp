@@ -8,20 +8,25 @@
 #include "compiler_strings.h"
 #include "keywords.h"
 
-string locateImport(MavenCompiler* c, string import) {
-	string file = combinePaths(c->binDirectory, c->iniFile.getKey("directories.import"));
+string getImportName(MavenCompiler* c, string import) {
+	string file = "";
 	for(int i = 0; i < import.length(); ++i) {
 		if(import[i] == '.') file += "/";
 		else file += import[i];
 	}
-	file += ".mav";
+	return file + ".mav";
+}
+
+string locateImport(MavenCompiler* c, string import) {
+	string file = getImportName(c, import);
+	StringList locations;
+	locations.push(combinePaths(c->binDirectory + "/", c->iniFile.getKey("directories.import")));
+	locations.push(c->currentDirectory + "/");
 	
-	// make sure the file exists
-	if(!fileExists(file)) {
-		pushError(c, "Can't find import %s, looking in %s", import,
-				  combinePaths(c->binDirectory, c->iniFile.getKey("directories.import")));
-		return "";
+	for(int i = 0; i < locations.length(); ++i) {
+		if(fileExists(locations[i] + file))
+			return locations[i] + file;
 	}
 	
-	return file;
+	pushError(c, "Can't find import %s, looking in %s", import, locations.join(";"));
 }

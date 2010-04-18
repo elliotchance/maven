@@ -18,7 +18,8 @@
 /**
  * @brief This function takes a block identifier(s) and returns the c++ processed equivilent.
  */
-void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& closeFunction, bool& closeClass, bool& closeSwitch, bool& closeWith, MavenVariable& var, string& close) {
+void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& closeFunction, bool& closeClass,
+					  bool& closeSwitch, bool& closeWith, MavenVariable& var, string& close) {
 	// bug #15: multiple identifiers in one like:
 	// its easier to say that a localScope is defined by curly brackets, hence
 	// in the case of:
@@ -29,7 +30,7 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 	// if() if() a;
 	identifier = trim(identifier);
 	StringList p = splitNested(identifier);
-	if(p.length() == 0) return;
+	//if(p.length() == 0) return;
 	if(p.length() > 1) {
 		// bug #16: which direction should this go?
 		for(int i = 0; i < p.length(); ++i)
@@ -149,7 +150,7 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 				registerVariable(c, smartTokens(identifier.substr(0, identifier.length() - 1)), false, var);
 			}
 		} else {
-			pushError(c, "Unknown block identifier '%s'", trim(prelim));
+			pushError(c, "Unknown block identifier '%s' in '%s'", trim(prelim), identifier);
 			return;
 		}
 	}

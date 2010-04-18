@@ -9,7 +9,9 @@
 #include "compiler_strings.h"
 
 bool pushObject(MavenCompiler* c, int namespaceID, MavenObject* obj) {
-	// must be allocated
+	// validate
+	smartAssert(namespaceID >= 0);
+	smartAssert(namespaceID < c->namespaces->length());
 	smartAssert(obj != 0);
 	
 	// Because Object and String require each other, they were pushed manually when the compiler was

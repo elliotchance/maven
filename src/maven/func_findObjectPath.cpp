@@ -40,7 +40,8 @@ string findObjectPath(MavenCompiler* c, string entity, bool includePointer) {
 			return entity;
 		else return "maven::" + entity + "Array*";
 	}
-	if(!includePointer) pntr = "";
+	if(!includePointer)
+		pntr = "";
 	
 	if(items.length() == 1) {
 		// if there is no namespace specified we will have to look for it
@@ -56,18 +57,21 @@ string findObjectPath(MavenCompiler* c, string entity, bool includePointer) {
 		}
 		--namespaceID;
 		
-		if(found.size() == 0) return MAVEN_INVALID;
+		if(found.size() == 0)
+			return MAVEN_INVALID;
 		else if(found.size() == 1) {
 			return c->namespaces->at(found[0]).name + "::" + items[0] + pntr;
 		} else pushError(c, "Ambiguous class '%s'", items[0]);
 	} else if(items.length() == 2) {
 		namespaceID = findNamespaceID(c, items[0]);
-		if(namespaceID < 0) return MAVEN_INVALID;
+		if(namespaceID < 0)
+			return MAVEN_INVALID;
 		
 		objectID = findObjectID(c, namespaceID, items[1]);
 		if(objectID < 0) {
 			objectID = findEnumID(c, namespaceID, items[1]);
-			if(objectID >= 0) return "int";
+			if(objectID >= 0)
+				return "int";
 			else return MAVEN_INVALID;
 		}
 		

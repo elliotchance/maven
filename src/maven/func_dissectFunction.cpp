@@ -10,11 +10,13 @@
 #include "compiler_push.h"
 #include "compiler_dissect.h"
 #include "compiler_operators.h"
+#include "doc.h"
 
 MavenFunction dissectFunction(MavenCompiler* c, string line) {
 	MavenFunction f;
 	StringList parts = smartTokens(line);
-	if(parts.length() < 2) return f;
+	if(parts.length() < 2)
+		return f;
 	
 	// the keywords must go in this order
 	// public/private external static returnType functionName(args) alias system func exports func
@@ -39,11 +41,13 @@ MavenFunction dissectFunction(MavenCompiler* c, string line) {
 	
 	// if the expected return type is the same name as the class this COULD
 	// BE a constructor, it could also just be a normal return type
-	if(parts[i] == c->currentClass && parts[i + 1][0] == '(')
+	if(/*parts[i] == c->currentClass &&*/ parts[i + 1][0] == '(') {
 		f.returnType = "<constructor>";
-	else {
+		//--i;
+	} else {
 		f.returnType = findMavenObjectPath(c, parts[i++]);
 		if(f.returnType == MAVEN_INVALID) {
+			printAllNamespaces(c);
 			pushError(c, "Unknown object type %s", parts[i - 1]);
 			return f;
 		}
@@ -68,20 +72,23 @@ MavenFunction dissectFunction(MavenCompiler* c, string line) {
 	}
 	
 	// allowed exit point
-	if(i == parts.length()) return f;
+	if(i == parts.length())
+		return f;
 	
-	// get descriptive arguments
+	// get message identifer
 	if(parts[i][0] == '[') {
 		f.descArgs = "";
 		for(int j = 1; j < parts[i].length(); ++j) {
-			if(parts[i][j] == ']') break;
+			if(parts[i][j] == ']')
+				break;
 			f.descArgs += parts[i][j];
 		}
 		++i;
 	}
 	
 	// allowed exit point
-	if(i == parts.length()) return f;
+	if(i == parts.length())
+		return f;
 	
 	// get export
 	if(parts[i] == "alias") {
@@ -92,7 +99,8 @@ MavenFunction dissectFunction(MavenCompiler* c, string line) {
 		}
 		f.alias = parts[i++];
 	}
-	if(i == parts.length()) return f;
+	if(i == parts.length())
+		return f;
 	
 	if(parts[i] == "exports") {
 		MavenFunction exports;

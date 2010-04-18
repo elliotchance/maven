@@ -6,7 +6,9 @@
 #include "maven.h"
 #include "compiler_strings.h"
 
-string dissectCodeSingle(MavenCompiler* c, string bareword, string entity, string element, string args, string signature, string& type, MavenMutability& mut, string nextop) {
+string dissectCodeSingle(MavenCompiler* c, string bareword, string entity, string element,
+						 string args, string signature, string& type, MavenMutability& mut,
+						 string nextop) {
 	
 	// bareword is for things such as variable names and like: 3, new, "A String" etc
 	// entity is for things like functions, classes, objects etc

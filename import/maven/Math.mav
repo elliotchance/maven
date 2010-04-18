@@ -336,4 +336,5 @@ class Math {
 	 * @since 1.0
 	 */
 	external public static quad random(quad min, quad max) exports random;
+	
 }

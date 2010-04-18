@@ -5,6 +5,9 @@ namespace maven;
  * @version 1.0
  */
 class Boolean {
+	/**
+	 * @brief Instance value.
+	 */
 	public boolean value;
 	
 	external public static constant boolean MIN_VALUE = false;
@@ -16,7 +19,7 @@ class Boolean {
 	external public boolean toBoolean();
 	external public byte toByte();
 	external public char toCharacter();
-	external public maven.Data toData();
+	//external public maven.Data toData();
 	external public double toDouble();
 	external public float toFloat();
 	external public int toInteger();

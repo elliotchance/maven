@@ -85,6 +85,7 @@ MavenCompiler::MavenCompiler() {
 	lineNumber = 0;
 	currentFunction = "";
 	currentNamespace = MAVEN_BARE_NAMESPACE;
+	currentClass = MAVEN_BARE_CLASS;
 	currentFile = "";
 	dissectDepth = 0;
 	totalLines = 0;

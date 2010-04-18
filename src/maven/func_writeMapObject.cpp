@@ -25,7 +25,8 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 	// C++ has a completely different way of dealing with static data members,
 	// so it's easier to just stick the variables into a predictable namespace.
 	if(countStaticVariables(c, namespaceID, objectID) > 0) {
-		c->mapFileHandle << "  namespace " << c->namespaces->at(namespaceID).objects->at(objectID)->name << "$static {" << endl;
+		c->mapFileHandle << "  namespace " << c->namespaces->at(namespaceID).objects->at(objectID)->name
+		                 << "$static {" << endl;
 		for(int k = 0; k < c->namespaces->at(namespaceID).objects->at(objectID)->variables->length(); ++k) {
 			if(!c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isExternal &&
 			   c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isStatic) {
@@ -36,7 +37,8 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 				else c->mapFileHandle << type;
 				c->mapFileHandle << " " << c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).name;
 				if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).defaultValue != "")
-					c->mapFileHandle << " = " << c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).defaultValue;
+					c->mapFileHandle << " = " <<
+					  c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).defaultValue;
 				c->mapFileHandle << ";" << endl;
 			}
 		}

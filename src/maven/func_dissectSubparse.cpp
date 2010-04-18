@@ -10,17 +10,16 @@
 #include "compiler_dissect.h"
 
 /**
- 
- This function takes an expression that could be anything from a simple keyword like
- 'true' to a complex multidementional object access.
- 
- The first thing this function will do is separate the expression on a '.' and
- proccess each element based on the previous.
- 
- @returns b.processed
- 
+ * This function takes an expression that could be anything from a simple keyword like
+ * 'true' to a complex multidementional object access.
+ *
+ * The first thing this function will do is separate the expression on a '.' and
+ * proccess each element based on the previous.
+ * 
+ * @returns b.processed
  */
-string dissectSubparse(MavenCompiler* c, MavenDissectBlock& b, string nextOp, StringList argumentTypes, bool warn) {
+string dissectSubparse(MavenCompiler* c, MavenDissectBlock& b, string nextOp,
+					   StringList argumentTypes, bool warn) {
 	// clean up
 	b.trim();
 	b.mutability = MU_IMPOSSIBLE;

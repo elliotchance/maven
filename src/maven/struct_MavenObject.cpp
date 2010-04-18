@@ -8,7 +8,6 @@
 using namespace std;
 
 MavenObject::MavenObject() {
-	cout << "alocating\n";
 	variables = new MavenVariables();
 	functions = new MavenFunctions();
 	reset();

@@ -182,8 +182,6 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 				newline += tokens[i] + " ";
 		}
 	}
-	printAllNamespaces(c);
-	return true;
 	
 	return true;
 }

@@ -16,5 +16,6 @@ int findObjectID(MavenCompiler* c, int namespaceID, string objectName) {
 	for(int i = 0; i < c->namespaces->at(namespaceID).objects->length(); ++i)
 		if(c->namespaces->at(namespaceID).objects->at(i)->name == objectName)
 			return i;
+	
 	return -1;
 }
