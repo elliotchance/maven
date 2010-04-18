@@ -1,6 +1,7 @@
 namespace util;
 
 /**
+ *
  * System architecture information.
  *
  * @version 1.0
