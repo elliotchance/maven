@@ -12,12 +12,7 @@
 
 #include "../maven/config.h"
 
-#include <iostream>
-#include <cmath>
-#include <string>
 #include <vector>
-#include <bitset>
-#include <fstream>
 
 #if MAVEN_OS == 1
 #include <pthread.h>
@@ -115,11 +110,11 @@ static std::vector<HANDLE> threads;
 #define operator_assignbitwisexor   operator_5E3D   /* ^=  */
 
 // these headers must be automatically included
-#include "maven.Array.h"
-#include "maven.Object.h"
-#include "maven.String.h"
-#include "maven.System.h"
-#include "maven.Selector.h"
+#include "maven/Array.h"
+#include "maven/Object.h"
+#include "maven/String.h"
+#include "maven/System.h"
+#include "maven/Selector.h"
 
 namespace maven {
 	
