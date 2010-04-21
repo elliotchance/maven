@@ -1,12 +1,17 @@
 /*
  *  maven Programming Language
- *  Created by Elliot Chance <elliot@mavenlang.com>.
+ *  Created by Elliot Chance <elliot@chancemedia.com>.
  */
 
-#include "maven.h"
+#ifndef _MAVEN_INSTALLER_H
+#define _MAVEN_INSTALLER_H 1
 
-string     findPackage(string package);
-void       installerUsage();
-bool       installPackage(MavenCompiler* c, string package);
-bool       processInstallerLine(MavenCompiler* c, string line, string packageName);
-StringList readDirectory(string path);
+#include "maven.h"
+#include "struct_MavenCompiler.h"
+
+bool processInstallerLine(MavenCompiler* c, string line, string packageName);
+bool installPackage(MavenCompiler* c, string package);
+void installerUsage();
+string findPackage(string package);
+
+#endif
