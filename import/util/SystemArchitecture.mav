@@ -9,25 +9,132 @@ namespace util;
 class SystemArchitecture {
 	
 	/**
-	 * @brief If the processors(s) are MMX capable.
+	 * @brief If the processor supports the MMX instruction set
 	 * 
 	 * MMX is a single instruction, multiple data (SIMD) instruction set designed by Intel, introduced in
 	 * 1996 with their Pentium line of microprocessors, designated as "Pentium with MMX Technology".
 	 * 
 	 * @url http://en.wikipedia.org/wiki/MMX_(instruction_set)
-	 * @return true if the processors(s) are MMX capable.
+	 * @return true if the processors supports the MMX instruction set.
 	 */
 	external public static boolean MMX() exports sysarch_MMX;
 	
+	/**
+	 * @brief If the processor supports the SSE instruction set.
+	 *
+	 * Streaming SIMD Extensions (SSE) is a SIMD instruction set extension to the x86 architecture, designed 
+	 * by Intel and introduced in 1999 in their Pentium III series processors
+	 *
+	 * @url http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions
+	 * @return true if the processor supports the SSE instruction set.
+	 */
+	
 	external public static boolean SSE() exports sysarch_SSE;
+	
+	/**
+	 * @brief If the processor supports the SSE2 instruction set.
+	 *
+	 * SSE2, Streaming SIMD Extensions 2, is one of the Intel SIMD (Single Instruction, Multiple Data) processor 
+	 * supplementary instruction sets first introduced by Intel with the initial version of the Pentium 4  in 2001
+	 *
+	 * @url http://en.wikipedia.org/wiki/SSE2
+	 * @return true if the processor supports the SSE2 instruction set.
+	 */
+	
 	external public static boolean SSE2() exports sysarch_SSE2;
+	
+	/**
+	* @brief If the processor supports the SSE3 instruction set.
+	*
+	* SSE3, Streaming SIMD Extensions 3, also known by its Intel code name Prescott New Instructions (PNI), 
+	* is the third iteration of the SSE instruction set for the IA-32 architecture. 
+	*
+	* @url http://en.wikipedia.org/wiki/SSE3
+	* @return true if the processor supports the SSE3 instruction set.
+	*/
+	
 	external public static boolean SSE3() exports sysarch_SSE3;
+	
+	/**
+	* @brief If the processor suppports the SSSE3 instruction set.
+	*
+	* Supplemental Streaming SIMD Extensions 3 (SSSE3) is Intel's name 
+	* for the SSE instruction set's fourth iteration. The previous version 
+	* was SSE3, and Intel has added an S rather than increment the version number
+	* as they appear to consider it merely a revision of SSE3.
+	*
+	* @url http://en.wikipedia.org/wiki/SSSE3
+	* @return true if the processor supports the SSSE3 instruction set.
+	*/
+	
 	external public static boolean SSSE3() exports sysarch_SSSE3;
+	
+	/**
+	* @brief If the processor suppports the SSE4A instruction set.
+	*
+	* The SSE4a instruction group was introduced in AMD's Barcelona microarchitecture. 
+	* With the exception of POPCNT, these instructions are not available in Intel processors.
+	*
+	* @url http://en.wikipedia.org/wiki/SSE4#SSE4a
+	* @return true if the processor supports the SSE4A instruction set.
+	*/
+	
 	external public static boolean SSE4A() exports sysarch_SSE4A;
+	
+	/**
+	* @brief If the processor suppports the SSE4.1 instruction set.
+	*
+	* These instructions were introduced with the 45nm shrink of the Intel Core microarchitecture.
+	*
+	* @url http://en.wikipedia.org/wiki/SSE4#SSE4.1
+	* @return true if the processor supports the SSE4.1 instruction set.
+	*/
+	
 	external public static boolean SSE41() exports sysarch_SSE41;
+	
+	/**
+	* @brief If the processor suppports the SSE4.2 instruction set.
+	*
+	* These instructions were introduced with the 45nm shrink of the Intel Core microarchitecture.
+	*
+	* @url http://en.wikipedia.org/wiki/SSE4#SSE4.2
+	* @return true if the processor supports the SSE4.2 instruction set.
+	*/
+	
 	external public static boolean SSE42() exports sysarch_SSE42;
+	
+	/**
+	* @brief If the processor supports the CMPCMPXCHG16B
+	* Compare and exchange 16 bytes
+	*
+	* @return true if the processor supports the CMPXCHG16B instruction
+	*/
+	
 	external public static boolean P16BATOMIC() exports sysarch_P16BATOMIC;
+	
+	/**
+	* @brief If the processor is capable of running 64bit code
+	* 
+	* @url http://en.wikipedia.org/wiki/Long_mode
+	* @return true if the processor is capable of running 64bit code
+	*/
+	
 	external public static boolean LONGMODE() exports sysarch_LONGMODE;
+	
+	/**
+	* @brief If the processor is capable of being used in a multipackage/cpu configuration
+	*
+	* @return true if the processr is capable of being used in a multipackage/cpu configuration
+	*/
+	
 	external public static boolean multiProcessorCapable() exports sysarch_multi_processor_capable;
+	
+	/**
+	* @brief the number of cores on the die it is run on
+	*
+	* @return the number of cores contained in the die of the core it is run on
+	*/
+	
 	external public static int totalCores() exports sysarch_total_cores;
 }
+
