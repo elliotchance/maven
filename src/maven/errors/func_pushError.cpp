@@ -6,6 +6,7 @@
 #include "maven.h"
 #include "struct_MavenCompiler.h"
 #include "errors.h"
+#include "strings.h"
 
 bool pushError(MavenCompiler* c, string message) {
 	pushError(c, message, "", "");
@@ -26,7 +27,7 @@ bool pushError(MavenCompiler* c, string message, string arg) {
 bool pushError(MavenCompiler* c, string message, string arg1, string arg2) {
 	MavenError error;
 	error.line = c->lineNumber;
-	error.file = c->currentFile;
+	error.file = combinePaths(c->currentDirectory, c->currentFile, false);
 	error.message = message;
 	error.arg1 = arg1;
 	error.arg2 = arg2;

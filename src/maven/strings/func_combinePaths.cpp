@@ -19,6 +19,12 @@ string combinePaths(string path1, string path2, bool includeLastSlash) {
 	for(int i = 0; i < path2.length(); ++i)
 		if(path2[i] == '\\') path2[i] = '/';
 	
+	// take off the last slash
+	if(path1.at(path1.length() - 1) == '/')
+		path1 = path1.substr(0, path1.length() - 1);
+	if(path2.at(path2.length() - 1) == '/')
+		path2 = path2.substr(0, path2.length() - 1);
+	
 	StringList p1 = split('/', path1), p2 = split('/', path2);
 	for(int i = 0; i < p2.length(); ++i) {
 		if(p2[i] == "." || p2[i] == "") {
