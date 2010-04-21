@@ -1,10 +1,10 @@
 /*
  *  maven Programming Language
- *  Created by Elliot Chance <elliot@mavenlang.com>.
+ *  Created by Elliot Chance <elliot@chancemedia.com>.
  */
 
-#ifndef MAVEN_H
-#define MAVEN_H 1
+#ifndef _MAVEN_MAVEN_H
+#define _MAVEN_MAVEN_H 1
 
 #include <string>
 #include <fstream>
@@ -17,7 +17,6 @@
 #include <sys/stat.h>
 
 #include "config.h"
-#include "structs.h"
 
 using namespace std;
 

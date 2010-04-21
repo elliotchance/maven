@@ -1,48 +1,31 @@
 /*
  *  maven Programming Language
- *  Created by Elliot Chance <elliot@mavenlang.com>.
+ *  Created by Elliot Chance <elliot@chancemedia.com>.
  */
 
-#include "config.h"
-#include "structs.h"
+#ifndef _MAVEN_KEYWORDS_H
+#define _MAVEN_KEYWORDS_H 1
+
 #include "maven.h"
+#include "struct_MavenCompiler.h"
+#include "struct_MavenObject.h"
 
-using namespace std;
+string getImportName(MavenCompiler* c, string import);
+string locateImport(MavenCompiler* c, string import);
+bool keywordWhile(MavenCompiler* c, string line, string& close);
+string keywordThrow(MavenCompiler* c, string line);
+string keywordReturn(MavenCompiler* c, string line);
+string keywordNew(MavenCompiler* c, string entity, string element, string args, string& type);
+bool keywordIf(MavenCompiler* c, string line, string& close);
+bool keywordFor(MavenCompiler* c, string line, string& close);
+bool keywordEnum(MavenCompiler* c, string identifier, string code);
+bool keywordElse(MavenCompiler* c, string line, string& close);
+string keywordCatch(MavenCompiler* c, string line, MavenVariable& catchVar);
+bool isReservedWord(MavenCompiler* c, string word);
+bool isKeyword(MavenCompiler* c, string k);
+bool importAll(MavenCompiler* c, string import, bool compiling);
+void extendObject(MavenCompiler* c, MavenObject* o, string extendClass);
+void extendObject(MavenCompiler* c, MavenObject* o, string extendClass);
+bool alreadyImported(MavenCompiler* c, string file);
 
-// keyword_catch.h
-MAVEN_DECL string keywordCatch(MavenCompiler* c, string line, MavenVariable& catchVar);
-
-// keyword_else.h
-MAVEN_DECL bool   keywordElse(MavenCompiler* c, string line, string& close);
-
-// keyword_enum.h
-MAVEN_DECL bool   keywordEnum(MavenCompiler* c, string identifer, string code);
-
-// keyword_for.h
-MAVEN_DECL bool   keywordFor(MavenCompiler* c, string line, string& close);
-
-// keyword_if.h
-MAVEN_DECL bool   keywordIf(MavenCompiler* c, string line, string& close);
-
-// keyword_new.h
-MAVEN_DECL string keywordNew(MavenCompiler* c, string entity, string element, string args, string& type);
-MAVEN_DECL string appendArrayDepth(MavenCompiler* c, string type, int depth);
-
-// keyword_return.h
-MAVEN_DECL string keywordReturn(MavenCompiler* c, string line);
-
-// keyword_throw.h
-MAVEN_DECL string keywordThrow(MavenCompiler* c, string line);
-
-// keyword_while.h
-MAVEN_DECL bool   keywordWhile(MavenCompiler* c, string line, string& close);
-
-// keyword_extends.h
-MAVEN_DECL void   extendObject(MavenCompiler* c, MavenObject* o, string extendClass);
-
-// keyword_import.h
-MAVEN_DECL bool   includeLibraryIfExists(MavenCompiler* c, string import);
-MAVEN_DECL bool   fileExists(string path);
-MAVEN_DECL bool   alreadyImported(MavenCompiler* c, string file);
-MAVEN_DECL string locateImport(MavenCompiler* c, string import);
-MAVEN_DECL bool   importAll(MavenCompiler* c, string import, bool compiling);
+#endif
