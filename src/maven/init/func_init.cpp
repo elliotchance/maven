@@ -7,12 +7,18 @@
 #include "struct_MavenCompiler.h"
 #include "strings.h"
 #include "output.h"
+#include "compiler.h"
 
 void init(MavenCompiler* c) {
 	// open the required file handles
 	c->mapFileHandle.open((c->option_n + ".mmap").c_str());
 	c->cppFileHandle.open((c->option_n + ".cpp").c_str());
-	// bug #42: test for bad file handles
+	
+	// test for bad file handles
+	if(!c->mapFileHandle.is_open())
+		die("Unable to open " + c->option_n + ".mmap for writing");
+	if(!c->cppFileHandle.is_open())
+		die("Unable to open " + c->option_n + ".cpp for writing");
 
 	string mavencoreh = combinePaths(c->binDirectory, c->iniFile.getKey("directories.src")) +
 									 "mavencore/mavencore.h";
