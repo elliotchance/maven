@@ -5,6 +5,16 @@
 
 #include "maven.h"
 
+#include <sstream>
+
+int hexToInt(string hexString) {
+	unsigned int x;   
+	stringstream ss(stringstream::in | stringstream::out);
+	ss << std::hex << hexString;
+	ss >> x;
+	return x;
+}
+
 string escapeString(string c) {
 	string c2 = "";
 	for(int i = 0; i < c.length(); ++i) {
@@ -19,8 +29,8 @@ string escapeString(string c) {
 			else if(c[i + 1] == '\'') c2 += '\'';
 			else if(c[i + 1] == '"') c2 += '"';
 			else if(c[i + 1] == 'x') {
-				// bug #24: needs to be fixed.
-				c2 += '\x00';
+				c2 += (char) hexToInt(c.substr(i + 2, 2));
+				i += 2;
 			}
 			++i;
 		} else c2 += c[i];

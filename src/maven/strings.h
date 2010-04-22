@@ -26,5 +26,6 @@ string combinePaths(string path1, string path2, bool includeLastSlash = true);
 int charToInt(string c);
 string boolOnOff(bool b);
 string trim(string line);
+int hexToInt(string hexString);
 
 #endif
