@@ -6,6 +6,7 @@
 #include "maven.h"
 #include "struct_MavenCompiler.h"
 #include "strings.h"
+#include "files.h"
 
 MavenVariable getCompilerVariable(MavenCompiler* c, string name) {
 	MavenVariable v;
@@ -64,13 +65,12 @@ MavenVariable getCompilerVariable(MavenCompiler* c, string name) {
 	}
 	if(name == "@File") {
 		v.type = "maven.String";
-		v.defaultValue = "new maven::String(\"" + c->currentFile + "\")";
+		v.defaultValue = "new maven::String(\"" + basename(c->currentFile) + "\")";
 		return v;
 	}
 	if(name == "@FilePath") {
-		// bug #44: need to get the full path
 		v.type = "maven.String";
-		v.defaultValue = "new maven::String(\"" + c->currentFile + "\")";
+		v.defaultValue = "new maven::String(\"" + combinePaths(c->currentDirectory, c->currentFile, false) + "\")";
 		return v;
 	}
 	if(name == "@Function") {

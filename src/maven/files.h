@@ -14,5 +14,6 @@ string getCurrentDirectory();
 bool makeDirectory(string path);
 StringList readDirectory(string path);
 string removeExtension(string file);
+string basename(string path);
 
 #endif

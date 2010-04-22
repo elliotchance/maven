@@ -158,7 +158,7 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 							break;
 						else db.original += code[i];
 					}
-				} else if(isOperatorPart(code.substr(i, 1)) && !countBrackets && !countSquare)
+				} else if(isOperatorPart(code.substr(i, 1)) && !countBrackets && !countSquare && code[i] != '@')
 					break;
 				db.original += code[i];
 			}
