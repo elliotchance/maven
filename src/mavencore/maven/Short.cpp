@@ -7,7 +7,7 @@ namespace maven {
 		value = 0;
 	}
 	
-	Short::Short(maven_short newValue) {
+	Short::Short(mshort newValue) {
 		super("maven.Short");
 		value = newValue;
 	}

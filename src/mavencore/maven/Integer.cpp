@@ -7,21 +7,21 @@ namespace maven {
 		value = 0;
 	}
 	
-	Integer::Integer(maven_int newValue) {
+	Integer::Integer(mint newValue) {
 		super("maven.Integer");
 		value = newValue;
 	}
 	
-	maven_boolean Integer::toBoolean() {
+	mboolean Integer::toBoolean() {
 		return (value != 0);
 	}
 	
-	maven_byte Integer::toByte() {
-		return (maven_byte) value;
+	mbyte Integer::toByte() {
+		return (mbyte) value;
 	}
 	
-	maven_char Integer::toCharacter() {
-		return (maven_char) value;
+	mchar Integer::toCharacter() {
+		return (mchar) value;
 	}
 	
 	maven::Data* Integer::toData() {
@@ -30,28 +30,28 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Integer::toDouble() {
-		return (maven_double) value;
+	mdouble Integer::toDouble() {
+		return (mdouble) value;
 	}
 	
-	maven_float Integer::toFloat() {
-		return (maven_float) value;
+	mfloat Integer::toFloat() {
+		return (mfloat) value;
 	}
 	
-	maven_int Integer::toInteger() {
+	mint Integer::toInteger() {
 		return value;
 	}
 	
-	maven_long Integer::toLong() {
-		return (maven_long) value;
+	mlong Integer::toLong() {
+		return (mlong) value;
 	}
 	
-	maven_quad Integer::toQuad() {
-		return (maven_quad) value;
+	mquad Integer::toQuad() {
+		return (mquad) value;
 	}
 	
-	maven_short Integer::toShort() {
-		return (maven_short) value;
+	mshort Integer::toShort() {
+		return (mshort) value;
 	}
 	
 	maven::String* Integer::toString() {

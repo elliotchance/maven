@@ -26,7 +26,8 @@ void writeMapFile(MavenCompiler* c) {
 	}
 	
 	// prepare class from compilation
-	c->imports.clear();
+	free(c->imports);
+	c->imports = new StringList();
 	c->lineNumber = 0;
 	c->errors.clear();
 }

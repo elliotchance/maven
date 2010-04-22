@@ -6,7 +6,7 @@ namespace maven {
 		super("maven.ObjectNilException");
 	}
 	
-	ObjectNilException::ObjectNilException(maven::String* variable, maven::String* filename, maven_int occuredLine) {
+	ObjectNilException::ObjectNilException(maven::String* variable, maven::String* filename, mint occuredLine) {
 		super("maven.ObjectNilException");
 		line = occuredLine;
 		file = filename;

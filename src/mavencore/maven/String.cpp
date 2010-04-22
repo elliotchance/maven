@@ -7,26 +7,26 @@ namespace maven {
 		String("");
 	}
 	
-	String::String(const maven_byte* newString) {
+	String::String(const mbyte* newString) {
 		len = strlen(newString);
-		s = (maven_byte*) malloc(len + 1);
+		s = (mbyte*) malloc(len + 1);
 		catchMalloc(s, "maven.String");
 		std::memmove(s, newString, len);
 		s[len] = 0;
 	}
 	
-	maven_int String::length() {
+	mint String::length() {
 		return len;
 	}
 	
-	String* String::substring(maven_int length) {
-		maven_byte* s2 = (maven_byte*) malloc(length + 1);
+	String* String::substring(mint length) {
+		mbyte* s2 = (mbyte*) malloc(length + 1);
 		strncpy(s2, s, length);
 		return new String(s2);
 	}
 	
-	String* String::substring(maven_int start, maven_int length) {
-		maven_byte* s2 = (maven_byte*) malloc(length + 1);
+	String* String::substring(mint start, mint length) {
+		mbyte* s2 = (mbyte*) malloc(length + 1);
 		strncpy(s2, s + start, length);
 		return new String(s2);
 	}
@@ -34,7 +34,7 @@ namespace maven {
 	String* String::append(String* str) {
 		//if(str == NULL) throw ObjectNilException;
 		
-		maven_byte* newString = new maven_byte[len + str->len + 1];
+		mbyte* newString = new mbyte[len + str->len + 1];
 		memmove(newString, s, len);
 		memmove(newString + len, str->s, str->len);
 		newString[len + str->len] = 0;
@@ -45,13 +45,13 @@ namespace maven {
 		return this;
 	}
 	
-	maven_int String::compare(String* otherString) {
+	mint String::compare(String* otherString) {
 		//if(str == NULL) throw ObjectNilException;
 		
 		return strcmp(s, otherString->s);
 	}
 	
-	maven_boolean String::isEmpty() {
+	mboolean String::isEmpty() {
 		return (len == 0);
 	}
 	
@@ -60,7 +60,7 @@ namespace maven {
 		free(s);
 	}
 	
-	maven_int String::indexOf(maven::String* otherString) {
+	mint String::indexOf(maven::String* otherString) {
 		//if(str == NULL) throw ObjectNilException;
 		
 		if(otherString->len > len) return -1;
@@ -75,16 +75,16 @@ namespace maven {
 		return -1;
 	}
 	
-	maven_boolean String::toBoolean() {
+	mboolean String::toBoolean() {
 		return length() != 0;
 	}
 	
-	maven_byte String::toByte() {
-		return (maven_byte) atoi(s);
+	mbyte String::toByte() {
+		return (mbyte) atoi(s);
 	}
 	
-	maven_char String::toCharacter() {
-		return (maven_char) atoi(s);
+	mchar String::toCharacter() {
+		return (mchar) atoi(s);
 	}
 	
 	maven::Data* String::toData() {
@@ -92,89 +92,89 @@ namespace maven {
 		return new maven::Data();
 	}
 	
-	maven_double String::toDouble() {
+	mdouble String::toDouble() {
 		return atof(s);
 	}
 	
-	maven_float String::toFloat() {
+	mfloat String::toFloat() {
 		return atof(s);
 	}
 	
-	maven_int String::toInteger() {
+	mint String::toInteger() {
 		return atoi(s);
 	}
 	
-	maven_long String::toLong() {
-		return (maven_long) atoi(s);
+	mlong String::toLong() {
+		return (mlong) atoi(s);
 	}
 	
-	maven_quad String::toQuad() {
-		return (maven_quad) atof(s);
+	mquad String::toQuad() {
+		return (mquad) atof(s);
 	}
 	
-	maven_short String::toShort() {
-		return (maven_short) atoi(s);
+	mshort String::toShort() {
+		return (mshort) atoi(s);
 	}
 	
 	maven::String* String::toString() {
 		return this;
 	}
 	
-	maven::String* String::valueOf(maven_boolean value) {
+	maven::String* String::valueOf(mboolean value) {
 		if(value)
 			return new maven::String("true");
 		return new maven::String("false");
 	}
 	
-	maven::String* String::valueOf(maven_byte value) {
+	maven::String* String::valueOf(mbyte value) {
 		char buf[20];
 		std::sprintf(buf, "%d", (int) value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_char value) {
+	maven::String* String::valueOf(mchar value) {
 		char buf[20];
 		std::sprintf(buf, "%d", (int) value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_double value) {
+	maven::String* String::valueOf(mdouble value) {
 		char buf[20];
 		std::sprintf(buf, "%g", value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_float value) {
+	maven::String* String::valueOf(mfloat value) {
 		char buf[20];
 		std::sprintf(buf, "%g", value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_int value) {
+	maven::String* String::valueOf(mint value) {
 		char buf[20];
 		std::sprintf(buf, "%d", value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_long value) {
+	maven::String* String::valueOf(mlong value) {
 		char buf[20];
 		std::sprintf(buf, "%d", (int) value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_quad value) {
+	maven::String* String::valueOf(mquad value) {
 		char buf[20];
 		std::sprintf(buf, "%g", (double) value);
 		return new maven::String(buf);
 	}
 	
-	maven::String* String::valueOf(maven_short value) {
+	maven::String* String::valueOf(mshort value) {
 		char buf[20];
 		std::sprintf(buf, "%d", (int) value);
 		return new maven::String(buf);
 	}
 	
-	maven_int String::levenshtein(maven::String* otherString) {
+	mint String::levenshtein(maven::String* otherString) {
 		if(len == 0) return otherString->len;
 		if(otherString->len == 0) return len;
 		
@@ -803,11 +803,11 @@ namespace maven {
 		return this->append(str2);
 	}
 	
-	maven::String* String::operator_plus(maven_quad str2) {
+	maven::String* String::operator_plus(mquad str2) {
 		return this->append(maven::String::valueOf(str2));
 	}
 	
-	maven_boolean String::operator_equal(maven::String* str2) {
+	mboolean String::operator_equal(maven::String* str2) {
 		return this->compare(str2) == 0;
 	}
 	

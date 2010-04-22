@@ -6,159 +6,159 @@ namespace maven {
 		super("maven.Array");
 	}
 	
-	booleanArray::booleanArray(maven_long size) {
+	booleanArray::booleanArray(mlong size) {
 		super("maven.BooleanArray");
 		length = size;
-		a = new maven_boolean[length];
+		a = new mboolean[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	booleanArray::booleanArray(maven_long size, maven_boolean defaultValue) {
+	booleanArray::booleanArray(mlong size, mboolean defaultValue) {
 		super("maven.BooleanArray");
 		length = size;
-		a = new maven_boolean[length];
+		a = new mboolean[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	byteArray::byteArray(maven_long size) {
+	byteArray::byteArray(mlong size) {
 		super("maven.ByteArray");
 		length = size;
-		a = new maven_byte[length];
+		a = new mbyte[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	byteArray::byteArray(maven_long size, maven_byte defaultValue) {
+	byteArray::byteArray(mlong size, mbyte defaultValue) {
 		super("maven.ByteArray");
 		length = size;
-		a = new maven_byte[length];
+		a = new mbyte[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	charArray::charArray(maven_long size) {
+	charArray::charArray(mlong size) {
 		super("maven.CharacterArray");
 		length = size;
-		a = new maven_char[length];
+		a = new mchar[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	charArray::charArray(maven_long size, maven_char defaultValue) {
+	charArray::charArray(mlong size, mchar defaultValue) {
 		super("maven.CharacterArray");
 		length = size;
-		a = new maven_char[length];
+		a = new mchar[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	doubleArray::doubleArray(maven_long size) {
+	doubleArray::doubleArray(mlong size) {
 		super("maven.DoubleArray");
 		length = size;
-		a = new maven_double[length];
+		a = new mdouble[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	doubleArray::doubleArray(maven_long size, maven_double defaultValue) {
+	doubleArray::doubleArray(mlong size, mdouble defaultValue) {
 		super("maven.DoubleArray");
 		length = size;
-		a = new maven_double[length];
+		a = new mdouble[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	floatArray::floatArray(maven_long size) {
+	floatArray::floatArray(mlong size) {
 		super("maven.FloatArray");
 		length = size;
-		a = new maven_float[length];
+		a = new mfloat[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	floatArray::floatArray(maven_long size, maven_float defaultValue) {
+	floatArray::floatArray(mlong size, mfloat defaultValue) {
 		super("maven.FloatArray");
 		length = size;
-		a = new maven_float[length];
+		a = new mfloat[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	intArray::intArray(maven_long size) {
+	intArray::intArray(mlong size) {
 		super("maven.IntArray");
 		length = size;
-		a = new maven_int[length];
+		a = new mint[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	intArray::intArray(maven_long size, maven_int defaultValue) {
+	intArray::intArray(mlong size, mint defaultValue) {
 		super("maven.IntArray");
 		length = size;
-		a = new maven_int[length];
+		a = new mint[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	intArray::intArray(maven_long size, maven_int* values) {
+	intArray::intArray(mlong size, mint* values) {
 		super("maven.IntArray");
 		length = size;
-		a = new maven_int[length];
+		a = new mint[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = values[i];
 	}
 	
-	longArray::longArray(maven_long size) {
+	longArray::longArray(mlong size) {
 		super("maven.LongArray");
 		length = size;
-		a = new maven_long[length];
+		a = new mlong[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	longArray::longArray(maven_long size, maven_long defaultValue) {
+	longArray::longArray(mlong size, mlong defaultValue) {
 		super("maven.LongArray");
 		length = size;
-		a = new maven_long[length];
+		a = new mlong[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	shortArray::shortArray(maven_long size) {
+	shortArray::shortArray(mlong size) {
 		super("maven.ShortArray");
 		length = size;
-		a = new maven_short[length];
+		a = new mshort[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	shortArray::shortArray(maven_long size, maven_short defaultValue) {
+	shortArray::shortArray(mlong size, mshort defaultValue) {
 		super("maven.ShortArray");
 		length = size;
-		a = new maven_short[length];
+		a = new mshort[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	quadArray::quadArray(maven_long size) {
+	quadArray::quadArray(mlong size) {
 		super("maven.QuadArray");
 		length = size;
-		a = new maven_quad[length];
+		a = new mquad[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = 0;
 	}
 	
-	quadArray::quadArray(maven_long size, maven_quad defaultValue) {
+	quadArray::quadArray(mlong size, mquad defaultValue) {
 		super("maven.QuadArray");
 		length = size;
-		a = new maven_quad[length];
+		a = new mquad[length];
 		for(int i = 0; i < length; ++i)
 			a[i] = defaultValue;
 	}
 	
-	objectArray::objectArray(maven_long size) {
+	objectArray::objectArray(mlong size) {
 		super("maven.ObjectArray");
 		length = size;
 		a = new maven::Object*[length];
@@ -166,7 +166,7 @@ namespace maven {
 			a[i] = NULL;
 	}
 	
-	objectArray::objectArray(maven_long size, maven::Object** assign) {
+	objectArray::objectArray(mlong size, maven::Object** assign) {
 		super("maven.ObjectArray");
 		length = size;
 		a = assign;

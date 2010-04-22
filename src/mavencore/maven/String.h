@@ -9,9 +9,9 @@ namespace maven {
 	
 	class String {
 		// these are internal and hidden from maven
-		public_variable maven_byte* s;
-		public_variable maven_int len;
-		public_variable String(const maven_byte* newString);
+		public_variable mbyte* s;
+		public_variable mint len;
+		public_variable String(const mbyte* newString);
 		
 		// constrctors
 		public_constructor String();
@@ -19,42 +19,42 @@ namespace maven {
 		// manipulation
 		public_method maven::String* append(maven::String* str);
 		public_method void erase();
-		public_method maven::String* substring(maven_int length);
-		public_method maven::String* substring(maven_int start, maven_int length);
+		public_method maven::String* substring(mint length);
+		public_method maven::String* substring(mint start, mint length);
 		
 		// searching
-		public_method maven_int indexOf(maven::String* otherString);
+		public_method mint indexOf(maven::String* otherString);
 		
 		// testing
-		public_method maven_int compare(maven::String* otherString);
-		public_method maven_boolean isEmpty();
-		public_method maven_int length();
+		public_method mint compare(maven::String* otherString);
+		public_method mboolean isEmpty();
+		public_method mint length();
 		
 		// type conversion
-		public_method maven_boolean toBoolean();
-		public_method maven_byte toByte();
-		public_method maven_char toCharacter();
+		public_method mboolean toBoolean();
+		public_method mbyte toByte();
+		public_method mchar toCharacter();
 		public_method maven::Data* toData();
-		public_method maven_double toDouble();
-		public_method maven_float toFloat();
-		public_method maven_int toInteger();
-		public_method maven_long toLong();
-		public_method maven_quad toQuad();
-		public_method maven_short toShort();
+		public_method mdouble toDouble();
+		public_method mfloat toFloat();
+		public_method mint toInteger();
+		public_method mlong toLong();
+		public_method mquad toQuad();
+		public_method mshort toShort();
 		public_method maven::String* toString();
 		
-		public_static_method maven::String* valueOf(maven_boolean value);
-		public_static_method maven::String* valueOf(maven_byte value);
-		public_static_method maven::String* valueOf(maven_char value);
-		public_static_method maven::String* valueOf(maven_double value);
-		public_static_method maven::String* valueOf(maven_float value);
-		public_static_method maven::String* valueOf(maven_int value);
-		public_static_method maven::String* valueOf(maven_long value);
-		public_static_method maven::String* valueOf(maven_quad value);
-		public_static_method maven::String* valueOf(maven_short value);
+		public_static_method maven::String* valueOf(mboolean value);
+		public_static_method maven::String* valueOf(mbyte value);
+		public_static_method maven::String* valueOf(mchar value);
+		public_static_method maven::String* valueOf(mdouble value);
+		public_static_method maven::String* valueOf(mfloat value);
+		public_static_method maven::String* valueOf(mint value);
+		public_static_method maven::String* valueOf(mlong value);
+		public_static_method maven::String* valueOf(mquad value);
+		public_static_method maven::String* valueOf(mshort value);
 		
 		// misc
-		public_method maven_int levenshtein(maven::String* otherString);
+		public_method mint levenshtein(maven::String* otherString);
 		
 		// hashes
 		public_method maven::String* md5();
@@ -62,8 +62,8 @@ namespace maven {
 		
 		// operators
 		public_method maven::String* operator_plus(maven::String* str2);
-		public_method maven::String* operator_plus(maven_quad str2);
-		public_method maven_boolean operator_equal(maven::String* str2);
+		public_method maven::String* operator_plus(mquad str2);
+		public_method mboolean operator_equal(maven::String* str2);
 	};
 	
 }

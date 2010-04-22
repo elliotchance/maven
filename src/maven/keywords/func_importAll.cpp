@@ -15,7 +15,7 @@ bool importAll(MavenCompiler* c, string import, bool compiling) {
 	
 	// bug #32: use readDirectory()
 	struct dirent *ep;
-	string location = combinePaths(c->binDirectory + "/", c->iniFile.getKey("directories.import")) + parts[0];
+	string location = combinePaths(c->binDirectory, c->iniFile.getKey("directories.import")) + parts[0];
 	DIR* dp = opendir(location.c_str());
 	if(dp != NULL) {
 		while(ep = readdir(dp)) {
@@ -36,7 +36,7 @@ bool importAll(MavenCompiler* c, string import, bool compiling) {
 		closedir(dp);
 		return true;
 	} else {
-		cout << "Error opening " << location << endl;
+		cout << "Error import location " << location << endl;
 		exit(1);
 	}
 	

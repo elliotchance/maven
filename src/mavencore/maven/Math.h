@@ -3,12 +3,12 @@
 
 #include <cmath>
 
-#include "../mavencoreclean.h"
+#include "../mavencore.h"
 
 // standard math functions
 
-#define MAVEN_MATH_E  (maven_quad) 2.71828182845904523536
-#define MAVEN_MATH_PI (maven_quad) 3.14159265358979323846
+#define MAVEN_MATH_E  (mquad) 2.71828182845904523536
+#define MAVEN_MATH_PI (mquad) 3.14159265358979323846
 
 namespace maven {
 	
@@ -16,33 +16,33 @@ namespace maven {
 	// so theres no need to make more functions here
 
 	class Math extends maven::Object {
-		public_static_method maven_quad log2(maven_quad x);
-		public_static_method maven_quad sq(maven_quad x);
-		public_static_method maven_quad cbrt(maven_quad x);
-		public_static_method maven_quad pow10(maven_quad x);
-		public_static_method maven_quad round(maven_quad x);
-		public_static_method maven_quad round(maven_quad x, maven_byte places);
-		public_static_method maven_quad round(maven_quad x, maven_quad nearest, maven_int mode);
-		public_static_method maven_quad sinh(maven_quad x);
-		public_static_method maven_quad cosh(maven_quad x);
-		public_static_method maven_quad tanh(maven_quad x);
-		public_static_method maven_quad sec(maven_quad x);
-		public_static_method maven_quad csc(maven_quad x);
-		public_static_method maven_quad cot(maven_quad x);
-		public_static_method maven_quad asinh(maven_quad x);
-		public_static_method maven_quad acosh(maven_quad x);
-		public_static_method maven_quad atanh(maven_quad x);
-		public_static_method maven_quad asec(maven_quad x);
-		public_static_method maven_quad acsc(maven_quad x);
-		public_static_method maven_quad acot(maven_quad x);
-		public_static_method maven_quad asech(maven_quad x);
-		public_static_method maven_quad acsch(maven_quad x);
-		public_static_method maven_quad acoth(maven_quad x);
-		public_static_method maven_quad rad2deg(maven_quad x);
-		public_static_method maven_quad deg2rad(maven_quad x);
-		public_static_method maven_quad random();
-		public_static_method maven_quad random(maven_quad max);
-		public_static_method maven_quad random(maven_quad min, maven_quad max);
+		public_static_method mquad log2(mquad x);
+		public_static_method mquad sq(mquad x);
+		public_static_method mquad cbrt(mquad x);
+		public_static_method mquad pow10(mquad x);
+		public_static_method mquad round(mquad x);
+		public_static_method mquad round(mquad x, mbyte places);
+		public_static_method mquad round(mquad x, mquad nearest, mint mode);
+		public_static_method mquad sinh(mquad x);
+		public_static_method mquad cosh(mquad x);
+		public_static_method mquad tanh(mquad x);
+		public_static_method mquad sec(mquad x);
+		public_static_method mquad csc(mquad x);
+		public_static_method mquad cot(mquad x);
+		public_static_method mquad asinh(mquad x);
+		public_static_method mquad acosh(mquad x);
+		public_static_method mquad atanh(mquad x);
+		public_static_method mquad asec(mquad x);
+		public_static_method mquad acsc(mquad x);
+		public_static_method mquad acot(mquad x);
+		public_static_method mquad asech(mquad x);
+		public_static_method mquad acsch(mquad x);
+		public_static_method mquad acoth(mquad x);
+		public_static_method mquad rad2deg(mquad x);
+		public_static_method mquad deg2rad(mquad x);
+		public_static_method mquad random();
+		public_static_method mquad random(mquad max);
+		public_static_method mquad random(mquad min, mquad max);
 	};
 
 }

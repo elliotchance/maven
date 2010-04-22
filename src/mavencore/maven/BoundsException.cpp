@@ -6,7 +6,7 @@ namespace maven {
 		super("maven.BoundsException");
 	}
 	
-	BoundsException::BoundsException(maven::String* variable, maven::String* filename, maven_int occuredLine) {
+	BoundsException::BoundsException(maven::String* variable, maven::String* filename, mint occuredLine) {
 		super("maven.BoundsException");
 		line = occuredLine;
 		file = filename;

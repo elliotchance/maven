@@ -21,15 +21,16 @@
 #endif
 
 // maven types
-typedef bool           maven_boolean;
-typedef char           maven_byte;
-typedef unsigned short maven_char;
-typedef double         maven_double;
-typedef float          maven_float;
-typedef int            maven_int;
-typedef long long      maven_long;
-typedef long double    maven_quad;
-typedef short          maven_short;
+typedef bool           mboolean;
+typedef char           mbyte;
+typedef unsigned short mchar;
+typedef double         mdouble;
+typedef float          mfloat;
+typedef int            mint;
+typedef long long      mlong;
+typedef long double    mquad;
+typedef short          mshort;
+typedef void           mvoid;
 
 // for mavencore
 #define public_method           public: virtual 
@@ -44,25 +45,31 @@ typedef short          maven_short;
 #define private_constructor     private: 
 
 // for catching potential memory problems
-#define catchMalloc(__variable, __objName) if(__variable == 0) { printf("ERROR: malloc() failed for %s\n", __objName); }
-#define catchNilObjectException(__variable, __action) if(__variable == 0) { __action; }
+#define catchMalloc(__variable, __objName) \
+	if(__variable == 0) { \
+		printf("ERROR: malloc() failed for %s\n", __objName); \
+	}
+#define catchNilObjectException(__variable, __action) \
+	if(__variable == 0) { \
+		__action; \
+	}
 #define newStatic(objectName, variableName) namespace objectName##$static { variableName; }
 #define externStatic(objectName, variableName) namespace objectName##$static { extern variableName; }
 #define getStatic(objectName, variableName) objectName##$static::variableName
 
 // other keywords
-//#define nil NULL
+#define mnil 0
 #define extends : public
 #define readonly
 
 // random number generation for Math.random()
 #define N 624
 #define M 397
-#define MATRIX_A 0x9908b0dfUL   /* constant vector a */
-#define UPPER_MASK 0x80000000UL /* most significant w-r bits */
-#define LOWER_MASK 0x7fffffffUL /* least significant r bits */
-extern maven_long mt[N]; /* the array for the state vector  */
-extern maven_int mti; /* mti==N+1 means mt[N] is not initialized */
+#define MATRIX_A 0x9908b0dfUL   // constant vector a
+#define UPPER_MASK 0x80000000UL // most significant w-r bits
+#define LOWER_MASK 0x7fffffffUL // least significant r bits
+extern mlong mt[N];        // the array for the state vector
+extern mint mti;           // mti==N+1 means mt[N] is not initialized
 
 #if MAVEN_OS == 1
 static std::vector<pthread_t> threads;
@@ -118,51 +125,34 @@ static std::vector<HANDLE> threads;
 
 namespace maven {
 	
-	maven_boolean initMaven();
+	mboolean initMaven();
 	
 	namespace Boolean$static {
-		extern maven_boolean MAX_VALUE;
-		extern maven_boolean MIN_VALUE;
+		extern mboolean MAX_VALUE;
+		extern mboolean MIN_VALUE;
 	}
 	
 	namespace Byte$static {
-		extern maven_byte MAX_VALUE;
-		extern maven_byte MIN_VALUE;
+		extern mbyte MAX_VALUE;
+		extern mbyte MIN_VALUE;
 	}
 	
 	namespace Float$static {
-		extern maven_float MAX_VALUE;
-		extern maven_float MIN_VALUE;
-		extern maven_float POSITIVE_INFINITY;
-		extern maven_float NEGATIVE_INFINITY;
-		extern maven_float NaN;
+		extern mfloat MAX_VALUE;
+		extern mfloat MIN_VALUE;
+		extern mfloat POSITIVE_INFINITY;
+		extern mfloat NEGATIVE_INFINITY;
+		extern mfloat NaN;
 	}
 	
 	namespace Double$static {
-		extern maven_double MAX_VALUE;
-		extern maven_double MIN_VALUE;
-		extern maven_double POSITIVE_INFINITY;
-		extern maven_double NEGATIVE_INFINITY;
-		extern maven_double NaN;
+		extern mdouble MAX_VALUE;
+		extern mdouble MIN_VALUE;
+		extern mdouble POSITIVE_INFINITY;
+		extern mdouble NEGATIVE_INFINITY;
+		extern mdouble NaN;
 	}
 	
 }
-
-// safe original types
-typedef char c_char;
-typedef int  c_int;
-typedef long c_long;
-
-// mask types
-typedef long double _quad;
-typedef char _byte;
-typedef long long _long;
-typedef unsigned short _char;
-
-#define boolean bool
-#define byte    _byte
-#define char    _char
-#define long    _long
-#define quad    _quad
 
 #endif

@@ -8,6 +8,7 @@
 #include "struct_MavenCompiler.h"
 #include "strings.h"
 #include "objects.h"
+#include "output.h"
 
 string compilerFunctionCast(MavenCompiler* c, string signature, string args, string& type) {
 	StringList parts = split(',', args);
@@ -22,5 +23,5 @@ string compilerFunctionCast(MavenCompiler* c, string signature, string args, str
 	if(type[type.length() - 1] == '.')
 		type = type.substr(0, type.length() - 1);
 	
-	return string("((") + findObjectPath(c, type) + ")" + parts[1] + ")";
+	return string("((") + cType(findObjectPath(c, type)) + ")" + parts[1] + ")";
 }

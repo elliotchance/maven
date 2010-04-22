@@ -1,7 +1,7 @@
 #ifndef MAVENCORE_MAVEN_THREAD
 #define MAVENCORE_MAVEN_THREAD 1
 
-#include "../mavencoreclean.h"
+#include "../mavencore.h"
 #include "Selector.h"
 
 namespace maven {
@@ -18,12 +18,12 @@ namespace maven {
 		public_constructor Thread();
 		public_constructor Thread(maven::Selector* s);
 		
-		public_method maven_int run();
+		public_method mint run();
 		
-		public_static_method maven_int detach(maven::Selector* s);
-		public_static_method maven_int detach(maven::Selector* s, maven::objectArray* argv);
+		public_static_method mint detach(maven::Selector* s);
+		public_static_method mint detach(maven::Selector* s, maven::objectArray* argv);
 		public_static_method void waitAll();
-		public_static_method maven_int activeThreads();
+		public_static_method mint activeThreads();
 	};
 	
 }

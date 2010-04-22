@@ -6,17 +6,18 @@
 #ifndef _MAVEN_MAVEN_H
 #define _MAVEN_MAVEN_H 1
 
+#include "config.h"
+
 #include <string>
+#include <string.h>
+#include <math.h>
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <sys/types.h>
 #include <dirent.h>
-#include <math.h>
 #include <stdlib.h>
 #include <sys/stat.h>
-
-#include "config.h"
 
 using namespace std;
 

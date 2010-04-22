@@ -3,8 +3,8 @@
 namespace maven {
 	
 	namespace Boolean$static {
-		maven_boolean MAX_VALUE = true;
-		maven_boolean MIN_VALUE = false;
+		mboolean MAX_VALUE = true;
+		mboolean MIN_VALUE = false;
 	}
 	
 	Boolean::Boolean() {
@@ -12,20 +12,20 @@ namespace maven {
 		value = false;
 	}
 	
-	Boolean::Boolean(maven_boolean newValue) {
+	Boolean::Boolean(mboolean newValue) {
 		super("maven.Boolean");
 		value = newValue;
 	}
 	
-	maven_boolean Boolean::toBoolean() {
+	mboolean Boolean::toBoolean() {
 		return value;
 	}
 	
-	maven_byte Boolean::toByte() {
+	mbyte Boolean::toByte() {
 		return (value ? 1 : 0);
 	}
 	
-	maven_char Boolean::toCharacter() {
+	mchar Boolean::toCharacter() {
 		return (value ? 'T' : 'F');
 	}
 	
@@ -35,27 +35,27 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Boolean::toDouble() {
+	mdouble Boolean::toDouble() {
 		return (value ? 1.0 : 0.0);
 	}
 	
-	maven_float Boolean::toFloat() {
+	mfloat Boolean::toFloat() {
 		return (value ? 1.0f : 0.0f);
 	}
 	
-	maven_int Boolean::toInteger() {
+	mint Boolean::toInteger() {
 		return (value ? 1 : 0);
 	}
 	
-	maven_long Boolean::toLong() {
+	mlong Boolean::toLong() {
 		return (value ? 1L : 0L);
 	}
 	
-	maven_quad Boolean::toQuad() {
+	mquad Boolean::toQuad() {
 		return (value ? 1.0 : 0.0);
 	}
 	
-	maven_short Boolean::toShort() {
+	mshort Boolean::toShort() {
 		return (value ? 1 : 0);
 	}
 	

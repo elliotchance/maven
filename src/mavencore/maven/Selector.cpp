@@ -6,7 +6,7 @@ namespace maven {
 #if MAVEN_OS == 1
 	Selector::Selector(void* (*selector)(void*)) {
 #elif MAVEN_OS == 2
-	Selector::Selector(maven_int (*selector)(void*)) {
+	Selector::Selector(mint (*selector)(void*)) {
 #endif
 		super("maven.Selector");
 		ptr = selector;
@@ -20,56 +20,56 @@ namespace maven {
 #endif
 	}
 	
-	void* Selector::voidiseQuad(maven_quad x) {
-		maven_quad* r = new maven_quad[1];
+	void* Selector::voidiseQuad(mquad x) {
+		mquad* r = new mquad[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseBoolean(maven_boolean x) {
-		maven_boolean* r = new maven_boolean[1];
+	void* Selector::voidiseBoolean(mboolean x) {
+		mboolean* r = new mboolean[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseByte(maven_byte x) {
-		maven_byte* r = new maven_byte[1];
+	void* Selector::voidiseByte(mbyte x) {
+		mbyte* r = new mbyte[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseChar(maven_char x) {
-		maven_char* r = new maven_char[1];
+	void* Selector::voidiseChar(mchar x) {
+		mchar* r = new mchar[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseFloat(maven_float x) {
-		maven_float* r = new maven_float[1];
+	void* Selector::voidiseFloat(mfloat x) {
+		mfloat* r = new mfloat[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseDouble(maven_double x) {
-		maven_double* r = new maven_double[1];
+	void* Selector::voidiseDouble(mdouble x) {
+		mdouble* r = new mdouble[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseInt(maven_int x) {
-		maven_int* r = new maven_int[1];
+	void* Selector::voidiseInt(mint x) {
+		mint* r = new mint[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseLong(maven_long x) {
-		maven_long* r = new maven_long[1];
+	void* Selector::voidiseLong(mlong x) {
+		mlong* r = new mlong[1];
 		*r = x;
 		return r;
 	}
 	
-	void* Selector::voidiseShort(maven_short x) {
-		maven_short* r = new maven_short[1];
+	void* Selector::voidiseShort(mshort x) {
+		mshort* r = new mshort[1];
 		*r = x;
 		return r;
 	}

@@ -7,7 +7,9 @@
 #include "struct_MavenCompiler.h"
 
 bool alreadyImported(MavenCompiler* c, string file) {
-	for(int i = 0; i < c->imports.size(); ++i)
-		if(c->imports[i] == file) return true;
+	for(int i = 0; i < c->imports->length(); ++i) {
+		if(c->imports->operator[](i) == file)
+			return true;
+	}
 	return false;
 }

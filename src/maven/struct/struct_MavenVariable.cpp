@@ -7,6 +7,7 @@
 #include "struct_MavenCompiler.h"
 #include "struct_MavenVariable.h"
 #include "objects.h"
+#include "output.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ string MavenVariable::getCPP(MavenCompiler* c) {
 	string r = "";
 	if(isStatic)
 		r += "static ";
-	r += findObjectPath(c, type) +  " " + name;
+	r += cType(findObjectPath(c, type)) +  " " + name;
 	return r;
 }
 

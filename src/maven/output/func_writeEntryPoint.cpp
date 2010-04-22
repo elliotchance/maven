@@ -14,7 +14,7 @@ void writeEntryPoint(MavenCompiler* c) {
 	// the only purpose of this function to create main()
 	// from the bits of scattered code collected along the way
 	// as well as the global variables.
-	writeCPPLine(c, "int main(int argc, maven_byte** argv) {");
+	writeCPPLine(c, "int main(int argc, mbyte** argv) {");
 	
 	// here we setup Application
 	writeCPPLine(c, "maven::Application$static::program = new maven::String(argv[0]);");

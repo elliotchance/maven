@@ -15,5 +15,5 @@ bool validEntityName(string name) {
 		return false;
 	if(name[0] > '0' && name[0] < '9')
 		return false;
-	return strspn(name.c_str(), "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_") == name.length();
+	return std::strspn(name.c_str(), "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_") == name.length();
 }

@@ -55,13 +55,13 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 		for(int i = 0; i < elements.length(); ++i) {
 			arrayLine = variablePath + "->a[" + intToString(i) + "] = ";
 			if(!isDataType(elementType))
-				arrayLine += string("(") + findObjectPath(c, elementType, true) + ")";
+				arrayLine += string("(") + cType(findObjectPath(c, elementType, true)) + ")";
 			StringList types;
 			MavenMutability mut;
 			string dCode = dissectCode(c, elements[i], types, mut);
 			if(isDataType(elementType))
 				arrayLine += dCode;
-			else arrayLine += "new " + findObjectPath(c, nativeToObject(types.join(",")), false) + "(" + dCode + ")";
+			else arrayLine += "new " + cType(findObjectPath(c, nativeToObject(types.join(",")), false)) + "(" + dCode + ")";
 			writeAutoCPPLine(c, arrayLine + ";");
 		}
 		return true;
@@ -228,8 +228,8 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					   f.returnType != "maven.Selector" && f.returnType != "maven.Array") {
 						writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 						writeCPPLine(c, f.getCPPLine(c, c->currentClass) + "{");
-						writeCPPLine(c, findObjectPath(c, f.returnType, true) + " r = new " +
-									 findObjectPath(c, f.returnType, false) + "();");
+						writeCPPLine(c, cType(findObjectPath(c, f.returnType, true)) + " r = new " +
+									 cType(findObjectPath(c, f.returnType, false)) + "();");
 						for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->variables->length(); ++i) {
 							// skip retain
 							if(c->namespaces->at(nID).objects->at(oID)->variables->at(i).name == "retain")
@@ -306,7 +306,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 						StringList callArgs;
 						for(int j = 0; j < c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length(); ++j) {
 							string toType = nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type).substr(6);
-							string toCast = findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type);
+							string toCast = cType(findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type));
 							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type.find("[]") != string::npos) {
 								if(isDataType(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type))
 									toCast = "maven::" + c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type + "Array*";
@@ -326,7 +326,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 							writeCPPLine(c, string("{ ") + c->namespaces->at(nID).objects->at(oID)->functions->at(i).name +
 										 "(" + callArgs.join(",") + "); return new maven::Object(); }");
 						else {
-							string returnType = findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false);
+							string returnType = cType(findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false));
 							string realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).name;
 							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias != "")
 								realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias;
@@ -364,7 +364,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 						StringList callArgs;
 						for(int j = 0; j < c->namespaces->at(nID).objects->at(oID)->functions->at(i).args.length(); ++j) {
 							string toType = nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type).substr(6);
-							string toCast = findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type);
+							string toCast = cType(findObjectPath(c, c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type));
 							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type.find("[]") != string::npos) {
 								if(isDataType(c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type))
 									toCast = "maven::" + c->namespaces->at(nID).objects->at(oID)->functions->at(i).args[j].type + "Array*";
@@ -384,7 +384,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 							writeCPPLine(c, string("{ ") + c->namespaces->at(nID).objects->at(oID)->functions->at(i).name +
 										 "(" + callArgs.join(",") + "); return new maven::Object(); }");
 						else {
-							string returnType = findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false);
+							string returnType = cType(findObjectPath(c, nativeToObject(c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType), false));
 							string realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).name;
 							if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias != "")
 								realFunctionName = c->namespaces->at(nID).objects->at(oID)->functions->at(i).alias;

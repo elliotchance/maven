@@ -22,7 +22,7 @@ string intToString(int value);
 string getLastEntity(string str);
 string getFirstEntity(string str);
 string escapeString(string c);
-string combinePaths(string path1, string path2, bool includeLastSlash = false);
+string combinePaths(string path1, string path2, bool includeLastSlash = true);
 int charToInt(string c);
 string boolOnOff(bool b);
 string trim(string line);

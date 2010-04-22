@@ -12,14 +12,14 @@ namespace maven {
 		s = p;
 	}
 	
-	maven_int Thread::run() {
+	mint Thread::run() {
 		// this method assumes no arguments to the detached function
 		void** argv = new void*[1];
 		argv[0] = maven::Selector::voidiseInt(0);
 		
 #if MAVEN_OS == 1
 		pthread_t thread;
-		maven_int r = pthread_create(&thread, NULL, s->ptr, argv);
+		mint r = pthread_create(&thread, NULL, s->ptr, argv);
 		threads.push_back(thread);
 		return r;
 #elif MAVEN_OS == 2
@@ -30,13 +30,13 @@ namespace maven {
 		return 0;
 	}
 	
-	maven_int Thread::detach(maven::Selector* s) {
+	mint Thread::detach(maven::Selector* s) {
 		// this method assumes no arguments to the detached function
 		void* argv = (void*) new maven::objectArray(0);
 		
 #if MAVEN_OS == 1
 		pthread_t thread;
-		maven_int r = pthread_create(&thread, NULL, s->ptr, argv);
+		mint r = pthread_create(&thread, NULL, s->ptr, argv);
 		threads.push_back(thread);
 		return r;
 #elif MAVEN_OS == 2
@@ -47,10 +47,10 @@ namespace maven {
 		return 0;
 	}
 	
-	maven_int Thread::detach(maven::Selector* s, maven::objectArray* argv) {
+	mint Thread::detach(maven::Selector* s, maven::objectArray* argv) {
 #if MAVEN_OS == 1
 		pthread_t thread;
-		maven_int r = pthread_create(&thread, NULL, s->ptr, argv);
+		mint r = pthread_create(&thread, NULL, s->ptr, argv);
 		threads.push_back(thread);
 		return r;
 #elif MAVEN_OS == 2
@@ -75,7 +75,7 @@ namespace maven {
 #endif
 	}
 	
-	maven_int Thread::activeThreads() {
+	mint Thread::activeThreads() {
 		return threads.size();
 		return 0;
 	}

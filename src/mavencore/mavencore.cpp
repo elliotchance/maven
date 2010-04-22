@@ -7,10 +7,10 @@
  *
  */
 
-#include "mavencoreclean.h"
+#include "mavencore.h"
 
-maven_long mt[N]; /* the array for the state vector  */
-maven_int mti = N + 1; /* mti==N+1 means mt[N] is not initialized */
+mlong mt[N]; /* the array for the state vector  */
+mint mti = N + 1; /* mti==N+1 means mt[N] is not initialized */
 
 namespace maven {
 	
@@ -22,7 +22,7 @@ namespace maven {
 		((objectArray*) myInts->a[0])->a[0];
 	}
 	
-	maven_boolean initMaven() {
+	mboolean initMaven() {
 		// push current thread
 		// bug #25: to do with pthread_self()
 		

@@ -2,7 +2,7 @@
 
 namespace maven {
 	
-	/*void Debug::assert(maven_boolean test) {
+	/*void Debug::assert(mboolean test) {
 		if(!test)
 			std::cout << "Assertion failed!" << std::endl;
 	}*/

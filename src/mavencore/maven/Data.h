@@ -1,7 +1,7 @@
 #ifndef MAVENCORE_MAVEN_DATA
 #define MAVENCORE_MAVEN_DATA 1
 
-#include "../mavencoreclean.h"
+#include "../mavencore.h"
 #include "../maven/Object.h"
 
 #define MAVEN_DATA_CHUNKSIZE 1024
@@ -14,39 +14,39 @@ namespace maven {
 	};
 	
 	class Data extends maven::Object {
-		public_variable readonly maven_long size;
-		public_variable readonly maven_long allocatedSize;
-		public_variable readonly maven_long position;
+		public_variable readonly mlong size;
+		public_variable readonly mlong allocatedSize;
+		public_variable readonly mlong position;
 		public_variable DataChunk* head;
 		public_variable DataChunk* tail;
 		
 		public_constructor Data();
 		
-		public_method void allocateBytes(maven_long bytes);
-		public_method maven_boolean setPosition(maven_long pos);
+		public_method void allocateBytes(mlong bytes);
+		public_method mboolean setPosition(mlong pos);
 		
-		public_method maven_boolean readBoolean();
-		public_method maven_byte readByte();
-		public_method maven_char readChar();
-		public_method maven_double readDouble();
-		public_method maven_float readFloat();
-		public_method maven_int readInt();
-		public_method maven_long readLong();
-		public_method maven_short readShort();
-		public_method maven_quad readQuad();
+		public_method mboolean readBoolean();
+		public_method mbyte readByte();
+		public_method mchar readChar();
+		public_method mdouble readDouble();
+		public_method mfloat readFloat();
+		public_method mint readInt();
+		public_method mlong readLong();
+		public_method mshort readShort();
+		public_method mquad readQuad();
 		
-		public_method void writeBoolean(maven_boolean data);
-		public_method void writeByte(maven_byte data);
-		public_method void writeChar(maven_char data);
-		public_method void writeDouble(maven_double data);
-		public_method void writeFloat(maven_float data);
-		public_method void writeInt(maven_int data);
-		public_method void writeLong(maven_long data);
-		public_method void writeShort(maven_short data);
-		public_method void writeQuad(maven_quad data);
+		public_method void writeBoolean(mboolean data);
+		public_method void writeByte(mbyte data);
+		public_method void writeChar(mchar data);
+		public_method void writeDouble(mdouble data);
+		public_method void writeFloat(mfloat data);
+		public_method void writeInt(mint data);
+		public_method void writeLong(mlong data);
+		public_method void writeShort(mshort data);
+		public_method void writeQuad(mquad data);
 		
 		// internal methods
-		public_method void write(maven_byte* data, maven_long bytes);
+		public_method void write(mbyte* data, mlong bytes);
 	};
 	
 }

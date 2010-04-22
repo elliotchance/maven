@@ -76,7 +76,7 @@ struct MavenCompiler {
 	
 	vector<MavenVariables> localScope;
 	
-	vector<string> imports;
+	StringList* imports;
 	
 	string doc;
 	

@@ -7,7 +7,7 @@ namespace maven {
 		value = 0;
 	}
 	
-	Long::Long(maven_long newValue) {
+	Long::Long(mlong newValue) {
 		super("maven.Long");
 		value = newValue;
 	}

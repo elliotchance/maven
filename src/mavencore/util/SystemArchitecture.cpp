@@ -1,10 +1,12 @@
 #include "SystemArchitecture.h"
 
+#include <bitset>
+
 // System architecture information
 
 namespace util {
 
-	maven_boolean SystemArchitecture::CPUID(int Function, int bit, char reg) {
+	mboolean SystemArchitecture::CPUID(int Function, int bit, char reg) {
 		int A, B, C, D;
 
 		#ifdef WIN32
@@ -89,64 +91,64 @@ namespace util {
 	/**
 	 * Returns true if the current cpu supports MMX instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::MMX() {
+	mboolean SystemArchitecture::MMX() {
 		return CPUID(0x0000001, 23, 'D');
 	}
 
 	/**
 	 * Returns true if the current cpu supports SSE instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE() {
+	mboolean SystemArchitecture::SSE() {
 		return CPUID(0x0000001, 25, 'D');
 	}
 
 	/**
 	 * Returns true if the current cpu supports SSE2 instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE2() {
+	mboolean SystemArchitecture::SSE2() {
 		return CPUID(0x0000001, 26, 'D');
 	}
 	
 	/**
 	 * Returns true if the current cpu supports SSE3 instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE3() {
+	mboolean SystemArchitecture::SSE3() {
 		return CPUID(0x0000001, 0, 'C');
 	}
 		
 	/**
 	 * Returns true if the current cpu supports SSSE3 instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSSE3() {
+	mboolean SystemArchitecture::SSSE3() {
 		return CPUID(0x0000001, 9, 'C');
 	}
 
 	/**
 	 * Returns true if the current cpu supports SSE4A instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE4A() {
+	mboolean SystemArchitecture::SSE4A() {
 		return CPUID(0x80000001, 6, 'C');
 	}
 
 	/**
 	 * Returns true if the current cpu supports SSE4.1 instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE41() {
+	mboolean SystemArchitecture::SSE41() {
 		return CPUID(0x0000001, 19, 'C');
 	}
 
 	/**
 	 * Returns true if the current cpu supports SSE4.2 instructions; otherwise returns false.
 	 */
-	maven_boolean SystemArchitecture::SSE42() {
+	mboolean SystemArchitecture::SSE42() {
 		return CPUID(0x0000001, 20, 'C');
 	}
 	
-	maven_boolean SystemArchitecture::P16BATOMIC() {				
+	mboolean SystemArchitecture::P16BATOMIC() {				
 		return CPUID(0x0000001, 13, 'C');
 	}
 
-	maven_boolean SystemArchitecture::LONGMODE() {
+	mboolean SystemArchitecture::LONGMODE() {
 		return CPUID(0x80000001, 29, 'D');
 	}
 	
@@ -155,11 +157,11 @@ namespace util {
 	 * this does not indicate that there are multi processors in the system just that the cpu is
 	 * capable of being used in a multi processor configuration.
 	 */
-	maven_boolean SystemArchitecture::multiProcessorCapable() {
+	mboolean SystemArchitecture::multiProcessorCapable() {
 		return CPUID(0x80000001, 19, 'D');
 	}
 
-	maven_int SystemArchitecture::totalCores() {
+	mint SystemArchitecture::totalCores() {
 		unsigned int ret = CPUID(0x00000001, 'A');
 
 		ret = ret & 15;

@@ -3,11 +3,11 @@
 namespace maven {
 	
 	namespace Double$static {
-		maven_double MAX_VALUE;
-		maven_double MIN_VALUE;
-		maven_double POSITIVE_INFINITY;
-		maven_double NEGATIVE_INFINITY;
-		maven_double NaN;
+		mdouble MAX_VALUE;
+		mdouble MIN_VALUE;
+		mdouble POSITIVE_INFINITY;
+		mdouble NEGATIVE_INFINITY;
+		mdouble NaN;
 	}
 	
 	Double::Double() {
@@ -15,21 +15,21 @@ namespace maven {
 		value = 0.0f;
 	}
 	
-	Double::Double(maven_double newValue) {
+	Double::Double(mdouble newValue) {
 		super("maven.Double");
 		value = newValue;
 	}
 	
-	maven_boolean Double::toBoolean() {
+	mboolean Double::toBoolean() {
 		return (value != 0.0f);
 	}
 	
-	maven_byte Double::toByte() {
-		return (maven_byte) value;
+	mbyte Double::toByte() {
+		return (mbyte) value;
 	}
 	
-	maven_char Double::toCharacter() {
-		return (maven_char) value;
+	mchar Double::toCharacter() {
+		return (mchar) value;
 	}
 	
 	maven::Data* Double::toData() {
@@ -38,28 +38,28 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Double::toDouble() {
+	mdouble Double::toDouble() {
 		return value;
 	}
 	
-	maven_float Double::toFloat() {
-		return (maven_float) value;
+	mfloat Double::toFloat() {
+		return (mfloat) value;
 	}
 	
-	maven_int Double::toInteger() {
-		return (maven_int) value;
+	mint Double::toInteger() {
+		return (mint) value;
 	}
 	
-	maven_long Double::toLong() {
-		return (maven_long) value;
+	mlong Double::toLong() {
+		return (mlong) value;
 	}
 	
-	maven_quad Double::toQuad() {
-		return (maven_quad) value;
+	mquad Double::toQuad() {
+		return (mquad) value;
 	}
 	
-	maven_short Double::toShort() {
-		return (maven_short) value;
+	mshort Double::toShort() {
+		return (mshort) value;
 	}
 	
 	maven::String* Double::toString() {

@@ -16,6 +16,7 @@
 #include "variables.h"
 #include "namespaces.h"
 #include "scope.h"
+#include "output.h"
 
 string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringList& types,
 							 MavenMutability& mut, MavenVariable& prev, bool lastSubparse,
@@ -109,7 +110,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 		if(findArguments == string::npos) {
 			r += resolveVariable(c, newObject, resolve, namespaceID, objectID, isLocal, false);
 			prev = resolve;
-			string objectPath = findObjectPath(c, stripRawType(prev.type), true);
+			string objectPath = cType(findObjectPath(c, stripRawType(prev.type), true));
 			if(!isDataType(objectPath) && resolve.type.length() > 0 && resolve.type[0] != '<' && nextOp != "=")
 				r = "(" + objectPath + ")" + r;
 			if(newElement != "")
@@ -162,7 +163,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 						pushObjectSafety(c, r + joiner + prev.name);
 					if(newElement != "")
 						pushArraySafety(c, r + joiner + prev.name, newElement);
-					//r = "(" + findObjectPath(c, stripRawType(prev.type), true) + ")";
+					//r = "(" + cType(findObjectPath(c, stripRawType(prev.type), true)) + ")";
 					r += joiner + prev.name;
 					if(newElement != "")
 						r += "->a[" + newElement + "]";
@@ -182,24 +183,24 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			
 			// perhaps a compiler function
 			// bug #59: Incomplete, this code needs to be enabled again.
-			//if(newObject[0] == '@') {
-			//	if(newObject == "@cast")
-			//		return compilerFunctionCast(c, signature, args, type);
-			//	else if(newObject == "@library") {
-			//		// bug #62: this needs to be smarter
-			//		args = trim(args);
-			//		c->extraLibraries.push(combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
-			//	 args.substr(19, args.length() - 21));
-			//		return "";
-			//	} else if(entity == "@selector")
-			//		return compilerFunctionSelector(c, signature, args, type);
-			//	else if(newObject == "@type")
-			//		return compilerFunctionType(c, signature, args, type);
-			//	else {
-			//		pushError(c, "Unknown compiler function %s", entity);
-			//		return MAVEN_INVALID;
-			//	}
-			//}
+			if(newObject[0] == '@') {
+				/*if(newObject == "@cast")
+					return compilerFunctionCast(c, signature, args, type);
+				else if(newObject == "@library") {
+					// bug #62: this needs to be smarter
+					args = trim(args);
+					c->extraLibraries.push(combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
+				 args.substr(19, args.length() - 21));
+					return "";
+				} else if(entity == "@selector")
+					return compilerFunctionSelector(c, signature, args, type);
+				else*/ //if(newObject == "@type")
+					//return compilerFunctionType(c, signature, args, type);
+				/*else {
+					pushError(c, "Unknown compiler function %s", entity);
+					return MAVEN_INVALID;
+				}*/
+			}
 			
 			if(prev.type.substr(0, 7) == "<Class:")
 				prev.type = prev.type.substr(8, prev.type.length() - 9);
@@ -221,7 +222,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 						string joiner = "->";
 						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).isStatic)
 							joiner = "::";
-						string objectPath = findObjectPath(c, stripRawType(prev.type), true);
+						string objectPath = cType(findObjectPath(c, stripRawType(prev.type), true));
 						if(isDataType(objectPath))
 							r += joiner;
 						else r = "(" + objectPath + ")" + r + joiner;
@@ -263,7 +264,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	else types.setTypes(resolve.type);
 	mut = resolve.mutability;
 	if(!isAssignOperator(nextOp)) {
-		string temp = r, temp2 = findObjectPath(c, types[0], true);
+		string temp = r, temp2 = cType(findObjectPath(c, types[0], true));
 		if(temp2.substr(0, 1) != "<")
 		   r = "((" + temp2 + ")" + r + ")";
 	}

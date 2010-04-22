@@ -11,6 +11,7 @@
 #include "objects.h"
 #include "functions.h"
 #include "variables.h"
+#include "output.h"
 
 void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 	c->mapFileHandle << "  // namespaceID: " << intToString(namespaceID)
@@ -35,7 +36,7 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 			if(!c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isExternal &&
 			   c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isStatic) {
 				c->mapFileHandle << "    static ";
-				string type = findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).type);
+				string type = cType(findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).type));
 				if(type == MAVEN_INVALID)
 					c->mapFileHandle << "int"; // this for an enum
 				else c->mapFileHandle << type;
@@ -56,9 +57,9 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 			// classes can be extended by multiple classes, so lets split them up
 			c->mapFileHandle << " : public ";
 			StringList extendList = split(',', c->namespaces->at(namespaceID).objects->at(objectID)->extends);
-			c->mapFileHandle << findObjectPath(c, extendList[0], false);
+			c->mapFileHandle << cType(findObjectPath(c, extendList[0], false));
 			for(int ei = 1; ei < extendList.length(); ++ei)
-				c->mapFileHandle << "," << findObjectPath(c, extendList[namespaceID], false);
+				c->mapFileHandle << "," << cType(findObjectPath(c, extendList[namespaceID], false));
 		}
 		c->mapFileHandle << " {" << endl;
 		
@@ -70,7 +71,7 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 				if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).isPublic)
 					c->mapFileHandle << "public: ";
 				else c->mapFileHandle << "protected: ";
-				string type = findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).type);
+				string type = cType(findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(k).type));
 				if(type == MAVEN_INVALID)
 					c->mapFileHandle << "int"; // this for an enum
 				else c->mapFileHandle << type;
@@ -103,7 +104,7 @@ void writeMapObject(MavenCompiler* c, int namespaceID, int objectID) {
 					c->mapFileHandle << "virtual ";
 				
 				if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(k).returnType != "<constructor>")
-					c->mapFileHandle << findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(k).returnType);
+					c->mapFileHandle << cType(findObjectPath(c, c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(k).returnType));
 				
 				// function arguments can't be static
 				for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(k).args.length(); ++i)

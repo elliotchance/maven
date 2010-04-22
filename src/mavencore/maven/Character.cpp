@@ -7,7 +7,7 @@ namespace maven {
 		value = 0;
 	}
 	
-	Character::Character(maven_char newValue) {
+	Character::Character(mchar newValue) {
 		super("maven.Character");
 		value = newValue;
 	}

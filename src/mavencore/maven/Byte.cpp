@@ -3,8 +3,8 @@
 namespace maven {
 	
 	namespace Byte$static {
-		maven_byte MAX_VALUE =  127;
-		maven_byte MIN_VALUE = -128;
+		mbyte MAX_VALUE =  127;
+		mbyte MIN_VALUE = -128;
 	}
 	
 	Byte::Byte() {
@@ -12,21 +12,21 @@ namespace maven {
 		value = 0;
 	}
 	
-	Byte::Byte(maven_byte newValue) {
+	Byte::Byte(mbyte newValue) {
 		super("maven.Byte");
 		value = newValue;
 	}
 	
-	maven_boolean Byte::toBoolean() {
+	mboolean Byte::toBoolean() {
 		return (value != 0);
 	}
 	
-	maven_byte Byte::toByte() {
-		return (maven_byte) value;
+	mbyte Byte::toByte() {
+		return (mbyte) value;
 	}
 	
-	maven_char Byte::toCharacter() {
-		return (maven_char) value;
+	mchar Byte::toCharacter() {
+		return (mchar) value;
 	}
 	
 	maven::Data* Byte::toData() {
@@ -35,28 +35,28 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Byte::toDouble() {
-		return (maven_double) value;
+	mdouble Byte::toDouble() {
+		return (mdouble) value;
 	}
 	
-	maven_float Byte::toFloat() {
-		return (maven_float) value;
+	mfloat Byte::toFloat() {
+		return (mfloat) value;
 	}
 	
-	maven_int Byte::toInteger() {
+	mint Byte::toInteger() {
 		return value;
 	}
 	
-	maven_long Byte::toLong() {
-		return (maven_long) value;
+	mlong Byte::toLong() {
+		return (mlong) value;
 	}
 	
-	maven_quad Byte::toQuad() {
-		return (maven_quad) value;
+	mquad Byte::toQuad() {
+		return (mquad) value;
 	}
 	
-	maven_short Byte::toShort() {
-		return (maven_short) value;
+	mshort Byte::toShort() {
+		return (mshort) value;
 	}
 	
 	maven::String* Byte::toString() {

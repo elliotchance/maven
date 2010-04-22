@@ -85,7 +85,7 @@ bool compileLine(MavenCompiler* c, string line) {
 		string thisFile = c->currentFile;
 		string thisNamespace = c->currentNamespace;
 		int thisLine = c->lineNumber;
-		c->imports.push_back(importlocation);
+		c->imports->push(importlocation);
 		compileFile(c, importlocation, MAVEN_ONLY_COMPILE);
 		writeCPPLine(c, string("} namespace ") + thisNamespace + "{\n");
 		return resetCurrent(c, thisFile, thisNamespace, thisLine);

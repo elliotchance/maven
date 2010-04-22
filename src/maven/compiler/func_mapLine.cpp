@@ -38,7 +38,7 @@ bool mapLine(MavenCompiler* c, string line) {
 		string thisFile = c->currentFile;
 		string thisNamespace = c->currentNamespace;
 		int thisLine = c->lineNumber;
-		c->imports.push_back(importlocation);
+		c->imports->push(importlocation);
 		++c->totalFiles;
 		compileFile(c, importlocation, MAVEN_ONLY_MAP);
 		return resetCurrent(c, thisFile, thisNamespace, thisLine);

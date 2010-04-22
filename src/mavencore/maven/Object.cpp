@@ -7,20 +7,20 @@ namespace maven {
 		super("maven.Object");
 	}
 	
-	Object* Object::super(const maven_byte* childClass) {
+	Object* Object::super(const mbyte* childClass) {
 		className = new maven::String(childClass);
 		return this;
 	}
 	
-	maven_boolean Object::toBoolean() {
+	mboolean Object::toBoolean() {
 		return false;
 	}
 	
-	maven_byte Object::toByte() {
+	mbyte Object::toByte() {
 		return 0;
 	}
 	
-	maven_char Object::toCharacter() {
+	mchar Object::toCharacter() {
 		return 0;
 	}
 	
@@ -28,27 +28,27 @@ namespace maven {
 		return 0;
 	}
 	
-	maven_double Object::toDouble() {
+	mdouble Object::toDouble() {
 		return 0;
 	}
 	
-	maven_float Object::toFloat() {
+	mfloat Object::toFloat() {
 		return 0;
 	}
 	
-	maven_int Object::toInteger() {
+	mint Object::toInteger() {
 		return 0;
 	}
 	
-	maven_long Object::toLong() {
+	mlong Object::toLong() {
 		return 0;
 	}
 	
-	maven_quad Object::toQuad() {
+	mquad Object::toQuad() {
 		return 0;
 	}
 	
-	maven_short Object::toShort() {
+	mshort Object::toShort() {
 		return 0;
 	}
 	
@@ -70,7 +70,7 @@ namespace maven {
 		return new maven::Object();
 	}
 	
-	maven_boolean Object::operator_equal(maven::Object* toCompare) {
+	mboolean Object::operator_equal(maven::Object* toCompare) {
 		return (void*) this == (void*) toCompare;
 	}
 	

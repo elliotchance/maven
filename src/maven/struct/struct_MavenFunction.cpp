@@ -8,6 +8,7 @@
 #include "struct_MavenFunction.h"
 #include "objects.h"
 #include "strings.h"
+#include "output.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ string MavenFunction::getCPPLine(MavenCompiler* c, string className, bool isVirt
 	string r = " ";
 	if(isVirtual) r += "virtual ";
 	if(returnType != "<constructor>")
-		r += findObjectPath(c, returnType, true) + " ";
+		r += cType(findObjectPath(c, returnType, true)) + " ";
 	r += className + "::" + name + "(";
 	
 	// function arguments can't be static

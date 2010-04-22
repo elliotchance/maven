@@ -11,6 +11,7 @@
 #include "errors.h"
 #include "objects.h"
 #include "keywords.h"
+#include "output.h"
 
 MavenObject* dissectObject(MavenCompiler* c, string line) {
 	MavenObject* o = new MavenObject();
@@ -27,7 +28,7 @@ MavenObject* dissectObject(MavenCompiler* c, string line) {
 	if(tokens.length() > i + 2) {
 		if(tokens[i + 2] == "extends") {
 			// make sure the we already know what the class is
-			string path = findObjectPath(c, tokens[i + 3]);
+			string path = cType(findObjectPath(c, tokens[i + 3]));
 			if(path == MAVEN_INVALID) {
 				pushError(c, "Unknown extended class %s", tokens[i + 3]);
 				return o;

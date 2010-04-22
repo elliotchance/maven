@@ -7,46 +7,46 @@ namespace maven {
 		std::cout.precision(6);
 	}
 	
-	void System::print(maven_boolean o) {
+	void System::print(mboolean o) {
 		std::cout << o;
 	}
 	
-	void System::print(maven_byte o) {
+	void System::print(mbyte o) {
 		std::cout << "a" << std::endl;
 		// bytes are printed as ints
 		std::cout << (int) o;
 	}
 	
-	void System::print(maven_char o) {
+	void System::print(mchar o) {
 		printf("%c", o);
 	}
 	
-	void System::print(maven_double o) {
+	void System::print(mdouble o) {
 		std::cout << "c" << std::endl;
 		std::cout << o;
 	}
 	
-	void System::print(maven_float o) {
+	void System::print(mfloat o) {
 		std::cout << "d" << std::endl;
 		std::cout << o;
 	}
 
-	void System::print(maven_int o) {
+	void System::print(mint o) {
 		std::cout << "e" << std::endl;
 		std::cout << o;
 	}
 	
-	void System::print(maven_quad o) {
+	void System::print(mquad o) {
 		std::cout << "f" << std::endl;
 		std::cout << o;
 	}
 	
-	void System::print(maven_long o) {
+	void System::print(mlong o) {
 		std::cout << "g" << std::endl;
 		std::cout << o;
 	}
 	
-	void System::print(maven_short o) {
+	void System::print(mshort o) {
 		std::cout << "h" << std::endl;
 		std::cout << o;
 	}
@@ -56,40 +56,40 @@ namespace maven {
 		std::cout << o->s;
 	}
 	
-	void System::println(maven_boolean o) {
+	void System::println(mboolean o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_byte o) {
+	void System::println(mbyte o) {
 		// bytes are printed as ints
 		std::cout << (int) o << std::endl;
 	}
 	
-	void System::println(maven_char o) {
+	void System::println(mchar o) {
 		printf("%c\n", o);
 	}
 	
-	void System::println(maven_double o) {
+	void System::println(mdouble o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_float o) {
+	void System::println(mfloat o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_int o) {
+	void System::println(mint o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_quad o) {
+	void System::println(mquad o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_long o) {
+	void System::println(mlong o) {
 		std::cout << o << std::endl;
 	}
 	
-	void System::println(maven_short o) {
+	void System::println(mshort o) {
 		std::cout << o << std::endl;
 	}
 	
@@ -109,61 +109,61 @@ namespace maven {
 	}
 	
 	maven::String* System::getString() {
-		maven_byte buf[256];
+		mbyte buf[256];
 		std::cin.getline(buf, 255);
-		return new maven::String((maven_byte*) buf);
+		return new maven::String((mbyte*) buf);
 	}
 	
-	maven_int System::getInt() {
-		maven_int in;
+	mint System::getInt() {
+		mint in;
 		std::cin >> in;
 		return in;
 	}
 	
-	maven_boolean System::getBoolean() {
-		maven_int in;
+	mboolean System::getBoolean() {
+		mint in;
 		std::cin >> in;
 		return (in != 0);
 	}
 	
-	maven_byte System::getByte() {
-		maven_byte in;
+	mbyte System::getByte() {
+		mbyte in;
 		std::cin >> in;
 		return in;
 	}
 	
-	maven_char System::getChar() {
-		c_char in;
+	mchar System::getChar() {
+		char in;
 		std::cin >> in;
-		return (maven_char) in;
+		return (mchar) in;
 	}
 	
-	maven_double System::getDouble() {
-		maven_double in;
-		std::cin >> in;
-		return in;
-	}
-	
-	maven_float System::getFloat() {
-		maven_float in;
+	mdouble System::getDouble() {
+		mdouble in;
 		std::cin >> in;
 		return in;
 	}
 	
-	maven_long System::getLong() {
-		maven_long in;
+	mfloat System::getFloat() {
+		mfloat in;
 		std::cin >> in;
 		return in;
 	}
 	
-	maven_quad System::getQuad() {
-		maven_float in;
+	mlong System::getLong() {
+		mlong in;
 		std::cin >> in;
 		return in;
 	}
 	
-	maven_short System::getShort() {
-		maven_short in;
+	mquad System::getQuad() {
+		mfloat in;
+		std::cin >> in;
+		return in;
+	}
+	
+	mshort System::getShort() {
+		mshort in;
 		std::cin >> in;
 		return in;
 	}

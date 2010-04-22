@@ -16,5 +16,6 @@ void writeEntryPoint(MavenCompiler* c);
 void writeCPPLine(MavenCompiler* c, string line);
 void writeAutoCPPLine(MavenCompiler* c, string line);
 bool fileWriteLine(ofstream& file, string line);
+string cType(string type);
 
 #endif

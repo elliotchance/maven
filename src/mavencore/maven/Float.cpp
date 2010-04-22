@@ -3,11 +3,11 @@
 namespace maven {
 	
 	namespace Float$static {
-		maven_float MAX_VALUE;
-		maven_float MIN_VALUE;
-		maven_float POSITIVE_INFINITY;
-		maven_float NEGATIVE_INFINITY;
-		maven_float NaN;
+		mfloat MAX_VALUE;
+		mfloat MIN_VALUE;
+		mfloat POSITIVE_INFINITY;
+		mfloat NEGATIVE_INFINITY;
+		mfloat NaN;
 	}
 	
 	Float::Float() {
@@ -15,21 +15,21 @@ namespace maven {
 		value = 0.0f;
 	}
 	
-	Float::Float(maven_float newValue) {
+	Float::Float(mfloat newValue) {
 		super("maven.Float");
 		value = newValue;
 	}
 	
-	maven_boolean Float::toBoolean() {
+	mboolean Float::toBoolean() {
 		return (value != 0.0f);
 	}
 	
-	maven_byte Float::toByte() {
-		return (maven_byte) value;
+	mbyte Float::toByte() {
+		return (mbyte) value;
 	}
 	
-	maven_char Float::toCharacter() {
-		return (maven_char) value;
+	mchar Float::toCharacter() {
+		return (mchar) value;
 	}
 	
 	maven::Data* Float::toData() {
@@ -38,28 +38,28 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Float::toDouble() {
-		return (maven_double) value;
+	mdouble Float::toDouble() {
+		return (mdouble) value;
 	}
 	
-	maven_float Float::toFloat() {
+	mfloat Float::toFloat() {
 		return value;
 	}
 	
-	maven_int Float::toInteger() {
-		return (maven_int) value;
+	mint Float::toInteger() {
+		return (mint) value;
 	}
 	
-	maven_long Float::toLong() {
-		return (maven_long) value;
+	mlong Float::toLong() {
+		return (mlong) value;
 	}
 	
-	maven_quad Float::toQuad() {
-		return (maven_quad) value;
+	mquad Float::toQuad() {
+		return (mquad) value;
 	}
 	
-	maven_short Float::toShort() {
-		return (maven_short) value;
+	mshort Float::toShort() {
+		return (mshort) value;
 	}
 	
 	maven::String* Float::toString() {

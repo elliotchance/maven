@@ -8,7 +8,7 @@ namespace io {
 		File(path, MAVEN_IO_FILE_READ);
 	}
 	
-	File::File(maven::String* path, maven_int mode) {
+	File::File(maven::String* path, mint mode) {
 		super("maven.File");
 		catchNilObjectException(path, return);
 		catchNilObjectException(mode, return);
@@ -24,7 +24,7 @@ namespace io {
 		}
 	}
 	
-	maven_boolean File::isOpen() {
+	mboolean File::isOpen() {
 		return f->is_open();
 	}
 	
@@ -32,7 +32,7 @@ namespace io {
 		f->close();
 	}
 	
-	maven_boolean File::endOfFile() {
+	mboolean File::endOfFile() {
 		return f->eof();
 	}
 	
@@ -41,7 +41,7 @@ namespace io {
 			return new maven::String("");
 		
 		std::string line = "";
-		maven_byte c;
+		mbyte c;
 		while(!f->eof()) {
 			c = f->get();
 			if(c == '\n') break;
@@ -50,11 +50,11 @@ namespace io {
 		return new maven::String(line.c_str());
 	}
 	
-	maven_boolean File::readBoolean() {
+	mboolean File::readBoolean() {
 		return f->get() != 0;
 	}
 	
-	maven_byte File::readByte() {
+	mbyte File::readByte() {
 		return f->get();
 	}
 	
@@ -71,91 +71,91 @@ namespace io {
 		return data;
 	}
 	
-	maven_int File::readInt() {
-		maven_int temp;
-		f->read((char*) &temp, sizeof(maven_int));
+	mint File::readInt() {
+		mint temp;
+		f->read((char*) &temp, sizeof(mint));
 		return temp;
 	}
 	
-	maven_char File::readChar() {
-		maven_char temp;
-		f->read((char*) &temp, sizeof(maven_char));
+	mchar File::readChar() {
+		mchar temp;
+		f->read((char*) &temp, sizeof(mchar));
 		return temp;
 	}
 	
-	maven_float File::readFloat() {
-		maven_float temp;
-		f->read((char*) &temp, sizeof(maven_float));
+	mfloat File::readFloat() {
+		mfloat temp;
+		f->read((char*) &temp, sizeof(mfloat));
 		return temp;
 	}
 	
-	maven_double File::readDouble() {
-		maven_double temp;
-		f->read((char*) &temp, sizeof(maven_double));
+	mdouble File::readDouble() {
+		mdouble temp;
+		f->read((char*) &temp, sizeof(mdouble));
 		return temp;
 	}
 	
-	maven_quad File::readQuad() {
-		maven_quad temp;
-		f->read((char*) &temp, sizeof(maven_quad));
+	mquad File::readQuad() {
+		mquad temp;
+		f->read((char*) &temp, sizeof(mquad));
 		return temp;
 	}
 	
-	maven_long File::readLong() {
-		maven_long temp;
-		f->read((char*) &temp, sizeof(maven_long));
+	mlong File::readLong() {
+		mlong temp;
+		f->read((char*) &temp, sizeof(mlong));
 		return temp;
 	}
 	
-	maven_short File::readShort() {
-		maven_short temp;
-		f->read((char*) &temp, sizeof(maven_short));
+	mshort File::readShort() {
+		mshort temp;
+		f->read((char*) &temp, sizeof(mshort));
 		return temp;
 	}
 	
-	maven_boolean File::writeData(maven::Data* data) {
+	mboolean File::writeData(maven::Data* data) {
 		if(data == NULL) return false;
 		f->write((const char*) &data->size, sizeof(data->size));
 		return f->write((const char*) data->tail->chunk, data->size);
 	}
 	
-	maven_boolean File::writeBoolean(maven_boolean x) {
-		return f->write((const char*) &x, sizeof(maven_boolean));
+	mboolean File::writeBoolean(mboolean x) {
+		return f->write((const char*) &x, sizeof(mboolean));
 	}
 	
-	maven_boolean File::writeByte(maven_byte x) {
-		return f->write((const char*) &x, sizeof(maven_byte));
+	mboolean File::writeByte(mbyte x) {
+		return f->write((const char*) &x, sizeof(mbyte));
 	}
 	
-	maven_boolean File::writeInt(maven_int x) {
-		return f->write((const char*) &x, sizeof(maven_int));
+	mboolean File::writeInt(mint x) {
+		return f->write((const char*) &x, sizeof(mint));
 	}
 	
-	maven_boolean File::writeChar(maven_char x) {
-		return f->write((const char*) &x, sizeof(maven_char));
+	mboolean File::writeChar(mchar x) {
+		return f->write((const char*) &x, sizeof(mchar));
 	}
 	
-	maven_boolean File::writeFloat(maven_float x) {
-		return f->write((const char*) &x, sizeof(maven_float));
+	mboolean File::writeFloat(mfloat x) {
+		return f->write((const char*) &x, sizeof(mfloat));
 	}
 	
-	maven_boolean File::writeDouble(maven_double x) {
-		return f->write((const char*) &x, sizeof(maven_double));
+	mboolean File::writeDouble(mdouble x) {
+		return f->write((const char*) &x, sizeof(mdouble));
 	}
 	
-	maven_boolean File::writeQuad(maven_quad x) {
-		return f->write((const char*) &x, sizeof(maven_quad));
+	mboolean File::writeQuad(mquad x) {
+		return f->write((const char*) &x, sizeof(mquad));
 	}
 	
-	maven_boolean File::writeLong(maven_long x) {
-		return f->write((const char*) &x, sizeof(maven_long));
+	mboolean File::writeLong(mlong x) {
+		return f->write((const char*) &x, sizeof(mlong));
 	}
 	
-	maven_boolean File::writeShort(maven_short x) {
-		return f->write((const char*) &x, sizeof(maven_short));
+	mboolean File::writeShort(mshort x) {
+		return f->write((const char*) &x, sizeof(mshort));
 	}
 	
-	maven_boolean File::writeLine(maven::String* line) {
+	mboolean File::writeLine(maven::String* line) {
 		if(!f->is_open()) return false;
 		f->write(line->s, line->len);
 		f->write("\n", 1);

@@ -7,21 +7,21 @@ namespace maven {
 		value = 0;
 	}
 	
-	Quad::Quad(maven_quad newValue) {
+	Quad::Quad(mquad newValue) {
 		super("maven.Quad");
 		value = newValue;
 	}
 	
-	maven_boolean Quad::toBoolean() {
+	mboolean Quad::toBoolean() {
 		return (value != 0.0f);
 	}
 	
-	maven_byte Quad::toByte() {
-		return (maven_byte) value;
+	mbyte Quad::toByte() {
+		return (mbyte) value;
 	}
 	
-	maven_char Quad::toCharacter() {
-		return (maven_char) value;
+	mchar Quad::toCharacter() {
+		return (mchar) value;
 	}
 	
 	maven::Data* Quad::toData() {
@@ -30,28 +30,28 @@ namespace maven {
 		return d;
 	}
 	
-	maven_double Quad::toDouble() {
-		return (maven_double) value;
+	mdouble Quad::toDouble() {
+		return (mdouble) value;
 	}
 	
-	maven_float Quad::toFloat() {
-		return (maven_float) value;
+	mfloat Quad::toFloat() {
+		return (mfloat) value;
 	}
 	
-	maven_int Quad::toInteger() {
-		return (maven_int) value;
+	mint Quad::toInteger() {
+		return (mint) value;
 	}
 	
-	maven_long Quad::toLong() {
-		return (maven_long) value;
+	mlong Quad::toLong() {
+		return (mlong) value;
 	}
 	
-	maven_quad Quad::toQuad() {
+	mquad Quad::toQuad() {
 		return value;
 	}
 	
-	maven_short Quad::toShort() {
-		return (maven_short) value;
+	mshort Quad::toShort() {
+		return (mshort) value;
 	}
 	
 	maven::String* Quad::toString() {

@@ -7,18 +7,18 @@ namespace maven {
 		len = 0;
 	}
 	
-	maven_int Dictionary::length() {
+	mint Dictionary::length() {
 		return len;
 	}
 	
-	maven_boolean Dictionary::keyExists(maven::Object* key) {
+	mboolean Dictionary::keyExists(maven::Object* key) {
 		// bug #48: needs to be completed
 		catchNilObjectException(key, return false);
 		//if(!strcmp(d->key->s, key->s)) return true;
 		return false;
 	}
 	
-	maven_boolean Dictionary::setValue(maven::Object* key, maven::Object* value) {
+	mboolean Dictionary::setValue(maven::Object* key, maven::Object* value) {
 		catchNilObjectException(key, return false);
 		catchNilObjectException(value, return false);
 		

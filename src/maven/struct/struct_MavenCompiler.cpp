@@ -96,6 +96,7 @@ MavenCompiler::MavenCompiler() {
 	UID = 1;
 	currentDirectory = getCurrentDirectory();
 	namespaces = new MavenNamespaces();
+	imports = new StringList();
 	
 	MavenNamespace* n;
 	MavenObject* o;

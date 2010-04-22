@@ -31,4 +31,5 @@ string locateImport(MavenCompiler* c, string import) {
 	}
 	
 	pushError(c, "Can't find import %s, looking in %s", import, locations.join(";"));
+	return "";
 }
