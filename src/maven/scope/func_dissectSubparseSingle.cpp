@@ -17,6 +17,7 @@
 #include "namespaces.h"
 #include "scope.h"
 #include "output.h"
+#include "compiler_functions.h"
 
 string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringList& types,
 							 MavenMutability& mut, MavenVariable& prev, bool lastSubparse,
@@ -107,6 +108,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	bool isLocal;
 	int namespaceID, objectID;
 	if(prev.type == "") {
+		
 		if(findArguments == string::npos) {
 			r += resolveVariable(c, newObject, resolve, namespaceID, objectID, isLocal, false);
 			prev = resolve;
@@ -118,6 +120,31 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			if(resolve.type.length() > 0 && resolve.type[0] != '<')
 				r = "(" + r + ")";
 		} else {
+			
+			// perhaps a compiler function
+			// bug #59: Incomplete, this code needs to be enabled again.
+			if(newObject[0] == '@') {
+				/*if(newObject == "@library") {
+				 // bug #62: this needs to be smarter
+				 args = trim(args);
+				 c->extraLibraries.push(combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
+				 args.substr(19, args.length() - 21));
+				 return "";
+				 } else*/
+				if(newObject == "@selector") {
+					string tempType = MAVEN_INVALID;
+					r = compilerFunctionSelector(c, argumentTypes.join(","),
+												 newArguments.substr(1, newArguments.length() - 2), tempType);
+					types.push(tempType);
+				} else if(newObject == "@type") {
+					r = compilerFunctionType(c, argumentTypes.join(","));
+				} else {
+					r = MAVEN_INVALID;
+					pushError(c, "Unknown compiler function %s", newObject);
+				}
+				return r;
+			}
+			
 			int nID = findNamespaceID(c, c->currentNamespace);
 			int oID = findObjectID(c, nID, "nil");
 			bool found = false;
@@ -180,27 +207,6 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			}
 			
 		} else {
-			
-			// perhaps a compiler function
-			// bug #59: Incomplete, this code needs to be enabled again.
-			if(newObject[0] == '@') {
-				/*if(newObject == "@cast")
-					return compilerFunctionCast(c, signature, args, type);
-				else if(newObject == "@library") {
-					// bug #62: this needs to be smarter
-					args = trim(args);
-					c->extraLibraries.push(combinePaths(c->binDirectory, c->iniFile.getKey("directories.lib")) +
-				 args.substr(19, args.length() - 21));
-					return "";
-				} else if(entity == "@selector")
-					return compilerFunctionSelector(c, signature, args, type);
-				else*/ //if(newObject == "@type")
-					//return compilerFunctionType(c, signature, args, type);
-				/*else {
-					pushError(c, "Unknown compiler function %s", entity);
-					return MAVEN_INVALID;
-				}*/
-			}
 			
 			if(prev.type.substr(0, 7) == "<Class:")
 				prev.type = prev.type.substr(8, prev.type.length() - 9);

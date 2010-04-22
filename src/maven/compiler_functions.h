@@ -10,9 +10,8 @@
 #include "struct_StringList.h"
 #include "struct_MavenCompiler.h"
 
-string compilerFunctionCast(MavenCompiler* c, string signature, string args, string& type);
 string compilerFunctionSelector(MavenCompiler* c, string signature, string args, string& type);
-string compilerFunctionType(MavenCompiler* c, string signature, string args, StringList& types);
+string compilerFunctionType(MavenCompiler* c, string signature);
 bool includeLibraryIfExists(MavenCompiler* c, string import);
 
 #endif

@@ -7,7 +7,6 @@
 #include "struct_StringList.h"
 #include "struct_MavenCompiler.h"
 
-string compilerFunctionType(MavenCompiler* c, string signature, string args, StringList& types) {
-	types.setTypes("maven.String");
+string compilerFunctionType(MavenCompiler* c, string signature) {
 	return "new maven::String(\"" + signature + "\")";
 }
