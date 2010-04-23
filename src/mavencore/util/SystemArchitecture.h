@@ -1,16 +1,20 @@
 #ifndef MAVENCORE_UTIL_SYSTEMARCHITECTURE
 #define MAVENCORE_UTIL_SYSTEMARCHITECTURE 1
 
-#include <bitset>
-
 #include "../mavencore.h"
 
 // System architecture information
 
 namespace util {
 
-	class SystemArchitecture extends maven::Object {
-		private_static_method mboolean CPUID(int Function, int bit, char reg);
+	/** 
+	 * @author Alex <aimmig2@hotmail.com>
+	 * @url http://www.sandpile.org/ia32/cpuid.htm for more information on what each CPUID function does and what
+	 * each bit returned represents
+	 */
+	class SystemArchitecture : public maven::Object {
+		
+		private_static_method bool CPUID(int Function, int bit, char reg);
 		private_static_method int CPUID(int Function, char reg);
 		
 		public_static_method mboolean MMX();
@@ -25,6 +29,7 @@ namespace util {
 		public_static_method mboolean LONGMODE();
 		public_static_method mboolean multiProcessorCapable();
 		public_static_method mint totalCores();
+		
 	};
 	
 }
