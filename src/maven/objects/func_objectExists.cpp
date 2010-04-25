@@ -20,15 +20,18 @@ bool objectExists(MavenCompiler* c, string name) {
 		vector<int> found;
 		for(namespaceID = 0; namespaceID < c->namespaces->length(); ++namespaceID) {
 			objectID = findObjectID(c, namespaceID, items[0]);
-			if(objectID >= 0) found.push_back(namespaceID);
+			if(objectID >= 0)
+				found.push_back(namespaceID);
 		}
 		--namespaceID;
 		
-		if(found.size() > 1) pushError(c, "Ambiguous class '%s'", items[0]);
+		if(found.size() > 1)
+			pushError(c, "Ambiguous class '%s'", items[0]);
 		return (found.size() == 1);
 	} else if(items.length() == 2) {
 		namespaceID = findNamespaceID(c, items[0]);
-		if(namespaceID < 0) return false;;
+		if(namespaceID < 0)
+			return false;;
 		objectID = findObjectID(c, namespaceID, items[1]);
 		return (objectID >= 0);
 	}

@@ -45,6 +45,8 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 	
 	int namespaceID, objectID;
 	findClass(c, entity, namespaceID, objectID);
+	smartAssert(namespaceID >= 0);
+	smartAssert(objectID >= 0);
 	
 	// if its a single Object
 	if(element == "") {
@@ -63,7 +65,12 @@ string keywordNew(MavenCompiler* c, string entity, string element, string args, 
 		if(isEnum) {
 			r += "int";
 			rawType = "int";
-			int nID = findNamespaceID(c, c->currentNamespace), enumID = findEnumID(c, nID, entity);
+			
+			int nID = findNamespaceID(c, c->currentNamespace);
+			smartAssert(nID >= 0);
+			int enumID = findEnumID(c, nID, entity);
+			smartAssert(enumID >= 0);
+			
 			if(trim(args) == "")
 				args = intToString(c->namespaces->at(nID).enums[enumID].getDefaultValue());
 		} else r += "object";

@@ -48,7 +48,9 @@ MavenVariable dissectVariable(MavenCompiler* c, string line) {
 	v.type = parts[i++];
 	
 	int nID = findNamespaceID(c, c->currentNamespace);
+	smartAssert(nID >= 0);
 	int enumID = findEnumID(c, nID, v.type);
+	
 	if(!isDataType(v.type) && enumID < 0)
 		v.type = findMavenObjectPath(c, v.type);
 	if(enumID >= 0)

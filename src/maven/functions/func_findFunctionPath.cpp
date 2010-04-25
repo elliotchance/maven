@@ -69,14 +69,17 @@ string findFunctionPath(MavenCompiler* c, string entity, MavenVariables args, in
 		} else if(found.size() == 1) {
 			objectID = findObjectID(c, namespaceID, items[0]);
 			funcID = findFunctionID(c, namespaceID, objectID, items[1], args);
-			if(funcID < 0) return MAVEN_INVALID;
+			if(funcID < 0)
+				return MAVEN_INVALID;
 			return c->namespaces->at(namespaceID).name + "::" + items[0] + "::" + items[1];
 		} else pushError(c, "Ambiguous class '%s'", items[1]);
 	} else if(items.length() == 3) {
 		namespaceID = findNamespaceID(c, items[0]);
-		if(namespaceID < 0) return MAVEN_INVALID;
+		if(namespaceID < 0)
+			return MAVEN_INVALID;
 		objectID = findObjectID(c, namespaceID, items[1]);
-		if(objectID < 0) return MAVEN_INVALID;
+		if(objectID < 0)
+			return MAVEN_INVALID;
 		funcID = findFunctionID(c, namespaceID, objectID, items[2], args);
 		return items[0] + "::" + items[1] + "::" + items[2];
 	}

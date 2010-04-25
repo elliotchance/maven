@@ -124,7 +124,10 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 		string defval = "0";
 		if(isEnum) {
 			int nid = findNamespaceID(c, c->currentNamespace);
+			smartAssert(nid >= 0);
 			int enumid = findEnumID(c, nid, v.type);
+			smartAssert(enumid >= 0);
+			
 			for(int i = 0; i < c->namespaces->at(nid).enums[enumid].items.size(); ++i) {
 				if(c->namespaces->at(nid).enums[enumid].items[i].isDefault) {
 					defval = intToString(c->namespaces->at(nid).enums[enumid].items[i].value);
@@ -146,10 +149,8 @@ bool registerVariable(MavenCompiler* c, StringList tokens, bool compiling, Maven
 		pushError(c, "Invalid entity name '%s'", v.name);
 	
 	int namespaceID = findNamespaceID(c, c->currentNamespace);
-	int objectID = findObjectID(c, namespaceID, c->currentClass);
-	
-	// need these to proceed
 	smartAssert(namespaceID >= 0);
+	int objectID = findObjectID(c, namespaceID, c->currentClass);
 	smartAssert(objectID >= 0);
 	
 	if(compiling && c->currentFunction != "") {

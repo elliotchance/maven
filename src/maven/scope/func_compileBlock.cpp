@@ -211,7 +211,9 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 		if(mode == MAVEN_ONLY_MAP) {
 			if(c->currentNamespace != "maven" && c->currentClass != "Object") {
 				int nID = findNamespaceID(c, c->currentNamespace);
+				smartAssert(nID >= 0);
 				int oID = findObjectID(c, nID, c->currentClass);
+				smartAssert(oID >= 0);
 				MavenFunction f;
 				
 				// Object.copy()

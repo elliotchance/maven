@@ -53,10 +53,12 @@ string findObjectPath(MavenCompiler* c, string entity, bool includePointer) {
 		vector<int> found;
 		for(namespaceID = 0; namespaceID < c->namespaces->length(); ++namespaceID) {
 			objectID = findObjectID(c, namespaceID, items[0]);
-			if(objectID >= 0) found.push_back(namespaceID);
+			if(objectID >= 0)
+				found.push_back(namespaceID);
 			else {
 				objectID = findEnumID(c, namespaceID, items[0]);
-				if(objectID >= 0) found.push_back(namespaceID);
+				if(objectID >= 0)
+					found.push_back(namespaceID);
 			}
 		}
 		--namespaceID;

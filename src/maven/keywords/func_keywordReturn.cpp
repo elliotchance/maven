@@ -32,7 +32,10 @@ string keywordReturn(MavenCompiler* c, string line) {
 	
 	// check the return type matches the function its in
 	int nID = findNamespaceID(c, c->currentNamespace);
+	smartAssert(nID >= 0);
 	int oID = findObjectID(c, nID, c->currentClass);
+	smartAssert(oID >= 0);
+	
 	for(int i = 0; i < c->namespaces->at(nID).objects->at(oID)->functions->length(); ++i) {
 		if(c->namespaces->at(nID).objects->at(oID)->functions->at(i).name == c->currentFunction) {
 			if(canCastBetween(c, types.join(","), c->namespaces->at(nID).objects->at(oID)->functions->at(i).returnType)) {

@@ -176,6 +176,9 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 				prev.type = prev.type.substr(8, prev.type.length() - 9);
 			
 			findClass(c, prev.type, namespaceID, objectID);
+			smartAssert(namespaceID >= 0);
+			smartAssert(objectID >= 0);
+			
 			bool found = false;
 			for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->variables->length(); ++i) {
 				if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).name == newObject) {
