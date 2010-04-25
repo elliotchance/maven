@@ -30,6 +30,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 			else if(key == "h") c->option_h = true;
 			else if(key == "i") c->option_i = value;
 			else if(key == "K") c->option_K = true;
+			else if(key == "M") c->option_M = true;
 			else if(key == "n") c->option_n = value;
 			else if(key == "o") c->option_o = value;
 			else if(key == "r") c->option_r = true;
@@ -74,7 +75,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 	
 	// print all variables
 	if(c->option_V) {
-		cout << "--------------------------------------------------" << endl;
+		cout << "------------------- variables --------------------" << endl;
 		cout << "-c="  << boolOnOff(c->option_c) << endl;
 		cout << "-e="  << boolOnOff(c->option_e) << endl;
 		cout << "-h="  << boolOnOff(c->option_h) << endl;
@@ -92,6 +93,15 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 		cout << "--doc-sqlite3='" << c->option_doc_sqlite3 << "'" << endl;
 		cout << "--doc-xml='" << c->option_doc_xml << "'" << endl;
 		cout << "--doc-html='" << c->option_doc_html << "'" << endl;
+		cout << "--------------------------------------------------" << endl;
+	}
+	
+	// print all maven.ini
+	if(c->option_M) {
+		cout << "------------------- maven.ini --------------------" << endl;
+		for(int i = 0; i < c->iniFile.ini.size(); ++i) {
+			cout << c->iniFile.ini[i].k << " = '" << c->iniFile.ini[i].v << "'" << endl;
+		}
 		cout << "--------------------------------------------------" << endl;
 	}
 	

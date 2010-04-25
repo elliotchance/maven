@@ -9,11 +9,9 @@
 #include "maven.h"
 #include "struct_MavenINIPair.h"
 
-class MavenINI {
-protected:
+struct MavenINI {
 	vector<MavenINIPair> ini;
 	
-public:
 	MavenINI();
 	bool setKey(string key, string value);
 	string getKey(string key);

@@ -178,6 +178,9 @@ public:
 	 */
 	bool option_K;
 	
+	// FIXME: needs to be documented
+	bool option_M;
+	
 	/**
 	 * @brief Result executable/object name.
 	 */

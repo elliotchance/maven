@@ -23,7 +23,7 @@ void stripHyphen(string& key, string& value) {
 			// some arguments do not require a value
 			key = key[1];
 			if(key == "c" || key == "e" || key == "h" || key == "K" || key == "r" ||
-			   key == "x" || key == "v" || key == "V") value = "";
+			   key == "x" || key == "v" || key == "V" || key == "M") value = "";
 			else value = "<next>";
 		}
 	}
