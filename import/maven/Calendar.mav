@@ -7,17 +7,19 @@ import maven.Date;
  * @version 1.0
  */
 class Calendar {
+	
+	public static constant double YEAR   = 31449600;
+	public static constant double WEEK   = 604800;
+	public static constant double DAY    = 86400;
+	public static constant double HOUR   = 3600;
+	public static constant double MINUTE = 60;
+	public static constant double SECOND = 1;
+	
 	/**
 	 * The number of seconds elapsed since midnight proleptic Coordinated Universal
 	 * Time (UTC) of January 1, 1970, not counting leap seconds.
 	 */
-	external public static int epochSeconds();
-	
-	/**
-	 * The number of whole days elapsed since midnight proleptic Coordinated Universal
-	 * Time (UTC) of January 1, 1970, not counting leap seconds.
-	 */
-	external public static int epochDays();
+	external public static double epochSeconds();
 	
 	/**
 	 * @brief Get attributes for current local time.
@@ -25,4 +27,5 @@ class Calendar {
 	external public static maven.Date now();
 	
 	external public static double runtime();
+	
 }

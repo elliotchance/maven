@@ -9,8 +9,7 @@ namespace maven {
 	class Calendar extends maven::Object {
 		public_constructor Calendar();
 		
-		public_static_method mint epochSeconds();
-		public_static_method mint epochDays();
+		public_static_method mdouble epochSeconds();
 		public_static_method maven::Date* now();
 		public_static_method mdouble runtime();
 	};

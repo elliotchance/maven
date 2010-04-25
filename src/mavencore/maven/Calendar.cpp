@@ -10,12 +10,8 @@ namespace maven {
 		super("maven.Calendar");
 	}
 	
-	mint Calendar::epochSeconds() {
-		return std::time(NULL);
-	}
-	
-	mint Calendar::epochDays() {
-		return (mint) std::floor((mfloat) (std::time(NULL) / 86400));
+	mdouble Calendar::epochSeconds() {
+		return (mdouble) std::time(NULL);
 	}
 	
 	maven::Date* Calendar::now() {

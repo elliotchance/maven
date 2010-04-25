@@ -6,6 +6,10 @@
 #include "../mavencore.h"
 #include "String.h"
 
+#define MAVEN_SYSTEM_PREC_32  7
+#define MAVEN_SYSTEM_PREC_64  15
+#define MAVEN_SYSTEM_PREC_128 15
+
 namespace maven {
 	
 	class String;

@@ -12,7 +12,6 @@ namespace maven {
 	}
 	
 	void System::print(mbyte o) {
-		std::cout << "a" << std::endl;
 		// bytes are printed as ints
 		std::cout << (int) o;
 	}
@@ -22,37 +21,35 @@ namespace maven {
 	}
 	
 	void System::print(mdouble o) {
-		std::cout << "c" << std::endl;
+		std::cout.precision(MAVEN_SYSTEM_PREC_64);
 		std::cout << o;
 	}
 	
 	void System::print(mfloat o) {
-		std::cout << "d" << std::endl;
+		std::cout.precision(MAVEN_SYSTEM_PREC_32);
 		std::cout << o;
 	}
 
 	void System::print(mint o) {
-		std::cout << "e" << std::endl;
 		std::cout << o;
 	}
 	
 	void System::print(mquad o) {
-		std::cout << "f" << std::endl;
+		std::cout.precision(MAVEN_SYSTEM_PREC_128);
 		std::cout << o;
 	}
 	
 	void System::print(mlong o) {
-		std::cout << "g" << std::endl;
 		std::cout << o;
 	}
 	
 	void System::print(mshort o) {
-		std::cout << "h" << std::endl;
 		std::cout << o;
 	}
 	
 	void System::print(maven::String* o) {
-		if(o == NULL) return;
+		if(o == NULL)
+			return;
 		std::cout << o->s;
 	}
 	
@@ -70,10 +67,12 @@ namespace maven {
 	}
 	
 	void System::println(mdouble o) {
+		std::cout.precision(MAVEN_SYSTEM_PREC_64);
 		std::cout << o << std::endl;
 	}
 	
 	void System::println(mfloat o) {
+		std::cout.precision(MAVEN_SYSTEM_PREC_32);
 		std::cout << o << std::endl;
 	}
 	
@@ -82,6 +81,7 @@ namespace maven {
 	}
 	
 	void System::println(mquad o) {
+		std::cout.precision(MAVEN_SYSTEM_PREC_128);
 		std::cout << o << std::endl;
 	}
 	
@@ -94,7 +94,8 @@ namespace maven {
 	}
 	
 	void System::println(maven::String* o) {
-		if(o == NULL) return;
+		if(o == NULL)
+			return;
 		std::cout << o->s << std::endl;
 	}
 	
