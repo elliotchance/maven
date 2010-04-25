@@ -11,6 +11,7 @@
 #include "objects.h"
 #include "constants.h"
 #include "scope.h"
+#include "operators.h"
 
 /**
  * This function takes an expression that could be anything from a simple keyword like
@@ -64,9 +65,8 @@ string dissectSubparse(MavenCompiler* c, MavenDissectBlock& b, string nextOp,
 							  v, (i == (splitExpression.length() - 1)), nextOp, argumentTypes, warn);
 		
 		// make sure all the Objects are OK
-		if(c->option_s > 0 && v.name != "" && !isDataType(v.type) &&
-		   v.name.substr(0, 1) != "<" && v.type.substr(0, 1) != "<" &&
-		   (i < (splitExpression.length() - 1)))
+		if(c->option_s > 0 && v.name != "" && !isDataType(v.type) && v.name.substr(0, 1) != "<" &&
+		   v.type.substr(0, 1) != "<" && !isObjectOperator(nextOp) && nextOp != "=")
 			pushObjectSafety(c, b.processed);
 	}
 	

@@ -53,7 +53,7 @@ namespace maven {
 	}
 	
 	maven::String* Object::toString() {
-		return new maven::String("<Undescriptive Object>");
+		return new maven::String("<Object>");
 	}
 	
 	void Object::free() {
@@ -68,10 +68,6 @@ namespace maven {
 	
 	Object* Object::callMethodByName(maven::String* method, maven::objectArray* varargs) {
 		return new maven::Object();
-	}
-	
-	mboolean Object::operator_equal(maven::Object* toCompare) {
-		return (void*) this == (void*) toCompare;
 	}
 	
 }

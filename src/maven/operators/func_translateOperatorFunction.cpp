@@ -16,3 +16,11 @@ string translateOperatorFunction(string f) {
 	else buf[0] = '\0';
 	return "operator_" + string(reinterpret_cast<char*>(buf));
 }
+
+string translateOperator(string op) {
+	if(op == "===")
+		return "==";
+	if(op == "!==")
+		return "!=";
+	return op;
+}

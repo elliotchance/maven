@@ -38,12 +38,12 @@ string validateOperator(MavenCompiler* c, string op, string type1, string type2,
 	if(type1 == "void" || type2 == "void")
 		return MAVEN_INVALID;
 	
-	// if the types are the same and using =/== is always allowed
-	if((op == "=" || op == "==") && type1 == type2)
+	// assignment of same types
+	if(op == "=" && type1 == type2)
 		return type1;
 	
-	// boolean operators
-	if(op == "==" || op == "<" || op == ">" || op == "<=" || op == ">=")
+	// boolean operators for native types
+	if((op == "<" || op == ">" || op == "<=" || op == ">=") && isDataType(type1) && isDataType(type2))
 		return "boolean";
 	
 	// bitwise operators
@@ -59,16 +59,21 @@ string validateOperator(MavenCompiler* c, string op, string type1, string type2,
 		return type2;
 	}
 	
-	// any Object can be assigned nil
-	if(!isDataType(type1) && type2 == "nil") return "nil";
+	// any Object can be compared to nil
+	if(!isDataType(type1) && type2 == "nil" && (op == "===" || op == "!=="))
+		return "boolean";
+	if(!isDataType(type2) && type1 == "nil" && (op == "===" || op == "!=="))
+		return "boolean";
+	cout << type1 << op << type2 << endl;
 	
 	// child objects
 	if(type1 == "maven.Object" && !isDataType(type1))
 		return type1;
 	
 	// enums
-	int enumID1 = findEnumID(c, findNamespaceID(c, c->currentNamespace), type1);
-	int enumID2 = findEnumID(c, findNamespaceID(c, c->currentNamespace), type2);
+	int cnID = findNamespaceID(c, c->currentNamespace);
+	int enumID1 = findEnumID(c, cnID, type1);
+	int enumID2 = findEnumID(c, cnID, type2);
 	if(enumID1 >= 0 && isDataType(type2))
 		return "int";
 	if(isDataType(type1) && enumID2 >= 0)

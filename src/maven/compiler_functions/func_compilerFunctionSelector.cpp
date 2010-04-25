@@ -49,7 +49,7 @@ string compilerFunctionSelector(MavenCompiler* c, string signature, string args,
 									  c->namespaces->at(fnID).objects->at(foID)->name + "::" + args + "(") +
 							   caller + ");");
 		c->postLines.push_back("} catch(maven::Exception* caughtGlobalException) {");
-		c->postLines.push_back("  std::cout << caughtGlobalException->description()->s;");
+		c->postLines.push_back("  std::cout << caughtGlobalException->description()->s << std::endl;");
 		c->postLines.push_back("}");
 		if(ptrType != "void") {
 #if MAVEN_OS == 1

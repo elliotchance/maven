@@ -5,6 +5,8 @@ namespace maven {
 	
 	Exception::Exception() {
 		super("maven.Exception");
+		reason = new maven::String("Unknown");
+		file = new maven::String("Unknown");
 	}
 	
 	maven::String* Exception::description() {

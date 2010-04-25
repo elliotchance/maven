@@ -19,14 +19,19 @@ void writeEntryPoint(MavenCompiler* c) {
 	// here we setup Application
 	writeCPPLine(c, "maven::Application$static::program = new maven::String(argv[0]);");
 	writeCPPLine(c, "maven::Application$static::arguments = new maven::objectArray((long) argc - 1);");
-	writeCPPLine(c, "for(int argcount = 1; argcount < argc; ++argcount) maven::Application$static::arguments->a[argcount - 1] = (maven::Object*) new maven::String(argv[argcount]);");
+	writeCPPLine(c, "for(int argcount = 1; argcount < argc; ++argcount)");
+	writeCPPLine(c, "maven::Application$static::arguments->a[argcount - 1] = (maven::Object*) new maven::String(argv[argcount]);");
 	
 	// the core bits
 	for(int i = 0; i < c->entryPoint.length(); ++i)
 		c->cppFileHandle << c->entryPoint[i] << endl;
 	
 	// global object safety checking
-	writeCPPLine(c, "} catch(maven::Exception* caughtGlobalException) { std::cout << caughtGlobalException->description()->s; }");
+	writeCPPLine(c, "} catch(maven::Exception* caughtGlobalException) {");
+	writeCPPLine(c, "  std::cout << caughtGlobalException->description()->s;");
+	writeCPPLine(c, "  exit(1);");
+	writeCPPLine(c, "}");
+	writeCPPLine(c, "return 0;");
 	
 	writeCPPLine(c, "}\n");
 	

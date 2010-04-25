@@ -94,9 +94,4 @@ class Object {
 	
 	external public maven.Object callMethodByName(String method, ...);
 	external public static maven.Object callStaticMethodByName(String method, ...);
-	
-	/**
-	 * Equality.
-	 */
-	external public boolean operator==(Object toCompare);
 }

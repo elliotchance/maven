@@ -6,7 +6,8 @@
 #include "maven.h"
 
 bool isComparisonOperator(string type) {
-	if(type == "") return false;
+	if(type == "")
+		return false;
 	
 	// comparison operators
 	if(type == "<" || type == "<=" || type == ">" || type == ">=" || type == "==" || type == "!=")
@@ -17,5 +18,17 @@ bool isComparisonOperator(string type) {
 		return true;
 	
 	// not comparing
+	return false;
+}
+
+bool isObjectOperator(string type) {
+	if(type == "")
+		return false;
+	
+	// object operators
+	if(type == "===" || type == "!==")
+		return true;
+	
+	// nope
 	return false;
 }

@@ -19,5 +19,7 @@ bool isBitwiseOperator(string type);
 bool isAssignOperator(string type);
 int getDataTypePrecedence(string name);
 bool canCastBetween(MavenCompiler* c, string type1, string type2, bool strict = false, bool warn = true);
+string translateOperator(string op);
+bool isObjectOperator(string type);
 
 #endif

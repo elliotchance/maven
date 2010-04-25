@@ -234,7 +234,7 @@ string dissectCode(MavenCompiler* c, string fullcode, StringList& types, MavenMu
 											 dbs[i].types.join(","), overloadedfunction));
 			if(overloadedfunction != "")
 				final += "->" + overloadedfunction + "(" + dbs[i].processed + ")";
-			else final += ops[i - 1] + " " + dbs[i].processed;
+			else final += translateOperator(ops[i - 1]) + " " + dbs[i].processed;
 		}
 		
 		// reset and append final

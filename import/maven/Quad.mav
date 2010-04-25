@@ -9,15 +9,15 @@ class Quad {
 	
 	external public Quad(quad newValue);
 	
-	/**
-	 * Convert quad to String.
-	 * @since 1.0
-	 */
-	external public static maven.String stringValue(quad x);
-	
-	/**
-	 * Convert String to quad.
-	 * @since 1.0
-	 */
-	external public static quad valueOf(maven.String x);
+	external public boolean toBoolean();
+	external public byte toByte();
+	external public char toCharacter();
+	external public maven.Data toData();
+	external public double toDouble();
+	external public float toFloat();
+	external public int toInteger();
+	external public long toLong();
+	external public quad toQuad();
+	external public short toShort();
+	external public maven.String toString();
 }

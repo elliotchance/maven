@@ -30,8 +30,6 @@ namespace maven {
 		public_method mshort toShort();
 		public_method maven::String* toString();
 		
-		public_method mboolean operator_equal(Object* toCompare);
-		
 		// internal methods
 		maven::Object* super(const mbyte* childClass);
 	};

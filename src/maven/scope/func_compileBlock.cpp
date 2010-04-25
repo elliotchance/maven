@@ -259,7 +259,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 				pushFunction(c, nID, oID, f);
 				
 				// skip some classes
-				if(c->currentNamespace != "global") {
+				if(c->currentNamespace != MAVEN_BARE_NAMESPACE || c->currentClass != MAVEN_BARE_CLASS) {
 					writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 					writeCPPLine(c, f.getCPPLine(c, c->currentClass, false) + " {");
 					
@@ -280,7 +280,7 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 				}
 				
 				// skip some classes
-				if(c->currentNamespace == "global") {
+				if(c->currentNamespace != MAVEN_BARE_NAMESPACE || c->currentClass != MAVEN_BARE_CLASS) {
 					writeCPPLine(c, "} namespace " + c->currentNamespace + "{");
 					
 					// Object.callMethodByName()
