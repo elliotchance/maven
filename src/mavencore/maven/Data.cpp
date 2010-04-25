@@ -87,6 +87,13 @@ namespace maven {
 		size += sizeof(mshort);
 	}
 	
+	void Data::writeString(maven::String* data) {
+		allocateBytes(sizeof(mint) + data->len);
+		writeInt(data->len + 1);
+		write((char*) data->s, data->len + 1);
+		size += data->len + 1;
+	}
+	
 	void Data::writeQuad(mquad data) {
 		allocateBytes(sizeof(mquad));
 		write((char*) &data, sizeof(mquad));
@@ -146,6 +153,17 @@ namespace maven {
 		mshort temp;
 		memmove((void*) &temp, tail->chunk + position, sizeof(mshort));
 		position += sizeof(mshort);
+		return temp;
+	}
+	
+	maven::String* Data::readString() {
+		maven::String* temp = new maven::String();
+		int size = readInt();
+		temp->s = (char*) malloc(size + 1);
+		temp->len = size;
+		for(int i = 0; i < size; ++i)
+			temp->s[i] = readByte();
+		temp->s[size - 1] = NULL;
 		return temp;
 	}
 	

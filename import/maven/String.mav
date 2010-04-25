@@ -64,5 +64,6 @@ class String {
 	external public maven.String operator+(maven.String str2);
 	external public maven.String operator+(quad str2);
 	external public boolean operator==(maven.String str2);
+	external public maven.String operator+=(maven.String str2);
 }
 

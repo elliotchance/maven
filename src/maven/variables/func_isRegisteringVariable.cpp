@@ -27,7 +27,7 @@ bool isRegisteringVariable(MavenCompiler* c, StringList tokens) {
 	for(token = 0; token < tokens.length(); ++token)
 		if(tokens[token] != "public" && tokens[token] != "private"
 		   && tokens[token] != "static" && tokens[token] != "constant"
-		   && tokens[token] != "readonly" && tokens[token] != "writeonly")
+		   && tokens[token] != "constant" && tokens[token] != "writeonly")
 			break;
 	
 	// check data type

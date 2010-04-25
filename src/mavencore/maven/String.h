@@ -64,6 +64,7 @@ namespace maven {
 		public_method maven::String* operator_plus(maven::String* str2);
 		public_method maven::String* operator_plus(mquad str2);
 		public_method mboolean operator_equal(maven::String* str2);
+		public_method maven::String* operator_assignplus(maven::String* str2);
 	};
 	
 }

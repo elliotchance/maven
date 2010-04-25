@@ -11,7 +11,7 @@ namespace maven {
 	
 	class Object {
 		public_variable maven::String* className;
-		public_variable readonly mint retain;
+		public_variable constant mint retain;
 		
 		public_constructor Object();
 		public_method void free();
@@ -35,7 +35,7 @@ namespace maven {
 	};
 	
 	class Array extends maven::Object {
-		public_variable readonly mlong length;
+		public_variable constant mlong length;
 		public_constructor Array();
 	};
 	

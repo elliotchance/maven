@@ -64,7 +64,6 @@ string validateOperator(MavenCompiler* c, string op, string type1, string type2,
 		return "boolean";
 	if(!isDataType(type2) && type1 == "nil" && (op == "===" || op == "!=="))
 		return "boolean";
-	cout << type1 << op << type2 << endl;
 	
 	// child objects
 	if(type1 == "maven.Object" && !isDataType(type1))

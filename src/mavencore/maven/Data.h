@@ -14,9 +14,9 @@ namespace maven {
 	};
 	
 	class Data extends maven::Object {
-		public_variable readonly mlong size;
-		public_variable readonly mlong allocatedSize;
-		public_variable readonly mlong position;
+		public_variable constant mlong size;
+		public_variable constant mlong allocatedSize;
+		public_variable constant mlong position;
 		public_variable DataChunk* head;
 		public_variable DataChunk* tail;
 		
@@ -33,6 +33,7 @@ namespace maven {
 		public_method mint readInt();
 		public_method mlong readLong();
 		public_method mshort readShort();
+		public_method maven::String* readString();
 		public_method mquad readQuad();
 		
 		public_method void writeBoolean(mboolean data);
@@ -43,6 +44,7 @@ namespace maven {
 		public_method void writeInt(mint data);
 		public_method void writeLong(mlong data);
 		public_method void writeShort(mshort data);
+		public_method void writeString(maven::String* data);
 		public_method void writeQuad(mquad data);
 		
 		// internal methods

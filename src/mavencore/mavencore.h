@@ -60,7 +60,7 @@ typedef void           mvoid;
 // other keywords
 #define mnil 0
 #define extends : public
-#define readonly
+#define constant
 
 // random number generation for Math.random()
 #define N 624

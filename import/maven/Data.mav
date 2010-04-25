@@ -2,6 +2,7 @@ namespace maven;
 
 /**
  * @breif A Data object holds an expandable linear binary stream.
+ * 
  * @version 1.0
  */
 class Data {
@@ -22,6 +23,7 @@ class Data {
 	external public int readInt();
 	external public long readLong();
 	external public short readShort();
+	external public maven.String readString();
 	external public quad readQuad();
 	
 	external public void writeBoolean(boolean data);
@@ -32,5 +34,6 @@ class Data {
 	external public void writeInt(int data);
 	external public void writeLong(long data);
 	external public void writeShort(short data);
+	external public void writeString(maven.String data);
 	external public void writeQuad(quad data);
 }

@@ -10,7 +10,7 @@
 
 /**
  * When dissecting an entity this lets the parent dissector know if the left have side can be assigned.
- * Usually this will be MM_OK, but in cases of 'readonly', 'constant' variables it may be protected and
+ * Usually this will be MM_OK, but in cases of 'constant', 'constant' variables it may be protected and
  * hence MU_CONSTANT. Entityies that are not storage mechanisms are given MU_IMPOSSIBLE, like:
  * @code
  * myFunction() = 5;
