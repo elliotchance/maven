@@ -21,6 +21,9 @@ struct MavenVariables {
 	MavenVariable& operator[](int element);
 	MavenVariable& at(int element);
 	string getCPP(MavenCompiler* mc);
+	
+	void sortVariables();
+	void swapVariable(int ID1, int ID2);
 };
 
 #endif

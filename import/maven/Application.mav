@@ -7,11 +7,15 @@ namespace maven;
 class Application {
 	
 	/**
-	 * Holds the runtime program arguments, not including the application name.
-	 * Arguments are split by a space where:
-	 * myapplication arg1 123 abc "abc 123"
+	 * @brief Holds the runtime program arguments.
 	 * 
-	 * Would represent
+	 * Not including the application name.
+	 * Arguments are split by a space where:
+	 * <pre>
+	 * myapplication arg1 123 abc "abc 123"
+	 * </pre>
+	 * 
+	 * Would represent:
 	 * @code
 	 * arguments = { "arg1", "123", "abc", "abc 123" }
 	 * @endcode

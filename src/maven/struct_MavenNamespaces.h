@@ -18,6 +18,8 @@ struct MavenNamespaces {
 	MavenNamespace& operator [](int element);
 	MavenNamespace& at(int element);
 	void push(MavenNamespace* ns);
+	void sortNamespaces();
+	void swap(int ID1, int ID2);
 };
 
 #endif

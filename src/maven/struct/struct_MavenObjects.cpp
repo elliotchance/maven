@@ -26,3 +26,9 @@ MavenObject* MavenObjects::at(int element) {
 void MavenObjects::push(MavenObject* object) {
 	objects.push_back(object);
 }
+
+void MavenObjects::swap(int ID1, int ID2) {
+	MavenObject* temp = objects[ID1];
+	objects[ID1] = objects[ID2];
+	objects[ID2] = temp;
+}

@@ -19,6 +19,9 @@ struct MavenNamespace {
 	
 	MavenNamespace();
 	~MavenNamespace();
+	void sortObjects();
+	void sortEnums();
+	void swapEnum(int ID1, int ID2);
 };
 
 #endif

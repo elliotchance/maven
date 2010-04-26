@@ -110,11 +110,80 @@ void generateHTMLMethodWords(ofstream& file, MavenFunction f) {
 		fileWriteLine(file, " static");
 }
 
+string colourHTMLCode(string input) {
+	string r = "<pre style=\"border: dashed 2px #CCCCCC; padding: 3px; background-color: #EEEEEE\">";
+	char c;
+	
+	for(int i = 0; i < input.length(); ++i) {
+		c = input[i];
+		
+		if(c == '"') {
+			r += "<font color=\"#FF0000\">\"";
+			++i;
+			for(; i < input.length(); ++i) {
+				c = input[i];
+				
+				if(c == '"')
+					break;
+				r += c;
+			}
+			r += "\"</font>";
+			continue;
+		}
+		
+		// general unformatted character
+		r += c;
+	}
+	return r + "</pre>";
+}
+
+string generateHTMLCommentTag(string input) {
+	StringList lines = split('\n', input);
+	string line, output = "", lastline = "";
+	
+	for(int i = 0; i < lines.length(); ++i) {
+		line = trim(lines[i]);
+		
+		// process @code
+		if(line == "@code") {
+			++i;
+			string code = "";
+			for(; i < lines.length(); ++i) {
+				line = trim(lines[i]);
+				if(line == "@endcode")
+					break;
+				code += line + "\n";
+			}
+			++i;
+			output += colourHTMLCode(code);
+			continue;
+		}
+		
+		if(line == "" && lastline != "" && i < lines.length() - 1)
+			output += "<br />";
+		else output += line + "\n";
+		lastline = line;
+	}
+	return output;
+}
+
 void generateHTML(MavenCompiler* c) {
 	// create the folder
 	string docdir = combinePaths(c->currentDirectory, c->option_doc_html, true);
 	cout << "Creating folder " << docdir << endl;
 	makeDirectory(docdir);
+	
+	// perform all the sorting
+	cout << "Sorting entities" << endl;
+	c->namespaces->sortNamespaces();
+	for(int i = 0; i < c->namespaces->length(); ++i) {
+		c->namespaces->at(i).sortObjects();
+		c->namespaces->at(i).sortEnums();
+		for(int j = 0; j < c->namespaces->at(i).objects->length(); ++j) {
+			c->namespaces->at(i).objects->at(j)->variables->sortVariables();
+			c->namespaces->at(i).objects->at(j)->functions->sortFunctions();
+		}
+	}
 	
 	// CSS styles
 	cout << "Generating file " << docdir + "style.css" << endl;
@@ -265,8 +334,8 @@ void generateHTML(MavenCompiler* c) {
 			
 			// inheritance
 			if(c->namespaces->at(i).objects->at(j)->extends != "")
-				fileWriteLine(file, "<h1>Inherits from: <span class=\"fixed\"><a href=\"#\">" +
-							  c->namespaces->at(i).objects->at(j)->extends + "</a></span></h1>");
+				fileWriteLine(file, "<h3>Inherits from: <span class=\"fixed\"><a href=\"#\">" +
+							  c->namespaces->at(i).objects->at(j)->extends + "</a></span></h3>");
 			
 			// class description
 			// FIXME: need a better way to check if MavenDocTag is in use
@@ -309,7 +378,7 @@ void generateHTML(MavenCompiler* c) {
 					fileWriteLine(file, "</tr>");
 					fileWriteLine(file, "<tr>");
 					fileWriteLine(file, "<td nowrap=\"nowrap\">&nbsp;</td>");
-					fileWriteLine(file, "<td>" + c->namespaces->at(i).objects->at(j)->variables->at(k).doc.body + "</td>");
+					fileWriteLine(file, "<td>" + c->namespaces->at(i).objects->at(j)->variables->at(k).doc.tagBrief + "</td>");
 					fileWriteLine(file, "</tr>");
 				}
 				
@@ -344,7 +413,7 @@ void generateHTML(MavenCompiler* c) {
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).name + "</a></span>(" +
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).getSignature() +
 								  ")</span><br />");
-					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body + "</td>");
+					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.tagBrief + "</td>");
 					fileWriteLine(file, "</tr>");
 				}
 				
@@ -383,7 +452,7 @@ void generateHTML(MavenCompiler* c) {
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).name + "</a></span>(" +
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).getSignature() +
 								  ")</span><br />");
-					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body + "</td>");
+					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.tagBrief + "</td>");
 					fileWriteLine(file, "</tr>");
 				}
 				
@@ -418,7 +487,7 @@ void generateHTML(MavenCompiler* c) {
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).name + "</a></span>(" +
 								  c->namespaces->at(i).objects->at(j)->functions->at(k).getSignature() +
 								  ")</span><br />");
-					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body + "</td>");
+					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.tagBrief + "</td>");
 					fileWriteLine(file, "</tr>");
 				}
 				
@@ -440,7 +509,7 @@ void generateHTML(MavenCompiler* c) {
 					generateHTMLVariableTags(file, c->namespaces->at(i).objects->at(j)->variables->at(k));
 					fileWriteLine(file, "</strong></td></tr></table>");
 					fileWriteLine(file, "</div>");
-					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->variables->at(k).doc.body);
+					fileWriteLine(file, generateHTMLCommentTag(c->namespaces->at(i).objects->at(j)->variables->at(k).doc.body));
 					
 					fileWriteLine(file, "</div>");
 				}
@@ -460,7 +529,7 @@ void generateHTML(MavenCompiler* c) {
 					generateHTMLMethodTags(file, c->namespaces->at(i).objects->at(j)->functions->at(k));
 					fileWriteLine(file, "</strong></td></tr></table>");
 					fileWriteLine(file, "</div>");
-					fileWriteLine(file, c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body);
+					fileWriteLine(file, generateHTMLCommentTag(c->namespaces->at(i).objects->at(j)->functions->at(k).doc.body));
 					
 					if(c->namespaces->at(i).objects->at(j)->functions->at(k).doc.tagParam.length() > 0) {
 						fileWriteLine(file, string("<br /><b>Parameters</b>"));

@@ -20,6 +20,8 @@ public:
 	MavenObject* operator [](int element);
 	MavenObject* at(int element);
 	void push(MavenObject* object);
+	
+	void swap(int ID1, int ID2);
 };
 
 #endif

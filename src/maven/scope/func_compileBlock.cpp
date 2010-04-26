@@ -85,9 +85,12 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 		}
 		
 		// count brackets and quotes
-		if(ch == '"' && code[cursor - 1] != '\\') inQuote = !inQuote;
-		else if(ch == '(' && !inQuote) ++bracketCount;
-		else if(ch == ')' && !inQuote) --bracketCount;
+		if(ch == '"' && code[cursor - 1] != '\\')
+			inQuote = !inQuote;
+		else if(ch == '(' && !inQuote)
+			++bracketCount;
+		else if(ch == ')' && !inQuote)
+			--bracketCount;
 		
 		// could be a single line comment
 		if(ch == '/' && code[cursor + 1] == '/') {
@@ -114,6 +117,8 @@ bool compileBlock(MavenCompiler* c, string identifier, string code, int mode) {
 					++c->lineNumber;
 					++c->totalLines;
 				}
+				
+				c->doc += ch;
 				
 				// we are looking for a new line
 				if(ch == '*' && code[cursor + 1] == '/') {

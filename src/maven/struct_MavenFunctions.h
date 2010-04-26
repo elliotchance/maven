@@ -18,6 +18,9 @@ struct MavenFunctions {
 	int length();
 	MavenFunction& operator[](int element);
 	MavenFunction& at(int element);
+	
+	void sortFunctions();
+	void swapFunction(int ID1, int ID2);
 };
 
 #endif

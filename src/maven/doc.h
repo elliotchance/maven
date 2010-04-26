@@ -29,5 +29,7 @@ void generateSQLite3(MavenCompiler* c);
 void generateXML(MavenCompiler* c);
 string sqlSafe(string str);
 string sqlSafe(bool b);
+string generateHTMLCommentTag(string input);
+string colourHTMLCode(string input);
 
 #endif

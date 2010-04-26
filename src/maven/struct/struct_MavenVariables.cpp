@@ -39,3 +39,23 @@ string MavenVariables::getCPP(MavenCompiler* mc) {
 	}
 	return r;
 }
+
+void MavenVariables::sortVariables() {
+	int i, j, flag = 1;    // set flag to 1 to start first pass
+	int numLength = vars.size(); 
+	for(i = 1; (i <= numLength) && flag; ++i) {
+		flag = 0;
+		for(j = 0; j < (numLength - 1); ++j) {
+			if(strcmp(vars[j + 1].name.c_str(), vars[j].name.c_str()) < 0) {
+				swapVariable(j, j + 1);
+				flag = 1;               // indicates that a swap occurred.
+			}
+		}
+	}
+}
+
+void MavenVariables::swapVariable(int ID1, int ID2) {
+	MavenVariable temp = vars[ID1];
+	vars[ID1] = vars[ID2];
+	vars[ID2] = temp;
+}
