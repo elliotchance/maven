@@ -45,6 +45,8 @@ struct MavenDocTag {
 	 * @brief \@version.
 	 */
 	string tagVersion;
+	
+	bool inUse();
 };
 
 #endif

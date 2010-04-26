@@ -59,6 +59,8 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 				MavenObject* o = dissectObject(c, identifier);
 				c->currentClass = o->name;
 				o->isAbstract = true;
+				o->doc = filterDoc(c, c->doc);
+				c->doc = "";
 				if(mode == MAVEN_ONLY_MAP)
 					pushObject(c, findNamespaceID(c, c->currentNamespace), o);
 				closeClass = true;
@@ -66,6 +68,8 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 		} else if(prelim == "class") {
 			MavenObject* o = dissectObject(c, identifier);
 			c->currentClass = o->name;
+			o->doc = filterDoc(c, c->doc);
+			c->doc = "";
 			if(mode == MAVEN_ONLY_MAP)
 				pushObject(c, findNamespaceID(c, c->currentNamespace), o);
 			closeClass = true;

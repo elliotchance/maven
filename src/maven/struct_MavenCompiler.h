@@ -151,6 +151,11 @@ struct MavenCompiler {
 	 */
 	string lastStatament;
 	
+	/**
+	 * @brief Any file that is processed is added onto this list;
+	 */
+	StringList filesParsed;
+	
 public:
 	
 	/**

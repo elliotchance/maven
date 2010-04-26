@@ -14,8 +14,9 @@ bool compileFile(MavenCompiler* c, string file, int mode) {
 	infile.open(file.c_str());
 	if(!infile.is_open())
 		return false;
+	c->filesParsed.push(file);
 
-	// remeber position
+	// remember position
 	string cFile = c->currentFile;
 	string cNamespace = c->currentNamespace;
 	int cLine = ++c->lineNumber;

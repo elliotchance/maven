@@ -16,7 +16,7 @@
 MavenDocTag filterDoc(MavenCompiler* c, string comment);
 void generateHTMLMethodTags(ofstream& file, MavenFunction f);
 void generateHTMLVariableTags(ofstream& file, MavenVariable f);
-void generateHTMLHeader(ofstream& file);
+void generateHTMLHeader(ofstream& file, string extraBodyAttributes = "");
 void generateHTMLFooter(ofstream& file);
 int  countNonInheritedVariables(MavenObject o);
 int  countConstructors(MavenObject o);
@@ -29,7 +29,7 @@ void generateSQLite3(MavenCompiler* c);
 void generateXML(MavenCompiler* c);
 string sqlSafe(string str);
 string sqlSafe(bool b);
-string generateHTMLCommentTag(string input);
-string colourHTMLCode(string input);
+string generateHTMLCommentTag(MavenCompiler* c, string input);
+string colourHTMLCode(MavenCompiler* c, string input);
 
 #endif

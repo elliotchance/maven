@@ -20,8 +20,10 @@ MavenObject* dissectObject(MavenCompiler* c, string line) {
 	
 	int i;
 	for(i = 0; i < tokens.length(); ++i) {
-		if(tokens[i] == "class") break;
-		else if(tokens[i] == "abstract") o->isAbstract = true;
+		if(tokens[i] == "class")
+			break;
+		else if(tokens[i] == "abstract")
+			o->isAbstract = true;
 	}
 	o->name = tokens[i + 1];
 	
