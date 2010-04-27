@@ -256,6 +256,9 @@ public:
 	 */
 	string option_base_path;
 	
+	// FIXME: needs documentation
+	bool option_run_tests;
+	
 	MavenCompiler();
 	
 };

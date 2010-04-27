@@ -8,6 +8,7 @@
 #include "init.h"
 #include "compiler.h"
 #include "strings.h"
+#include "test.h"
 
 void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 	c->option_base_path = string(argv[0]).substr(0, strlen(argv[0]) - 6);
@@ -44,6 +45,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 			else if(key == "doc-sqlite3") c->option_doc_sqlite3 = value;
 			else if(key == "doc-xml") c->option_doc_xml = value;
 			else if(key == "doc-html") c->option_doc_html = value;
+			else if(key == "run-tests") c->option_run_tests = true;
 			else {
 				cout << "Error: Unknown argument '" << key << "'" << endl;
 				exit(1);
@@ -93,6 +95,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 		cout << "--doc-sqlite3='" << c->option_doc_sqlite3 << "'" << endl;
 		cout << "--doc-xml='" << c->option_doc_xml << "'" << endl;
 		cout << "--doc-html='" << c->option_doc_html << "'" << endl;
+		cout << "--run-tests='" << c->option_doc_html << "'" << endl;
 		cout << "--------------------------------------------------" << endl;
 	}
 	
@@ -108,6 +111,12 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 	// print version
 	if(c->option_v) {
 		cout << "maven v1.0" << endl;
+		exit(0);
+	}
+	
+	// run tests
+	if(c->option_run_tests) {
+		runTests();
 		exit(0);
 	}
 	

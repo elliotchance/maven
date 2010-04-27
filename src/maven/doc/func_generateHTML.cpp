@@ -234,12 +234,20 @@ void generateHTML(MavenCompiler* c) {
 	cout << "Generating file " << docdir + "index.html" << endl;
 	ofstream mainfile;
 	mainfile.open((docdir + "index.html").c_str());
-	generateHTMLHeader(mainfile);
-	fileWriteLine(mainfile, "<frameset cols=\"200,*\" frameborder=\"1\" border=\"1\" framespacing=\"0\">");
-	fileWriteLine(mainfile, "<frame src=\"classes.html\" name=\"leftFrame\" scrolling=\"Yes\" id=\"leftFrame\" title=\"leftFrame\" />");
-	fileWriteLine(mainfile, "<frame src=\"classes2.html\" name=\"mainFrame\" scrolling=\"Yes\" id=\"mainFrame\" title=\"mainFrame\" />");
+	fileWriteLine(mainfile, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+	fileWriteLine(mainfile, "<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+	fileWriteLine(mainfile, "<head>");
+	fileWriteLine(mainfile, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
+	fileWriteLine(mainfile, "<title>maven documentation</title>");
+	fileWriteLine(mainfile, "<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\" />");
+	fileWriteLine(mainfile, "<script src=\"scripts.js\"></script>");
+	fileWriteLine(mainfile, "</head>");
+	fileWriteLine(mainfile, "<frameset cols=\"200,*\" frameborder=\"yes\" border=\"1\" framespacing=\"0\">");
+	fileWriteLine(mainfile, "  <frame src=\"classes.html\" name=\"leftFrame\" scrolling=\"Yes\" id=\"leftFrame\" title=\"leftFrame\" />");
+	fileWriteLine(mainfile, "  <frame src=\"classes2.html\" name=\"mainFrame\" scrolling=\"Yes\" id=\"mainFrame\" title=\"mainFrame\" />");
 	fileWriteLine(mainfile, "</frameset>");
-	generateHTMLFooter(mainfile);
+	fileWriteLine(mainfile, "</body>");
+	fileWriteLine(mainfile, "</html>");
 	mainfile.close();
 	
 	// classes list
