@@ -124,7 +124,9 @@ void dissectIdentifer(MavenCompiler* c, string identifier, int mode, bool& close
 			// bug #19: make sure object is valid
 			int namespaceID, objectID;
 			bool isLocal;
-			resolveVariable(c, identifier.substr(identifier.find('(') + 1, identifier.find(')') - identifier.find('(') - 1), c->withObject, namespaceID, objectID, isLocal, false);
+			resolveVariable(c, identifier.substr(identifier.find('(') + 1, identifier.find(')') -
+												 identifier.find('(') - 1), c->withObject,
+												 namespaceID, objectID, isLocal, false);
 			closeWith = true;
 		} else if(isRegisteringFunction(c, identifier)) {
 			// bug #20: abc() { } looks like a function

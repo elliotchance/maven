@@ -4,6 +4,7 @@
  */
 
 #include "maven.h"
+#include "struct_MavenCompiler.h"
 
 void getRecursiveFiles(std::vector<string> &stack, string path);
-int runTests();
+int runTests(MavenCompiler* c);

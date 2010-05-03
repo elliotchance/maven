@@ -2,6 +2,10 @@
 
 namespace maven {
 	
+	namespace System$static {
+		int DEFAULT_PRECISION = MAVEN_SYSTEM_PREC_128;
+	}
+	
 	System::System() {
 		// console defaults
 		std::cout.precision(6);

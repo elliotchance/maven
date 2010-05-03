@@ -6,6 +6,9 @@ import maven.String;
  * The System class handles console I/O.
  */
 class System {
+	
+	public static constant int DEFAULT_PRECISION = 15;
+	
 	external public void precision(int precision) alias system std::cout.precision;
 	external public int precision() alias system std::cout.precision;
 	

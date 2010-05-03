@@ -116,7 +116,7 @@ void processProgramArguments(MavenCompiler* c, int argc, char** argv) {
 	
 	// run tests
 	if(c->option_run_tests) {
-		runTests();
+		runTests(c);
 		exit(0);
 	}
 	

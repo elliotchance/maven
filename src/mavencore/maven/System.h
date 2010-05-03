@@ -14,6 +14,10 @@ namespace maven {
 	
 	class String;
 	
+	namespace System$static {
+		extern int DEFAULT_PRECISION;
+	}
+	
 	class System {
 		// these are internal and hidden from maven
 		public_constructor System();

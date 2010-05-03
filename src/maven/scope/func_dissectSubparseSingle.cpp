@@ -88,7 +88,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	// setup firstWord variable
 	string firstWord = "";
 	for(int i = 0; i < code.length(); ++i) {
-		// bug #57: make a isWhitespace() function?
+		// bug #57: make a isWhitespace() function? isspace()
 		if(code[i] == ' ' || code[i] == '\t' || code[i] == '\n')
 			break;
 		else firstWord += code[i];
@@ -113,12 +113,12 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 			r += resolveVariable(c, newObject, resolve, namespaceID, objectID, isLocal, false);
 			prev = resolve;
 			string objectPath = cType(findObjectPath(c, stripRawType(prev.type), true));
-			if(!isDataType(objectPath) && resolve.type.length() > 0 && resolve.type[0] != '<' && nextOp != "=")
-				r = "(" + objectPath + ")" + r;
+			//if(!isDataType(objectPath) && resolve.type.length() > 0 && resolve.type[0] != '<' && nextOp != "=")
+			//	r = "(" + objectPath + ")" + r;
 			if(newElement != "")
 				r += "->a[" + newElement + "]";
-			if(resolve.type.length() > 0 && resolve.type[0] != '<')
-				r = "(" + r + ")";
+			//if(resolve.type.length() > 0 && resolve.type[0] != '<')
+			//	r = "(" + r + ")";
 		} else {
 			
 			// perhaps a compiler function
@@ -187,17 +187,17 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					
 					string joiner = "->";
 					if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).isStatic)
-						joiner = "$static::";
+						joiner = "maven::System$static::";
 					if(!isDataType(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).type) &&
 					   !lastSubparse)
 						pushObjectSafety(c, r + joiner + prev.name);
 					if(newElement != "")
 						pushArraySafety(c, r + joiner + prev.name, newElement);
-					//r = "(" + cType(findObjectPath(c, stripRawType(prev.type), true)) + ")";
+					r = "(" + cType(findObjectPath(c, stripRawType(prev.type), true)) + ")";
 					r += joiner + prev.name;
 					if(newElement != "")
 						r += "->a[" + newElement + "]";
-					r = "(" + r + ")";
+					//r = "(" + r + ")";
 					break;
 				}
 			}
@@ -274,8 +274,8 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	mut = resolve.mutability;
 	if(!isAssignOperator(nextOp)) {
 		string temp = r, temp2 = cType(findObjectPath(c, types[0], true));
-		if(temp2.substr(0, 1) != "<")
-		   r = "((" + temp2 + ")" + r + ")";
+		//if(temp2.substr(0, 1) != "<")
+		//   r = "((" + temp2 + ")" + r + ")";
 	}
 	return r;
 }
