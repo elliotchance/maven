@@ -88,8 +88,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	// setup firstWord variable
 	string firstWord = "";
 	for(int i = 0; i < code.length(); ++i) {
-		// bug #57: make a isWhitespace() function? isspace()
-		if(code[i] == ' ' || code[i] == '\t' || code[i] == '\n')
+		if(isspace(code[i]))
 			break;
 		else firstWord += code[i];
 	}
@@ -197,7 +196,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					r += joiner + prev.name;
 					if(newElement != "")
 						r += "->a[" + newElement + "]";
-					//r = "(" + r + ")";
+					r = "(" + r + ")";
 					break;
 				}
 			}
