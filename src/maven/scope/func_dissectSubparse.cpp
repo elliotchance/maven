@@ -12,6 +12,7 @@
 #include "constants.h"
 #include "scope.h"
 #include "operators.h"
+#include "output.h"
 
 /**
  * This function takes an expression that could be anything from a simple keyword like
@@ -27,6 +28,9 @@ string dissectSubparse(MavenCompiler* c, MavenDissectBlock& b, string nextOp,
 	// clean up
 	b.trim();
 	b.mutability = MU_IMPOSSIBLE;
+	
+	if(b.forceCast != "")
+		b.processed += "(" + cType(findObjectPath(c, b.forceCast)) + ")";
 	
 	// value keywords
 	if(b.original == "nil") {

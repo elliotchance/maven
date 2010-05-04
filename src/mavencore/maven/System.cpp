@@ -1,18 +1,63 @@
 #include "System.h"
 
+#include <cmath>
+
 namespace maven {
 	
 	namespace System$static {
 		int DEFAULT_PRECISION = MAVEN_SYSTEM_PREC_128;
+		int minPrecision = 0;
+		int maxPrecision = MAVEN_SYSTEM_PREC_128;
+	}
+	
+	std::string System::renderFloatToString(mquad o, int maxPrec) {
+		std::string out = "";
+		int temp, d = maxPrec - floor(std::log(o) / std::log(10));
+		double size = pow(10.0, floor(std::log(o) / std::log(10)));
+		
+		// render
+		for(; size > std::pow(10.0, (double) -std::min(d, maven::System$static::maxPrecision + 1)); size /= 10.0) {
+			if(size == 0.1)
+				out += ".";
+			temp = o / size;
+			out += (char) '0' + temp;
+			o -= (temp * size);
+		}
+		
+		// truncate
+		int dot = out.find('.');
+		for(int i = out.length() - 1; i > dot + maven::System$static::minPrecision; --i) {
+			if(out.at(i) != '0')
+				break;
+			out = out.substr(0, i);
+		}
+		
+		// expand
+		int pad;
+		if(dot == std::string::npos) {
+			pad = maven::System$static::minPrecision - 1;
+			if(pad >= 0)
+				out += ".";
+		} else
+			pad = maven::System$static::minPrecision - (out.length() - dot);
+		
+		for(int i = 0; i <= pad; ++i)
+			out += "0";
+		
+		return out;
+	}
+	
+	std::string System::renderBooleanToString(mboolean b) {
+		if(b)
+			return "true";
+		return "false";
 	}
 	
 	System::System() {
-		// console defaults
-		std::cout.precision(6);
 	}
 	
 	void System::print(mboolean o) {
-		std::cout << o;
+		std::cout << renderBooleanToString(o);
 	}
 	
 	void System::print(mbyte o) {
@@ -21,17 +66,15 @@ namespace maven {
 	}
 	
 	void System::print(mchar o) {
-		printf("%c", o);
+		std::printf("%c", o);
 	}
 	
 	void System::print(mdouble o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_64);
-		std::cout << o;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_64);
 	}
 	
 	void System::print(mfloat o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_32);
-		std::cout << o;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_32);
 	}
 
 	void System::print(mint o) {
@@ -39,8 +82,7 @@ namespace maven {
 	}
 	
 	void System::print(mquad o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_128);
-		std::cout << o;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_128);
 	}
 	
 	void System::print(mlong o) {
@@ -58,7 +100,7 @@ namespace maven {
 	}
 	
 	void System::println(mboolean o) {
-		std::cout << o << std::endl;
+		std::cout << renderBooleanToString(o) << std::endl;
 	}
 	
 	void System::println(mbyte o) {
@@ -67,17 +109,15 @@ namespace maven {
 	}
 	
 	void System::println(mchar o) {
-		printf("%c\n", o);
+		std::printf("%c\n", o);
 	}
 	
 	void System::println(mdouble o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_64);
-		std::cout << o << std::endl;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_64) << std::endl;
 	}
 	
 	void System::println(mfloat o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_32);
-		std::cout << o << std::endl;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_32) << std::endl;
 	}
 	
 	void System::println(mint o) {
@@ -85,8 +125,7 @@ namespace maven {
 	}
 	
 	void System::println(mquad o) {
-		std::cout.precision(MAVEN_SYSTEM_PREC_128);
-		std::cout << o << std::endl;
+		std::cout << renderFloatToString(o, MAVEN_SYSTEM_PREC_128) << std::endl;
 	}
 	
 	void System::println(mlong o) {
@@ -101,16 +140,6 @@ namespace maven {
 		if(o == NULL)
 			return;
 		std::cout << o->s << std::endl;
-	}
-	
-	void System::die(maven::String* o) {
-		if(o != NULL)
-			std::cout << o->s << std::endl;
-		exit(1);
-	}
-	
-	void System::println() {
-		std::cout << std::endl;
 	}
 	
 	maven::String* System::getString() {

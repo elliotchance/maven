@@ -2,6 +2,7 @@
 #include "Quad.h"
 #include "../external/md5.h"
 #include "../external/sha1.h"
+#include "BoundsException.h"
 
 namespace maven {
 	
@@ -15,6 +16,12 @@ namespace maven {
 		catchMalloc(s, "maven.String");
 		std::memmove(s, newString, len);
 		s[len] = 0;
+		
+		// NOTE: we cannot simply use 'new maven::String()' this would cause an infinite
+		// loop of nested objects.
+		className = (maven::String*) malloc(sizeof(maven::String));
+		className->s = (char*) "maven.String";
+		className->retain = 1;
 	}
 	
 	mint String::length() {
@@ -34,7 +41,7 @@ namespace maven {
 	}
 	
 	String* String::append(String* str) {
-		//if(str == NULL) throw ObjectNilException;
+		// FIXME: if(str == NULL) throw ObjectNilException;
 		
 		mbyte* newString = new mbyte[len + str->len + 1];
 		memmove(newString, s, len);
@@ -48,7 +55,7 @@ namespace maven {
 	}
 	
 	mint String::compare(String* otherString) {
-		//if(str == NULL) throw ObjectNilException;
+		// FIXME: if(str == NULL) throw ObjectNilException;
 		
 		return strcmp(s, otherString->s);
 	}
@@ -63,7 +70,7 @@ namespace maven {
 	}
 	
 	mint String::indexOf(maven::String* otherString) {
-		//if(str == NULL) throw ObjectNilException;
+		// FIXME: if(str == NULL) throw ObjectNilException;
 		
 		if(otherString->len > len) return -1;
 		for(int i = 0; i < len; ++i) {
@@ -264,7 +271,8 @@ namespace maven {
 			return new String("");
 		
 		char r[21];
-		std::sprintf(r, "%x%x%x%x%x", message_digest[0], message_digest[1], message_digest[2], message_digest[3], message_digest[4]);
+		std::sprintf(r, "%x%x%x%x%x", message_digest[0], message_digest[1],
+					 message_digest[2], message_digest[3], message_digest[4]);
 		return new maven::String(r);
 	}
 	
@@ -294,6 +302,14 @@ namespace maven {
 		s = temp->s;
 		len = temp->len;
 		return this;
+	}
+	
+	mchar String::charAt(int index) {
+		// FIXME: must be in range
+		if(index >= len)
+			throw new maven::BoundsException();
+		
+		return s[index];
 	}
 	
 }

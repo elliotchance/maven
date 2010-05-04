@@ -24,6 +24,8 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 							 string nextOp, StringList argumentTypes, bool warn) {
 	code = trim(code);
 	
+	//cout << "force cast = '" << 
+	
 	// a maven.String
 	if(isString(code)) {
 		types.setTypes("maven.String");
@@ -185,14 +187,17 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					found = true;
 					
 					string joiner = "->";
-					if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).isStatic)
-						joiner = "maven::System$static::";
+					if(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).isStatic) {
+						r = c->namespaces->at(namespaceID).name + "::" +
+							c->namespaces->at(namespaceID).objects->at(objectID)->name + "$static";
+						joiner = "::";
+					}
 					if(!isDataType(c->namespaces->at(namespaceID).objects->at(objectID)->variables->at(i).type) &&
 					   !lastSubparse)
 						pushObjectSafety(c, r + joiner + prev.name);
 					if(newElement != "")
 						pushArraySafety(c, r + joiner + prev.name, newElement);
-					r = "(" + cType(findObjectPath(c, stripRawType(prev.type), true)) + ")";
+					//r = "(" + cType(findObjectPath(c, stripRawType(prev.type), true)) + ")";
 					r += joiner + prev.name;
 					if(newElement != "")
 						r += "->a[" + newElement + "]";
@@ -230,10 +235,10 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 						string joiner = "->";
 						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).isStatic)
 							joiner = "::";
-						string objectPath = cType(findObjectPath(c, stripRawType(prev.type), true));
-						if(isDataType(objectPath))
-							r += joiner;
-						else r = "(" + objectPath + ")" + r + joiner;
+						string objectPath = findObjectPath(c, stripRawType(prev.type), true);
+						if(!isDataType(objectPath))
+							r = "((" + cType(objectPath) + ")" + r + ")";
+						r += joiner;
 						
 						// deal with an alias
 						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).alias != "")
@@ -244,6 +249,71 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 					}
 				}
 			}
+			
+			// if none of those worked then perhaps we can find a varargs
+			if(found != 2) {
+				for(int i = 0; i < c->namespaces->at(namespaceID).objects->at(objectID)->functions->length(); ++i) {
+					int argsLen = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args.length();
+					
+					// no point looking at methods that take no arguments
+					if(argsLen == 0)
+						continue;
+					
+					// the method name must match
+					if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name != newObject)
+						continue;
+					
+					// the last parameter must be named 'varargs'
+					if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).args[argsLen - 1].name != "varargs")
+						continue;
+					
+					// make sure the first part of the signature matches
+					string fSig2 = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).getSignature();
+					fSig2 = fSig2.substr(0, fSig2.find_last_of(','));
+					int matchingArguments = 1; // FIXME: make this dynamic
+					
+					if(canCastBetween(c, argumentTypes.join(",", 0, argsLen - 2), fSig2, false, true)) {
+						prev.name = "<RETURNED>";
+						prev.type = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).returnType;
+						resolve = prev;
+						found = 2;
+						
+						string joiner = "->";
+						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).isStatic)
+							joiner = "::";
+						string objectPath = cType(findObjectPath(c, stripRawType(prev.type), true));
+						if(isDataType(objectPath))
+							r += joiner;
+						else r = "(" + objectPath + ")" + r + joiner;
+						
+						// deal with an alias
+						if(c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).alias != "")
+							r = c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).alias;
+						else r += c->namespaces->at(namespaceID).objects->at(objectID)->functions->at(i).name;
+						
+						string nextTempVar = getNextTempVariable(c);
+						StringList newNewArguments = splitCommas(newArguments);
+						r += "(" + newNewArguments.join(",", 0, matchingArguments - 1) + ", " + nextTempVar + ")";
+						
+						// create the varargs
+						c->beforeLine += "maven::objectArray* " + nextTempVar + " = new maven::objectArray(" +
+							intToString(argumentTypes.length() - matchingArguments) + ");\n";
+						
+						StringList splitNewArguments = splitCommas(newArguments);
+						for(int a = 0; a < argumentTypes.length() - matchingArguments; ++a) {
+							c->beforeLine += nextTempVar + "->a[" + intToString(a) + "] = (maven::Object*) ";
+							
+							string nToO = argumentTypes[a + matchingArguments];
+							if(isDataType(nToO)) {
+								c->beforeLine += "new " + findObjectPath(c, nativeToObject(nToO), false) +
+									"(" + splitNewArguments[a + matchingArguments] + ");\n";
+							} else c->beforeLine += splitNewArguments[a + matchingArguments] + ";\n";
+						}
+						break;
+					}
+				}
+			}
+			
 			if(found == 0) {
 				r = MAVEN_INVALID;
 				pushError(c, "%s does not have the member method %s", prev.name, newObject + "(" +
@@ -274,7 +344,7 @@ string dissectSubparseSingle(MavenCompiler* c, string code, string& r, StringLis
 	if(!isAssignOperator(nextOp)) {
 		string temp = r, temp2 = cType(findObjectPath(c, types[0], true));
 		//if(temp2.substr(0, 1) != "<")
-		//   r = "((" + temp2 + ")" + r + ")";
+		//   r = "(" + r + ")";
 	}
 	return r;
 }

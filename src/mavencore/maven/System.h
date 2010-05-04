@@ -7,43 +7,50 @@
 #include "String.h"
 
 #define MAVEN_SYSTEM_PREC_32  7
-#define MAVEN_SYSTEM_PREC_64  15
-#define MAVEN_SYSTEM_PREC_128 15
+#define MAVEN_SYSTEM_PREC_64  14
+#define MAVEN_SYSTEM_PREC_128 14
 
 namespace maven {
 	
 	class String;
+	class objectArray;
 	
 	namespace System$static {
 		extern int DEFAULT_PRECISION;
+		extern int minPrecision;
+		extern int maxPrecision;
 	}
 	
 	class System {
 		// these are internal and hidden from maven
 		public_constructor System();
 		
+		public_method std::string renderFloatToString(mquad o, int maxPrec);
+		public_method std::string renderBooleanToString(mboolean b);
+		
 		// visible methods
-		public_method void print(mboolean a);
-		public_method void print(mbyte a);
-		public_method void print(mchar a);
-		public_method void print(mdouble a);
-		public_method void print(mfloat a);
-		public_method void print(mint a);
-		public_method void print(mlong a);
-		public_method void print(mshort a);
-		public_method void print(mquad a);
-		public_method void print(maven::String* a);
-		public_method void println(mboolean a);
-		public_method void println(mbyte a);
-		public_method void println(mchar a);
-		public_method void println(mdouble a);
-		public_method void println(mfloat a);
-		public_method void println(mint a);
-		public_method void println(mlong a);
-		public_method void println(mshort a);
-		public_method void println(mquad a);
-		public_method void println(maven::String* a);
-		public_method void println();
+		public_method mvoid printf(maven::String* format, maven::objectArray* args);
+		public_method mvoid print(mboolean a);
+		public_method mvoid print(mbyte a);
+		public_method mvoid print(mchar a);
+		public_method mvoid print(mdouble a);
+		public_method mvoid print(mfloat a);
+		public_method mvoid print(mint a);
+		public_method mvoid print(mlong a);
+		public_method mvoid print(mshort a);
+		public_method mvoid print(mquad a);
+		public_method mvoid print(maven::String* a);
+		public_method mvoid println(mboolean a);
+		public_method mvoid println(mbyte a);
+		public_method mvoid println(mchar a);
+		public_method mvoid println(mdouble a);
+		public_method mvoid println(mfloat a);
+		public_method mvoid println(mint a);
+		public_method mvoid println(mlong a);
+		public_method mvoid println(mshort a);
+		public_method mvoid println(mquad a);
+		public_method mvoid println(maven::String* a);
+		public_method mvoid println();
 		public_method maven::String* getString();
 		public_method mboolean getBoolean();
 		public_method mbyte getByte();
@@ -54,7 +61,7 @@ namespace maven {
 		public_method mlong getLong();
 		public_method mquad getQuad();
 		public_method mshort getShort();
-		public_method void die(maven::String* a);
+		public_method mvoid die(maven::String* a);
 	};
 
 }

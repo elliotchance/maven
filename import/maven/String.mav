@@ -5,6 +5,9 @@ namespace maven;
  * as string manipulation.
  */
 class String {
+	
+	external public char charAt(int index);
+	
 	/**
 	 * Get the length of the string.
 	 * @since 1.0

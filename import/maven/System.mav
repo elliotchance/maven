@@ -7,10 +7,52 @@ import maven.String;
  */
 class System {
 	
-	public static constant int DEFAULT_PRECISION = 15;
+	/**
+	 * @brief The default maximum precision.
+	 * @see minPrecision
+	 * @see maxPrecision
+	 */
+	public static constant int DEFAULT_PRECISION = 14;
 	
-	external public void precision(int precision) alias system std::cout.precision;
-	external public int precision() alias system std::cout.precision;
+	/**
+	 * @brief The minimum number of characters after the decimal point.
+	 * The number will be zero padded if required.
+	 * @see DEFAULT_PRECISION
+	 * @see maxPrecision
+	 */
+	public static int minPrecision = 0;
+	
+	/**
+	 * @brief The maximum number of characters after the decimal point.
+	 * The number will be truncated if required.
+	 * @see DEFAULT_PRECISION
+	 * @see minPrecision
+	 */
+	public static int maxPrecision = 14;
+	
+	/**
+	 * @brief Print a formatted string.
+	 */
+	public void printf(maven.String format, ...) {
+		int j = 0;
+		for(int i = 0; i < format.length(); ++i) {
+			char ch = format.charAt(i);
+			
+			if(ch == '%') {
+				char type = format.charAt(i + 1);
+				
+				if(type == 'f' || type == 'g') {
+					System.print(varargs[j].toQuad());
+				}
+				if(type == 's') {
+					System.print(varargs[j].toString());
+				}
+				
+				++j;
+				++i;
+			} else System.print(ch);
+		}
+	}
 	
 	/**
 	 * @brief Print to the standard output.
@@ -132,19 +174,45 @@ class System {
 	 */
 	external public void println(maven.String o) exports println;
 	
-	external public void println() exports println; // DOCME
+	/**
+	 * @brief Print a single new line.
+	 * @since 1.0
+	 */
+	public void println() {
+		System.print("\n");
+	}
 	
-	external public boolean getBoolean() exports getboolean;
-	external public byte getByte() exports getbyte;
-	external public char getChar() export getchar;
-	external public double getDouble() exports getdouble;
-	external public float getFloat() exports getfloat;
-	external public int getInt() exports getint;
-	external public long getLong() exports getlong;
-	external public quad getQuad() exports getquad;
-	external public short getShort() exports getshort;
-	external public maven.String getString() exports getstring;
+	external public boolean getBoolean();
+	
+	external public byte getByte();
+	
+	external public char getChar();
+	
+	external public double getDouble();
+	
+	external public float getFloat();
+	
+	external public int getInt();
+	
+	external public long getLong();
+	
+	external public quad getQuad();
+	
+	external public short getShort();
+	
+	external public maven.String getString();
 	
 	external public void exit(int errorCode) alias system std::exit exports exit;
-	external public void die(maven.String msg) exports die;
+	
+	/**
+	 * @brief Print an error message and exit application.
+	 * The exit return status is 1.
+	 * @see exit
+	 * @since 1.0
+	 */
+	public void die(maven.String msg) {
+		System.println(msg);
+		System.exit(1);
+	}
+	
 }

@@ -2,12 +2,32 @@
 #define MAVENCORE_MAVEN_STRING 1
 
 #include "../mavencore.h"
+#include "ObjectBase.h"
 
 namespace maven {
 	
 	class Data;
 	
-	class String {
+	class String : public ObjectBase {
+		
+		// we cannot directly inherit from maven.Object because otherwise each class would require
+		// each other, so we move the important stuff into the String class manually
+		/*public_variable maven::String* className;
+		public_variable constant mint retain;*/
+		
+		// type conversion
+		public_method mboolean toBoolean();
+		public_method mbyte toByte();
+		public_method mchar toCharacter();
+		public_method maven::Data* toData();
+		public_method mdouble toDouble();
+		public_method mfloat toFloat();
+		public_method mint toInteger();
+		public_method mlong toLong();
+		public_method mquad toQuad();
+		public_method mshort toShort();
+		public_method maven::String* toString();
+		
 		// these are internal and hidden from maven
 		public_variable mbyte* s;
 		public_variable mint len;
@@ -24,24 +44,12 @@ namespace maven {
 		
 		// searching
 		public_method mint indexOf(maven::String* otherString);
+		public_method mchar charAt(int index);
 		
 		// testing
 		public_method mint compare(maven::String* otherString);
 		public_method mboolean isEmpty();
 		public_method mint length();
-		
-		// type conversion
-		public_method mboolean toBoolean();
-		public_method mbyte toByte();
-		public_method mchar toCharacter();
-		public_method maven::Data* toData();
-		public_method mdouble toDouble();
-		public_method mfloat toFloat();
-		public_method mint toInteger();
-		public_method mlong toLong();
-		public_method mquad toQuad();
-		public_method mshort toShort();
-		public_method maven::String* toString();
 		
 		public_static_method maven::String* valueOf(mboolean value);
 		public_static_method maven::String* valueOf(mbyte value);

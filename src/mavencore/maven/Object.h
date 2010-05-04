@@ -2,6 +2,7 @@
 #define MAVENCORE_MAVEN_OBJECT 1
 
 #include "../mavencore.h"
+#include "ObjectBase.h"
 
 namespace maven {
 	
@@ -9,15 +10,11 @@ namespace maven {
 	class Data;
 	class objectArray;
 	
-	class Object {
-		public_variable maven::String* className;
-		public_variable constant mint retain;
+	class Object : public ObjectBase {
 		
 		public_constructor Object();
-		public_method void free();
-		public_method Object* copy();
-		public_method Object* callMethodByName(maven::String* method, maven::objectArray* varargs);
 		
+		// type conversion
 		public_method mboolean toBoolean();
 		public_method mbyte toByte();
 		public_method mchar toCharacter();
@@ -29,6 +26,10 @@ namespace maven {
 		public_method mquad toQuad();
 		public_method mshort toShort();
 		public_method maven::String* toString();
+		
+		public_method void free();
+		public_method Object* copy();
+		public_method Object* callMethodByName(maven::String* method, maven::objectArray* varargs);
 		
 		// internal methods
 		maven::Object* super(const mbyte* childClass);
