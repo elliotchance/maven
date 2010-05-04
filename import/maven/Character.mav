@@ -5,7 +5,111 @@ namespace maven;
  * @version 1.0
  */
 class Character {
+	
 	public char value;
 	
 	external public Character(char newValue);
+	
+	/**
+	 * @brief Check if character is a white-space.
+	 * <table>
+	 *   <tr>
+	 *     <th>char</th>
+	 *     <th>Hexadecimal value</th>
+	 *     <th>Name</th>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>' '</td>
+	 *     <td>0x20</td>
+	 *     <td>space (SPC)</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>'\t'</td>
+	 *     <td>0x09</td>
+	 *     <td>horizontal tab (TAB)</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>'\n'</td>
+	 *     <td>0x0A</td>
+	 *     <td>newline (LF)</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>'\v'</td>
+	 *     <td>0x0B</td>
+	 *     <td>vertical tab (VT)</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>'\f'</td>
+	 *     <td>0x0C</td>
+	 *     <td>feed (FF)</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>'\r'</td>
+	 *     <td>0x0D</td>
+	 *     <td>carriage return (CR)</td>
+	 *   </tr>
+	 * </table>
+	 * 
+	 * @return true if \c c is a white space character.
+	 * @since 1.0
+	 */
+	public static boolean isWhitespace(char c) {
+		// ' '	(0x20)	space (SPC)
+		if(c == 0x20)
+			return true;
+		
+		// '\t'	(0x09)	horizontal tab (TAB)
+		// '\n'	(0x0A)	newline (LF)
+		// '\v'	(0x0B)	vertical tab (VT)
+		// '\f'	(0x0C)	feed (FF)
+		// '\r'	(0x0D)	carriage return (CR)
+		if(c >= 0x09 && c <= 0x0D)
+			return true;
+		
+		// not a space character
+		return false;
+	}
+	
+	/**
+	 * @brief Check if character is alphanumeric.
+	 * Checks if parameter c is either a decimal digit or an uppercase or
+	 * lowercase letter.
+	 * @return true if \c c is a upper or lower case alphabetical character or a
+	 *         digit (0 - 9).
+	 * @since 1.0
+	 */
+	public static boolean isAlphaNumeric(char c) {
+		if(c >= '0' && c <= '9')
+			return true;
+		if(c >= 'a' && c <= 'z')
+			return true;
+		if(c >= 'A' && c <= 'Z')
+			return true;
+		
+		// not an alphanumeric character
+		return false;
+	}
+	
+	/**
+	 * @brief Check if character is alphabetic.
+	 * Checks if parameter c is either an uppercase or a lowercase alphabetic letter.
+	 * @since 1.0
+	 */
+	public static boolean isAlpha(char c) {
+		if(c >= 'a' && c <= 'z')
+			return true;
+		if(c >= 'A' && c <= 'Z')
+			return true;
+		
+		// not an alphabetic character
+		return false;
+	}
+	
+	/**
+	 * @brief Check if character is decimal digit.
+	 */
+	public static boolean isDigit(char c) {
+		return (c >= '0' && c <= '9');
+	}
+	
 }
